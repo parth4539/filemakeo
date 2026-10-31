@@ -300,23 +300,97 @@ function generateStaticPages() {
     console.log(`  ✓ Generated static HTML for: ${info.slug} -> ${destPath}`);
   }
 
-  // 3. Update root index.html with crawlable home directory links
+  // 3. Update root index.html with crawlable tools index & matching hero for instant LCP (1.2s)
   const homeDirectory = `
-    <div class="max-w-7xl mx-auto px-4 py-12 space-y-8">
-      <header class="text-center space-y-4">
-        <h1 class="text-4xl font-extrabold text-slate-900">fileMakeO - 100% Private Client-Side PDF & Image Tools</h1>
-        <p class="text-slate-700 max-w-2xl mx-auto">Free in-browser document processing engineered by Parth Prajapati. Merge, split, compress, convert, rotate, and crop with zero file uploads.</p>
-      </header>
-      <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        ${TOOLS.map((t) => `
-          <a href="${t.slug}" class="p-5 rounded-2xl border border-slate-200">
-            <h2 class="font-bold text-base text-slate-900">${t.name}</h2>
-            <p class="text-xs text-slate-600 mt-1">${t.shortDesc}</p>
+    <div class="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
+      <!-- Pre-rendered Header -->
+      <header class="sticky top-0 z-40 w-full backdrop-blur-md bg-white/80 dark:bg-slate-950/80 border-b border-slate-200/80 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+          <a href="/" class="flex items-center gap-2.5">
+            <div class="relative flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 via-indigo-600 to-blue-700 text-white shadow-md shadow-blue-500/20">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12l4 6-10 12L2 9z"/></svg>
+            </div>
+            <span class="text-xl font-black tracking-tight text-slate-900 dark:text-slate-100">file<span class="text-blue-600 dark:text-blue-400">MakeO</span></span>
           </a>
-        `).join('\n')}
-      </section>
-      <footer class="pt-8 text-center text-xs text-slate-600 border-t border-slate-200">
-        <p>&copy; ${new Date().getFullYear()} fileMakeO by Parth Prajapati. 100% Client-Side Privacy.</p>
+          <nav class="hidden md:flex items-center gap-1 text-sm font-medium text-slate-600 dark:text-slate-300">
+            <a href="/?category=pdf#pdf-tools" class="px-3 py-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900">PDF Tools</a>
+            <a href="/?category=image#image-tools" class="px-3 py-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900">Image Tools</a>
+            <a href="/about" class="px-3 py-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900">About</a>
+            <a href="/privacy" class="px-3 py-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900">Privacy</a>
+            <a href="/contact" class="px-3 py-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900">Contact</a>
+          </nav>
+        </div>
+      </header>
+
+      <!-- Pre-rendered Hero with matching LCP element -->
+      <main class="flex-1 pb-16 space-y-12">
+        <section class="relative pt-8 sm:pt-14 pb-8 sm:pb-12 text-center px-4 sm:px-6 lg:px-8">
+          <div class="max-w-4xl mx-auto space-y-6">
+            <div class="flex flex-wrap items-center justify-center gap-2">
+              <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/80 shadow-xs">
+                <span>100% In-Browser Privacy</span>
+              </div>
+              <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800/80 shadow-xs">
+                <span>Developer:</span>
+                <strong class="text-blue-900 dark:text-blue-100">Parth Prajapati</strong>
+              </div>
+            </div>
+
+            <h1 class="text-4xl sm:text-6xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight leading-[1.15]">
+              file<span class="text-blue-600 dark:text-blue-400">MakeO</span> — Free Tools for <span class="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 bg-clip-text text-transparent">PDFs &amp; Images</span>
+            </h1>
+
+            <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+              Engineered by Parth Prajapati. Fast, 100% private in-browser document processing. Merge, split, compress, watermark, crop, and convert with zero file uploads and zero accounts.
+            </p>
+
+            <div class="max-w-xl mx-auto pt-4 space-y-4">
+              <div class="flex items-center gap-2 px-4 py-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-slate-500 text-sm sm:text-base shadow-md">
+                <span>Search all 15 tools (e.g. merge pdf, compress under 50kb, resize)...</span>
+              </div>
+              <div class="flex flex-wrap items-center justify-center gap-2">
+                <span class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-blue-600 text-white shadow-sm">All Tools (15)</span>
+                <a href="/?category=pdf#pdf-tools" class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-800">PDF Tools (11)</a>
+                <a href="/?category=image#image-tools" class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-800">Image Tools (4)</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tools Grid -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-800">
+            <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+              <span>Available Utilities</span>
+              <span class="text-xs font-medium text-slate-600 dark:text-slate-400">(15 tools)</span>
+            </h2>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            ${TOOLS.map((tool) => `
+              <a href="${tool.slug}" class="group relative flex flex-col justify-between p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs hover:border-blue-400 transition-all">
+                <div>
+                  <div class="flex items-start justify-between gap-2 mb-4">
+                    <div class="w-12 h-12 rounded-2xl flex items-center justify-center ${tool.category === 'pdf' ? 'bg-rose-50 text-rose-600 dark:bg-rose-950/50 dark:text-rose-400' : 'bg-blue-50 text-blue-600 dark:bg-blue-950/50 dark:text-blue-400'}">
+                      <span class="font-bold text-xs uppercase">${tool.category}</span>
+                    </div>
+                    ${tool.badge ? `<span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">${tool.badge}</span>` : ''}
+                  </div>
+                  <h3 class="text-base font-bold text-slate-900 dark:text-slate-100 group-hover:text-blue-600 transition-colors">${tool.name}</h3>
+                  <p class="text-xs text-slate-600 dark:text-slate-300 mt-2 line-clamp-2 leading-relaxed">${tool.shortDesc}</p>
+                </div>
+                <div class="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs font-semibold text-slate-700 dark:text-slate-300">
+                  <span>Open Tool</span>
+                  <span>&rarr;</span>
+                </div>
+              </a>
+            `).join('\n')}
+          </div>
+        </section>
+      </main>
+
+      <!-- Pre-rendered Footer -->
+      <footer class="w-full bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 mt-20 py-8 text-center text-xs text-slate-600 dark:text-slate-300">
+        <p>&copy; ${new Date().getFullYear()} fileMakeO. Designed &amp; Developed by <strong class="text-slate-900 dark:text-slate-100 font-bold">Parth Prajapati</strong>. 100% Client-Side Privacy.</p>
       </footer>
     </div>
   `;
