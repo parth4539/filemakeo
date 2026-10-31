@@ -303,9 +303,9 @@ export function initPresenceHeartbeat(): void {
     }
   }
 
-  // Handle tab unload
+  // Handle tab exit/hide cleanly using modern pagehide (avoids deprecated unload API)
   window.addEventListener('beforeunload', leavePresence);
-  window.addEventListener('unload', leavePresence);
+  window.addEventListener('pagehide', leavePresence);
 
   // Cross-tab storage change listener
   window.addEventListener('storage', (e) => {

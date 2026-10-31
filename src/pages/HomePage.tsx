@@ -123,19 +123,19 @@ export const HomePage: React.FC = () => {
           {/* Quick Search & Filters */}
           <div className="max-w-xl mx-auto pt-4 space-y-4">
             <div className="relative">
-              <Search className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+              <Search className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search all 14 tools (e.g. merge pdf, compress under 50kb, resize)..."
-                className="w-full pl-12 pr-4 py-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+                placeholder="Search all 15 tools (e.g. merge pdf, compress under 50kb, resize)..."
+                className="w-full pl-12 pr-4 py-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-500 dark:placeholder-slate-400 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
               />
               {searchQuery && (
                 <button
                   type="button"
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-slate-600 font-medium"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 font-semibold"
                 >
                   Clear
                 </button>
@@ -158,7 +158,7 @@ export const HomePage: React.FC = () => {
                   className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
                     selectedCategory === cat.id
                       ? 'bg-blue-600 text-white shadow-sm'
-                      : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-slate-300'
+                      : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-800 hover:border-slate-400'
                   }`}
                 >
                   {cat.label}
@@ -176,7 +176,7 @@ export const HomePage: React.FC = () => {
         <div className="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-800">
           <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
             <span>Available Utilities</span>
-            <span className="text-xs font-normal text-slate-400">
+            <span className="text-xs font-medium text-slate-600 dark:text-slate-400">
               ({filteredTools.length} {filteredTools.length === 1 ? 'tool' : 'tools'})
             </span>
           </h2>
@@ -233,12 +233,12 @@ export const HomePage: React.FC = () => {
                     {tool.name}
                   </h3>
 
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 line-clamp-2 leading-relaxed">
+                  <p className="text-xs text-slate-600 dark:text-slate-300 mt-2 line-clamp-2 leading-relaxed">
                     {tool.shortDesc}
                   </p>
                 </div>
 
-                <div className="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs font-semibold text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                <div className="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs font-semibold text-slate-700 dark:text-slate-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                   <span>Open Tool</span>
                   <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -260,44 +260,44 @@ export const HomePage: React.FC = () => {
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100">
               Engineered with True In-Browser Privacy
             </h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400">
+            <p className="text-sm text-slate-600 dark:text-slate-300">
               Unlike cloud services that upload your personal documents to remote servers, fileMakeO executes 100% of the computations on your local device.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 flex items-center justify-center">
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <h3 className="font-bold text-base text-slate-900 dark:text-slate-100">
                 Zero Cloud Uploads
               </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                 Your bank statements, medical records, tax forms, and IDs remain strictly inside your device&apos;s RAM memory.
               </p>
             </div>
 
             <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-400 flex items-center justify-center">
                 <Zap className="w-5 h-5" />
               </div>
               <h3 className="font-bold text-base text-slate-900 dark:text-slate-100">
                 Instant Processing Speed
               </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                 Zero upload queue and zero download waiting time. Processes hundreds of pages smoothly in milliseconds.
               </p>
             </div>
 
             <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-400 flex items-center justify-center">
                 <Sparkles className="w-5 h-5" />
               </div>
               <h3 className="font-bold text-base text-slate-900 dark:text-slate-100">
                 100% Free &amp; Unlimited
               </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                 No paywalls, no &ldquo;3 files per hour&rdquo; limits, and no email signups required. Forever free and open.
               </p>
             </div>
@@ -311,7 +311,7 @@ export const HomePage: React.FC = () => {
           <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
             Frequently Asked Questions
           </h2>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-slate-600 dark:text-slate-300">
             Clear answers about our in-browser technology and file privacy
           </p>
         </div>
@@ -343,7 +343,7 @@ export const HomePage: React.FC = () => {
                 <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" />
                 <span>{faq.q}</span>
               </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-400 pl-6 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-300 pl-6 leading-relaxed">
                 {faq.a}
               </p>
             </div>

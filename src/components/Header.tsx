@@ -174,13 +174,13 @@ export const Header: React.FC<HeaderProps> = ({ isDark, onToggleTheme }) => {
             <button
               type="button"
               onClick={() => setIsSearchOpen(true)}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-900 hover:bg-slate-200/80 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 transition-all cursor-pointer"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-900 hover:bg-slate-200/80 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-800 transition-all cursor-pointer"
               title="Search tools"
               aria-label="Search all tools"
             >
-              <Search className="w-4 h-4" />
+              <Search className="w-4 h-4 text-slate-600 dark:text-slate-300" />
               <span className="hidden sm:inline">Search tools...</span>
-              <kbd className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-[10px] font-mono text-slate-400">
+              <kbd className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-[10px] font-mono text-slate-700 dark:text-slate-300 font-semibold">
                 /
               </kbd>
             </button>

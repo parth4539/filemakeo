@@ -173,12 +173,12 @@ export const ToolSeoContent: React.FC<ToolSeoContentProps> = ({ seo }) => {
                   <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                     {relTool.name}
                   </h3>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2">
+                  <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-2">
                     {relTool.shortDesc}
                   </p>
                 </div>
 
-                <div className="pt-3 mt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs font-semibold text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                <div className="pt-3 mt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs font-semibold text-slate-700 dark:text-slate-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                   <span>Use Tool</span>
                   <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -189,10 +189,10 @@ export const ToolSeoContent: React.FC<ToolSeoContentProps> = ({ seo }) => {
       )}
 
       {/* 5. Security & In-Browser Privacy Certification */}
-      <div className="p-4 rounded-2xl bg-slate-100/70 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 flex items-center gap-3">
+      <div className="p-4 rounded-2xl bg-slate-100/70 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-300 flex items-center gap-3">
         <ShieldCheck className="w-5 h-5 flex-shrink-0 text-emerald-500" />
         <p>
-          <strong className="text-slate-700 dark:text-slate-300">fileMakeO Client-Side Security Assurance:</strong> All computations are executed directly inside your web browser. No files are uploaded to our servers, stored in databases, or logged in telemetry.
+          <strong className="text-slate-800 dark:text-slate-200">fileMakeO Client-Side Security Assurance:</strong> All computations are executed directly inside your web browser. No files are uploaded to our servers, stored in databases, or logged in telemetry.
         </p>
       </div>
     </div>

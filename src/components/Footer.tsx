@@ -9,7 +9,10 @@ import { ShieldCheck, Sparkles, UserCheck, Activity } from 'lucide-react';
 import { TOOLS } from '../types/tool';
 import { Logo } from './Logo';
 import { getLiveOnlineUsers, subscribeToOnlineUsers } from '../utils/metricsManager';
-import { MetricsModal } from './MetricsModal';
+
+const MetricsModal = React.lazy(() =>
+  import('./MetricsModal').then((m) => ({ default: m.MetricsModal }))
+);
 
 export const Footer: React.FC = () => {
   const [onlineUsers, setOnlineUsers] = useState<number>(getLiveOnlineUsers());
@@ -33,7 +36,7 @@ export const Footer: React.FC = () => {
             <p className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
               No signup. No uploads. 100% Free.
             </p>
-            <p className="text-sm text-slate-500 dark:text-slate-400 max-w-xl mx-auto">
+            <p className="text-sm text-slate-600 dark:text-slate-300 max-w-xl mx-auto">
               fileMakeO runs completely in your web browser. Your private PDFs and sensitive photos never touch any server or cloud storage.
             </p>
           </div>
@@ -46,7 +49,7 @@ export const Footer: React.FC = () => {
               <Link to="/">
                 <Logo size="md" />
               </Link>
-              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                 Modern client-side utilities engineered with WebAssembly, Canvas, and pure browser memory. Fast, secure, and always accessible offline.
               </p>
               <div className="p-3 rounded-xl bg-blue-50/60 dark:bg-blue-950/40 border border-blue-200/60 dark:border-blue-900/40 space-y-1">
@@ -54,11 +57,11 @@ export const Footer: React.FC = () => {
                   <UserCheck className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                   <span>Developer: Parth Prajapati</span>
                 </div>
-                <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                <p className="text-[11px] text-slate-600 dark:text-slate-400 font-medium">
                   Created with privacy-first browser engineering.
                 </p>
               </div>
-              <div className="flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 font-medium">
+              <div className="flex items-center gap-1.5 text-xs text-emerald-700 dark:text-emerald-400 font-semibold">
                 <ShieldCheck className="w-4 h-4" />
                 <span>Zero-Telemetry &amp; Zero-Upload</span>
               </div>
@@ -166,11 +169,11 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Bottom copyright line with hidden/discreet matrix button */}
-          <div className="mt-12 pt-6 border-t border-slate-200/80 dark:border-slate-800 text-center flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
-            <p>&copy; {new Date().getFullYear()} fileMakeO. Designed &amp; Developed by <strong className="text-slate-800 dark:text-slate-200 font-semibold">Parth Prajapati</strong>.</p>
+          <div className="mt-12 pt-6 border-t border-slate-200/80 dark:border-slate-800 text-center flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600 dark:text-slate-300">
+            <p>&copy; {new Date().getFullYear()} fileMakeO. Designed &amp; Developed by <strong className="text-slate-900 dark:text-slate-100 font-bold">Parth Prajapati</strong>.</p>
             
             <div className="flex items-center gap-3">
-              <span className="text-[11px] text-slate-400">
+              <span className="text-[11px] text-slate-600 dark:text-slate-400 font-medium">
                 Built for privacy, speed, and freedom.
               </span>
 
@@ -178,7 +181,7 @@ export const Footer: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setIsMetricsOpen(true)}
-                className="opacity-20 hover:opacity-100 hover:text-blue-600 transition-all p-1 rounded-md cursor-pointer"
+                className="opacity-30 hover:opacity-100 hover:text-blue-600 transition-all p-1 rounded-md cursor-pointer"
                 title="Download App Matrix (Developer Only)"
                 aria-label="Download App Analytics Matrix"
               >
@@ -189,8 +192,12 @@ export const Footer: React.FC = () => {
         </div>
       </footer>
 
-      {/* Analytics Modal */}
-      <MetricsModal isOpen={isMetricsOpen} onClose={() => setIsMetricsOpen(false)} />
+      {/* Analytics Modal (Lazy-loaded) */}
+      {isMetricsOpen && (
+        <React.Suspense fallback={null}>
+          <MetricsModal isOpen={isMetricsOpen} onClose={() => setIsMetricsOpen(false)} />
+        </React.Suspense>
+      )}
     </>
   );
 };

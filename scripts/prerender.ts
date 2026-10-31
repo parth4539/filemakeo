@@ -81,7 +81,7 @@ function generateToolHtml(seo: ToolSeoData, baseHtml: string): string {
       </header>
 
       <main class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 py-8 space-y-10">
-        <nav aria-label="Breadcrumb" class="text-sm text-slate-500">
+        <nav aria-label="Breadcrumb" class="text-sm text-slate-600 dark:text-slate-300">
           <a href="/">Home</a> &gt; <span>${seo.category === 'pdf' ? 'PDF Tools' : 'Image Tools'}</span> &gt; <span>${seo.name}</span>
         </nav>
 
@@ -155,7 +155,7 @@ function generateToolHtml(seo: ToolSeoData, baseHtml: string): string {
                 (t) => `
               <a href="${t.slug}" class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-blue-500">
                 <h3 class="font-bold text-sm text-slate-900 dark:text-slate-100">${t.name}</h3>
-                <p class="text-xs text-slate-500 mt-1">${t.shortDesc}</p>
+                <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">${t.shortDesc}</p>
               </a>
             `
               )
@@ -164,7 +164,7 @@ function generateToolHtml(seo: ToolSeoData, baseHtml: string): string {
         </section>
       </main>
 
-      <footer class="mt-20 border-t border-slate-200 dark:border-slate-800 py-8 text-center text-xs text-slate-500">
+      <footer class="mt-20 border-t border-slate-200 dark:border-slate-800 py-8 text-center text-xs text-slate-600 dark:text-slate-300">
         <p>&copy; ${new Date().getFullYear()} fileMakeO. Designed &amp; Developed by Parth Prajapati. 100% In-Browser &amp; Zero-Upload.</p>
       </footer>
     </div>
@@ -288,8 +288,8 @@ function generateStaticPages() {
     const crawlableInfo = `
       <div class="max-w-4xl mx-auto px-4 py-12 space-y-6">
         <h1 class="text-3xl font-extrabold text-slate-900">${info.h1}</h1>
-        <p class="text-slate-600 leading-relaxed text-base">${info.bodyText}</p>
-        <p class="text-sm text-slate-500">Developer: Parth Prajapati &bull; 100% In-Browser &bull; Zero Server Uploads</p>
+        <p class="text-slate-700 leading-relaxed text-base">${info.bodyText}</p>
+        <p class="text-sm text-slate-600">Developer: Parth Prajapati &bull; 100% In-Browser &bull; Zero Server Uploads</p>
         <div class="pt-4"><a href="/" class="text-blue-600 font-semibold">&larr; Back to all PDF and Image Tools</a></div>
       </div>
     `;
@@ -305,17 +305,17 @@ function generateStaticPages() {
     <div class="max-w-7xl mx-auto px-4 py-12 space-y-8">
       <header class="text-center space-y-4">
         <h1 class="text-4xl font-extrabold text-slate-900">fileMakeO - 100% Private Client-Side PDF & Image Tools</h1>
-        <p class="text-slate-600 max-w-2xl mx-auto">Free in-browser document processing engineered by Parth Prajapati. Merge, split, compress, convert, rotate, and crop with zero file uploads.</p>
+        <p class="text-slate-700 max-w-2xl mx-auto">Free in-browser document processing engineered by Parth Prajapati. Merge, split, compress, convert, rotate, and crop with zero file uploads.</p>
       </header>
       <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         ${TOOLS.map((t) => `
           <a href="${t.slug}" class="p-5 rounded-2xl border border-slate-200">
             <h2 class="font-bold text-base text-slate-900">${t.name}</h2>
-            <p class="text-xs text-slate-500 mt-1">${t.shortDesc}</p>
+            <p class="text-xs text-slate-600 mt-1">${t.shortDesc}</p>
           </a>
         `).join('\n')}
       </section>
-      <footer class="pt-8 text-center text-xs text-slate-500 border-t border-slate-200">
+      <footer class="pt-8 text-center text-xs text-slate-600 border-t border-slate-200">
         <p>&copy; ${new Date().getFullYear()} fileMakeO by Parth Prajapati. 100% Client-Side Privacy.</p>
       </footer>
     </div>

@@ -797,7 +797,7 @@ export async function generateNUpPdf(
   // Ensure any blank or uninitialized pages have a content stream so embedPages never fails
   srcPages.forEach((p) => {
     if (!p.node.Contents()) {
-      p.getContentStream();
+      (p as any).getContentStream?.();
     }
   });
 
