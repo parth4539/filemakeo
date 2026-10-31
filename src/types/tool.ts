@@ -189,6 +189,24 @@ export const TOOLS: ToolDef[] = [
       'Click "Remove Selected Pages" to save the trimmed document.',
     ],
   },
+  {
+    id: 'pdf-n-up',
+    name: 'PDF N-Up (Multiple Pages Per Sheet)',
+    slug: '/pdf-n-up',
+    category: 'pdf',
+    shortDesc: 'Put 2, 4, 6, 8, or 9 PDF pages on one sheet for economical printing.',
+    longDesc: 'Combine multiple PDF pages side-by-side on A4, A3, Letter, or Legal sheets. Preserves sharp vector text, custom margins, and upright rotation.',
+    icon: 'Layers',
+    badge: 'Print Ready',
+    accept: ['.pdf', 'application/pdf'],
+    multiple: false,
+    popular: true,
+    howToSteps: [
+      'Upload the PDF you want to print with multiple pages per sheet.',
+      'Select pages per sheet (2, 4, 6, 8, 9), sheet size, and layout options.',
+      'Click "Generate N-Up PDF" to download your ready-to-print document.',
+    ],
+  },
 
   // --- IMAGE TOOLS ---
   {

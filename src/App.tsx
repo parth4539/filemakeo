@@ -41,6 +41,9 @@ const AddWatermarkPage = lazy(() =>
 const RemovePagesPage = lazy(() =>
   import('./pages/pdf/RemovePagesPage').then((m) => ({ default: m.RemovePagesPage }))
 );
+const PdfNUpPage = lazy(() =>
+  import('./pages/pdf/PdfNUpPage').then((m) => ({ default: m.PdfNUpPage }))
+);
 
 // Lazy-loaded Image Tool Pages
 const CompressImagePage = lazy(() =>
@@ -142,6 +145,7 @@ export default function App() {
               <Route path="/add-page-numbers" element={<AddPageNumbersPage />} />
               <Route path="/add-watermark" element={<AddWatermarkPage />} />
               <Route path="/remove-pages" element={<RemovePagesPage />} />
+              <Route path="/pdf-n-up" element={<PdfNUpPage />} />
               {/* Image Tools */}
               <Route path="/compress-image" element={<CompressImagePage />} />
               <Route path="/resize-image" element={<ResizeImagePage />} />

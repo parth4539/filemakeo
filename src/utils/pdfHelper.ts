@@ -711,3 +711,209 @@ export async function removePages(
 
   return await newPdf.save();
 }
+
+export type SheetSize = 'A4' | 'A3' | 'Letter' | 'Legal';
+export type SheetOrientation = 'Auto' | 'Portrait' | 'Landscape';
+export type PageOrder = 'ltr' | 'rtl';
+export type NUpCount = 2 | 4 | 6 | 8 | 9;
+
+export interface NUpOptions {
+  pagesPerSheet: NUpCount;
+  sheetSize: SheetSize;
+  orientation: SheetOrientation;
+  pageOrder: PageOrder;
+  marginMm: number;
+  gapMm: number;
+  drawBorder: boolean;
+}
+
+export const SHEET_DIMENSIONS: Record<SheetSize, [number, number]> = {
+  A4: [595.28, 841.89],
+  A3: [841.89, 1190.55],
+  Letter: [612.0, 792.0],
+  Legal: [612.0, 1008.0],
+};
+
+export function getNUpGrid(
+  nup: NUpCount,
+  orient: SheetOrientation
+): { rows: number; cols: number; isLandscape: boolean } {
+  if (nup === 2) {
+    if (orient === 'Portrait') return { rows: 2, cols: 1, isLandscape: false };
+    return { rows: 1, cols: 2, isLandscape: true };
+  }
+  if (nup === 4) {
+    if (orient === 'Landscape') return { rows: 2, cols: 2, isLandscape: true };
+    return { rows: 2, cols: 2, isLandscape: false };
+  }
+  if (nup === 6) {
+    if (orient === 'Portrait') return { rows: 3, cols: 2, isLandscape: false };
+    return { rows: 2, cols: 3, isLandscape: true };
+  }
+  if (nup === 8) {
+    if (orient === 'Portrait') return { rows: 4, cols: 2, isLandscape: false };
+    return { rows: 2, cols: 4, isLandscape: true };
+  }
+  // 9
+  return { rows: 3, cols: 3, isLandscape: orient === 'Landscape' };
+}
+
+/**
+ * Generate N-Up PDF (multiple pages per sheet)
+ */
+export async function generateNUpPdf(
+  fileOrBuffer: File | ArrayBuffer | Uint8Array,
+  options: NUpOptions,
+  onProgress?: (percent: number, msg: string) => void
+): Promise<Uint8Array> {
+  let fileBuffer: ArrayBuffer;
+  if (fileOrBuffer instanceof File) {
+    fileBuffer = await fileOrBuffer.arrayBuffer();
+  } else if (fileOrBuffer instanceof Uint8Array) {
+    fileBuffer = fileOrBuffer.buffer.slice(
+      fileOrBuffer.byteOffset,
+      fileOrBuffer.byteOffset + fileOrBuffer.byteLength
+    ) as ArrayBuffer;
+  } else {
+    fileBuffer = fileOrBuffer;
+  }
+
+  let srcPdf: PDFDocument;
+  try {
+    srcPdf = await PDFDocument.load(fileBuffer);
+  } catch (err: any) {
+    if (err.message && (err.message.includes('encrypted') || err.message.includes('password'))) {
+      throw new Error('This PDF is password-protected. Please provide an unlocked standard PDF.');
+    }
+    throw new Error('Could not read PDF. The file may be corrupted or in an unsupported format.');
+  }
+
+  const srcPages = srcPdf.getPages();
+  const totalPages = srcPages.length;
+  if (totalPages === 0) {
+    throw new Error('The PDF document contains no pages.');
+  }
+
+  // Ensure any blank or uninitialized pages have a content stream so embedPages never fails
+  srcPages.forEach((p) => {
+    if (!p.node.Contents()) {
+      p.getContentStream();
+    }
+  });
+
+  if (onProgress) {
+    onProgress(10, 'Embedding pages in destination document...');
+  }
+
+  const destPdf = await PDFDocument.create();
+  const embeddedPages = await destPdf.embedPages(srcPages);
+
+  const grid = getNUpGrid(options.pagesPerSheet, options.orientation);
+  const baseDim = SHEET_DIMENSIONS[options.sheetSize] || SHEET_DIMENSIONS.A4;
+  const sheetWidth = grid.isLandscape
+    ? Math.max(baseDim[0], baseDim[1])
+    : Math.min(baseDim[0], baseDim[1]);
+  const sheetHeight = grid.isLandscape
+    ? Math.min(baseDim[0], baseDim[1])
+    : Math.max(baseDim[0], baseDim[1]);
+
+  const MM_TO_PT = 2.83464567;
+  const marginPt = Math.max(0, options.marginMm) * MM_TO_PT;
+  const gapPt = Math.max(0, options.gapMm) * MM_TO_PT;
+
+  const availW = Math.max(10, sheetWidth - 2 * marginPt - (grid.cols - 1) * gapPt);
+  const availH = Math.max(10, sheetHeight - 2 * marginPt - (grid.rows - 1) * gapPt);
+  const cellW = availW / grid.cols;
+  const cellH = availH / grid.rows;
+
+  const perSheet = options.pagesPerSheet;
+  const totalSheets = Math.ceil(totalPages / perSheet);
+
+  for (let s = 0; s < totalSheets; s++) {
+    if (onProgress) {
+      const pct = Math.round(15 + (s / totalSheets) * 75);
+      onProgress(pct, `Arranging sheet ${s + 1} of ${totalSheets}...`);
+    }
+
+    const sheet = destPdf.addPage([sheetWidth, sheetHeight]);
+
+    for (let slot = 0; slot < perSheet; slot++) {
+      const pageIdx = s * perSheet + slot;
+      if (pageIdx >= totalPages) break;
+
+      const row = Math.floor(slot / grid.cols);
+      const col = slot % grid.cols;
+      const colIndex = options.pageOrder === 'rtl' ? grid.cols - 1 - col : col;
+
+      const cellX = marginPt + colIndex * (cellW + gapPt);
+      // PDF y=0 is bottom: row 0 is top
+      const cellY = sheetHeight - marginPt - (row + 1) * cellH - row * gapPt;
+
+      const origPage = srcPages[pageIdx];
+      const origRot = (origPage.getRotation().angle % 360 + 360) % 360;
+      const emb = embeddedPages[pageIdx];
+
+      const is90or270 = origRot === 90 || origRot === 270;
+      const visualW = is90or270 ? emb.height : emb.width;
+      const visualH = is90or270 ? emb.width : emb.height;
+
+      const scale = Math.min(cellW / visualW, cellH / visualH);
+      const targetW = visualW * scale;
+      const targetH = visualH * scale;
+
+      const offsetX = cellX + (cellW - targetW) / 2;
+      const offsetY = cellY + (cellH - targetH) / 2;
+
+      const drawW = emb.width * scale;
+      const drawH = emb.height * scale;
+
+      let drawX = offsetX;
+      let drawY = offsetY;
+      let rotDeg = 0;
+
+      if (origRot === 0) {
+        drawX = offsetX;
+        drawY = offsetY;
+        rotDeg = 0;
+      } else if (origRot === 90) {
+        drawX = offsetX;
+        drawY = offsetY + targetH;
+        rotDeg = 270;
+      } else if (origRot === 180) {
+        drawX = offsetX + targetW;
+        drawY = offsetY + targetH;
+        rotDeg = 180;
+      } else if (origRot === 270) {
+        drawX = offsetX + targetW;
+        drawY = offsetY;
+        rotDeg = 90;
+      }
+
+      sheet.drawPage(emb, {
+        x: drawX,
+        y: drawY,
+        width: drawW,
+        height: drawH,
+        rotate: degrees(rotDeg),
+      });
+
+      if (options.drawBorder) {
+        sheet.drawRectangle({
+          x: offsetX,
+          y: offsetY,
+          width: targetW,
+          height: targetH,
+          borderColor: rgb(0.65, 0.65, 0.65),
+          borderWidth: 0.5,
+        });
+      }
+    }
+  }
+
+  if (onProgress) {
+    onProgress(95, 'Saving N-Up PDF...');
+  }
+
+  return await destPdf.save();
+}
+

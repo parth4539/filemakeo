@@ -594,6 +594,66 @@ export const TOOLS_SEO_DATA: Record<string, ToolSeoData> = {
     relatedToolSlugs: ['/split-pdf', '/organize-pdf', '/merge-pdf', '/rotate-pdf'],
   },
 
+  'pdf-n-up': {
+    id: 'pdf-n-up',
+    slug: '/pdf-n-up',
+    name: 'PDF N-Up (Multiple Pages Per Sheet)',
+    category: 'pdf',
+    h1: 'PDF N-Up - Multiple Pages Per Sheet for Printing',
+    metaTitle: 'PDF N-Up: Multiple Pages Per Sheet Free | fileMakeO',
+    metaDescription: 'Print multiple PDF pages on one sheet (2, 4, 6, 8, 9-up). 100% in-browser, sharp vector rendering, custom margins & orientation with zero file uploads.',
+    canonicalUrl: `${SITE_URL}/pdf-n-up`,
+    overviewHeading: 'Print Multiple PDF Pages on a Single Sheet with Zero Quality Loss',
+    overviewText: 'Printing multi-page PDF documents often wastes paper, ink, and binder space. PDF N-Up—arranging 2, 4, 6, 8, or 9 pages onto a single printed sheet—is the industry-standard solution for printing lecture slides, handouts, pocket reference guides, and proofing drafts. fileMakeO brings true in-browser N-Up imposition directly to your device. Powered by client-side pdf-lib embedding without rasterization, your original typography, vector diagrams, and form lines remain 100% razor-sharp at any scale. Each page is independently scaled proportionally to fit its grid cell perfectly with zero distortion and zero edge clipping. With flexible support for standard paper sizes (ISO A4, A3, US Letter, US Legal), custom margins, cell gaps, optional page borders, and orientation controls, you can craft production-grade print layouts in seconds while keeping your files 100% private in local device RAM.',
+    keyFeatures: [
+      'Pure vector embedding: Uses pdf-lib drawPage so text and vector graphics stay crisp with zero rasterization.',
+      'Proportional fit & centering: Pages are never stretched or cropped; mixed orientations and sizes scale independently.',
+      'Flexible grid options: Put 2, 4, 6, 8, or 9 pages per sheet with automatic or custom orientation (Portrait / Landscape).',
+      'Custom sheet formats: Choose from standard ISO A4, A3, US Letter, and US Legal paper sizes with mm-level margins and gaps.',
+      '100% client-side security: Process sensitive legal contracts, student handouts, and private reports with zero server uploads.',
+    ],
+    howToSteps: [
+      {
+        step: 1,
+        title: 'Upload Your PDF Document',
+        description: 'Drag and drop your PDF into the secure upload zone or browse your local files. Your document loads directly into browser memory.',
+      },
+      {
+        step: 2,
+        title: 'Configure N-Up Grid & Page Setup',
+        description: 'Choose pages per sheet (2, 4, 6, 8, or 9), select sheet size (A4, A3, Letter, Legal), adjust margins and gaps in millimeters, and check the live sheet preview.',
+      },
+      {
+        step: 3,
+        title: 'Generate & Download N-Up PDF',
+        description: 'Click "Generate N-Up PDF". The client-side engine arranges your pages into imposed sheets in seconds for instant download.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'What is PDF N-Up and how does it save paper when printing?',
+        answer: 'N-Up imposition is the process of arranging multiple document pages (such as 2, 4, or 6 pages) onto a single printed sheet of paper. It cuts paper and toner consumption by 50% to 75%, making it ideal for meeting agendas, academic lecture slides, study summaries, and pocket reference booklets.',
+      },
+      {
+        question: 'Does this tool rasterize or blur text when scaling down pages?',
+        answer: 'No. Unlike basic image-based converters that turn pages into low-resolution JPEGs, fileMakeO embeds pages as native vector XObjects using pdf-lib. All fonts, line art, mathematical formulas, and vector curves remain completely scalable and print at the maximum resolution of your printer.',
+      },
+      {
+        question: 'How does N-Up handle odd page counts or single-page documents?',
+        answer: 'If your document has an odd number of pages (for example, a 3-page PDF with 2 pages per sheet), the final sheet displays the remaining page in the first cell and leaves remaining slots neatly empty. Single-page PDFs are similarly positioned without error.',
+      },
+      {
+        question: 'Can I customize sheet size, orientation, and margins?',
+        answer: 'Yes. You can select standard paper formats (A4, A3, US Letter, US Legal), set Auto, Portrait, or Landscape orientation, choose left-to-right (LTR) or right-to-left (RTL) reading order, specify exact margin and cell gap measurements in millimeters, and toggle page separator borders.',
+      },
+      {
+        question: 'Are my confidential documents uploaded to any remote server?',
+        answer: 'Never. fileMakeO is built strictly with zero-upload privacy architecture. All page embedding, matrix transformations, and sheet rendering execute locally inside your web browser. No external server ever receives or views your PDF files.',
+      },
+    ],
+    relatedToolSlugs: ['/merge-pdf', '/split-pdf', '/compress-pdf', '/organize-pdf'],
+  },
+
   'compress-image': {
     id: 'compress-image',
     slug: '/compress-image',

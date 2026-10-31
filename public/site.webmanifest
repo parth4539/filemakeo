@@ -1,0 +1,17 @@
+{
+  "name": "fileMakeO - In-Browser PDF & Image Toolkit",
+  "short_name": "fileMakeO",
+  "description": "Free, 100% private in-browser PDF & Image tools by Parth Prajapati. Zero uploads, zero cost, completely in-browser.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
