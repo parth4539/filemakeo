@@ -43,7 +43,7 @@ export const SeoHead: React.FC<SeoHeadProps> = ({ seo }) => {
     setMetaTag('property', 'og:description', seo.metaDescription);
     setMetaTag('property', 'og:url', seo.canonicalUrl);
     setMetaTag('property', 'og:type', 'website');
-    setMetaTag('property', 'og:site_name', 'fileMakeO');
+    setMetaTag('property', 'og:site_name', 'fileMakeR');
 
     // 5. Twitter Card Tags
     setMetaTag('name', 'twitter:card', 'summary_large_image');
@@ -54,7 +54,7 @@ export const SeoHead: React.FC<SeoHeadProps> = ({ seo }) => {
     const webAppSchema = {
       '@context': 'https://schema.org',
       '@type': 'WebApplication',
-      name: `${seo.name} - fileMakeO`,
+      name: `${seo.name} - fileMakeR`,
       url: seo.canonicalUrl,
       description: seo.metaDescription,
       applicationCategory: 'UtilitiesApplication',

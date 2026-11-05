@@ -194,6 +194,8 @@ export function recordOperation(toolId: string, fileSizeBytes: number = 0): void
 let currentTabId: string = '';
 let broadcastChannel: BroadcastChannel | null = null;
 let liveServerOnlineUsers: number | null = null;
+let p2pRoom: any = null;
+let p2pPeerCount = 0;
 const listeners = new Set<(count: number) => void>();
 
 function getTabId(): string {
@@ -216,9 +218,15 @@ function getTabId(): string {
 
 export function getLiveOnlineUsers(): number {
   if (typeof window === 'undefined') return 1;
+  // If server responded (e.g. on full-stack container), prioritize server count
   if (liveServerOnlineUsers !== null && liveServerOnlineUsers > 0) {
     return liveServerOnlineUsers;
   }
+  // If P2P WebRTC peers connected across multiple devices (e.g. on Netlify / static hosts)
+  if (p2pPeerCount > 0) {
+    return p2pPeerCount + 1;
+  }
+  // Otherwise check local browser tabs
   try {
     const raw = localStorage.getItem(PEERS_KEY);
     if (!raw) return 1;
@@ -283,19 +291,22 @@ async function pulseHeartbeat() {
     });
 
     if (res.ok) {
-      const data = await res.json();
-      if (typeof data.onlineUsers === 'number') {
-        const count = Math.max(1, data.onlineUsers);
-        liveServerOnlineUsers = count;
+      const contentType = res.headers.get('content-type') || '';
+      if (contentType.includes('application/json')) {
+        const data = await res.json();
+        if (typeof data.onlineUsers === 'number') {
+          const count = Math.max(1, data.onlineUsers);
+          liveServerOnlineUsers = count;
 
-        const metrics = getStoredMetrics();
-        if (count > (metrics.peakOnlineUsers || 1)) {
-          metrics.peakOnlineUsers = count;
-          saveMetrics(metrics);
+          const metrics = getStoredMetrics();
+          if (count > (metrics.peakOnlineUsers || 1)) {
+            metrics.peakOnlineUsers = count;
+            saveMetrics(metrics);
+          }
+
+          notifyListeners(count);
+          return;
         }
-
-        notifyListeners(count);
-        return;
       }
     }
   } catch {
@@ -325,6 +336,14 @@ function leavePresence() {
     }
   } catch {}
 
+  // P2P WebRTC room cleanup
+  if (p2pRoom) {
+    try {
+      p2pRoom.leave();
+      p2pRoom = null;
+    } catch {}
+  }
+
   // Local storage cleanup
   try {
     const raw = localStorage.getItem(PEERS_KEY);
@@ -341,11 +360,64 @@ function leavePresence() {
   }
 }
 
+function initP2PPresence(): void {
+  if (typeof window === 'undefined') return;
+  if (!('RTCPeerConnection' in window)) return;
+
+  import('trystero/nostr')
+    .then(({ joinRoom }) => {
+      try {
+        p2pRoom = joinRoom(
+          { appId: 'filemakeo_parth_prajapati_v1' },
+          'filemakeo_presence_mesh'
+        );
+
+        const syncP2P = () => {
+          if (!p2pRoom) return;
+          try {
+            const peers = p2pRoom.getPeers();
+            const count = Object.keys(peers).length;
+            p2pPeerCount = count;
+            // When server API is not available (e.g. static hosting on Netlify), use real-time P2P count
+            if (liveServerOnlineUsers === null) {
+              const total = count + 1;
+              notifyListeners(total);
+              const metrics = getStoredMetrics();
+              if (total > (metrics.peakOnlineUsers || 1)) {
+                metrics.peakOnlineUsers = total;
+                saveMetrics(metrics);
+              }
+            }
+          } catch {}
+        };
+
+        p2pRoom.onPeerJoin(() => {
+          syncP2P();
+        });
+
+        p2pRoom.onPeerLeave(() => {
+          syncP2P();
+        });
+
+        // Trigger discovery pulses
+        setTimeout(syncP2P, 1500);
+        setTimeout(syncP2P, 3500);
+        setInterval(syncP2P, 5000);
+      } catch {
+        // Fallback silently to local device count
+      }
+    })
+    .catch(() => {});
+}
+
 let isInitialized = false;
 
 export function initPresenceHeartbeat(): void {
   if (typeof window === 'undefined' || isInitialized) return;
   isInitialized = true;
+
+  // Initialize P2P real-time presence across devices (works on Netlify with zero backend)
+  initP2PPresence();
 
   pulseHeartbeat();
 
@@ -388,7 +460,7 @@ export function downloadMetricsJSON(): void {
   const currentOnline = getLiveOnlineUsers();
 
   const exportData = {
-    appName: 'fileMakeO',
+    appName: 'fileMakeR',
     developer: 'Parth Prajapati',
     generatedAt: new Date().toISOString(),
     liveOnlineUsers: currentOnline,
@@ -408,7 +480,7 @@ export function downloadMetricsJSON(): void {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `filemakeo_analytics_matrix_${new Date().toISOString().slice(0, 10)}.json`;
+  a.download = `filemaker_analytics_matrix_${new Date().toISOString().slice(0, 10)}.json`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
@@ -420,7 +492,7 @@ export function downloadMetricsCSV(): void {
   const currentOnline = getLiveOnlineUsers();
 
   const rows: string[] = [
-    'fileMakeO Analytics Matrix',
+    'fileMakeR Analytics Matrix',
     `Developer,Parth Prajapati`,
     `Generated At,"${new Date().toISOString()}"`,
     `Live Online Users,${currentOnline}`,

@@ -141,6 +141,8 @@ export default function App() {
               <Route path="/rotate-pdf" element={<RotatePdfPage />} />
               <Route path="/compress-pdf" element={<CompressPdfPage />} />
               <Route path="/image-to-pdf" element={<ImageToPdfPage />} />
+              <Route path="/create-pdf-from-images" element={<ImageToPdfPage />} />
+              <Route path="/make-pdf-from-images" element={<ImageToPdfPage />} />
               <Route path="/pdf-to-image" element={<PdfToImagePage />} />
               <Route path="/add-page-numbers" element={<AddPageNumbersPage />} />
               <Route path="/add-watermark" element={<AddWatermarkPage />} />

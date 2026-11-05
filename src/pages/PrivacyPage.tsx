@@ -9,12 +9,12 @@ import { PrivacyBadge } from '../components/PrivacyBadge';
 
 export const PrivacyPage: React.FC = () => {
   useEffect(() => {
-    document.title = 'Privacy Policy & Architecture - fileMakeO';
+    document.title = 'Privacy Policy & Architecture - fileMakeR';
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
       metaDesc.setAttribute(
         'content',
-        'fileMakeO privacy policy: 100% client-side guarantee. Zero server uploads, zero database storage, zero tracking. All files remain in browser RAM.'
+        'fileMakeR privacy policy: 100% client-side guarantee. Zero server uploads, zero database storage, zero tracking. All files remain in browser RAM.'
       );
     }
     let canonical = document.querySelector('link[rel="canonical"]');
@@ -36,7 +36,7 @@ export const PrivacyPage: React.FC = () => {
           Privacy Policy &amp; Security Architecture
         </h1>
         <p className="text-base text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          We believe personal documents and photos should remain private. Here is an exact technical explanation of how fileMakeO guarantees your confidentiality.
+          We believe personal documents and photos should remain private. Here is an exact technical explanation of how fileMakeR guarantees your confidentiality.
         </p>
       </div>
 
@@ -48,7 +48,7 @@ export const PrivacyPage: React.FC = () => {
             <span>The 100% Client-Side Guarantee</span>
           </h2>
           <p>
-            When you use fileMakeO, <strong>no file ever leaves your computer or phone</strong>. Every transformation—merging, splitting, compressing, rotating, watermarking, resizing, and converting—is executed by JavaScript, Canvas, and WebAssembly running inside your browser tab.
+            When you use fileMakeR, <strong>no file ever leaves your computer or phone</strong>. Every transformation—merging, splitting, compressing, rotating, watermarking, resizing, and converting—is executed by JavaScript, Canvas, and WebAssembly running inside your browser tab.
           </p>
           <p>
             You can verify this in real-time: open your browser&apos;s Developer Tools (F12) &rarr; Network Tab, and process any file. You will see zero file upload requests. You can even disconnect your internet Wi-Fi before clicking the action button—the tool will process your document entirely offline.
@@ -59,7 +59,7 @@ export const PrivacyPage: React.FC = () => {
         <section className="space-y-4 pt-6 border-t border-slate-100 dark:border-slate-800">
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
             <Cpu className="w-5 h-5 text-blue-500" />
-            <span>How fileMakeO Works Under The Hood</span>
+            <span>How fileMakeR Works Under The Hood</span>
           </h2>
           <ul className="space-y-3 list-disc pl-5">
             <li>
@@ -81,7 +81,7 @@ export const PrivacyPage: React.FC = () => {
             <span>Memory Management &amp; Explicit URL Revocation</span>
           </h2>
           <p>
-            fileMakeO does not use <code>localStorage</code>, <code>sessionStorage</code>, or <code>IndexedDB</code> to store file contents. File data exists only as temporary JavaScript <code>ArrayBuffer</code> and <code>Blob</code> objects in active memory.
+            fileMakeR does not use <code>localStorage</code>, <code>sessionStorage</code>, or <code>IndexedDB</code> to store file contents. File data exists only as temporary JavaScript <code>ArrayBuffer</code> and <code>Blob</code> objects in active memory.
           </p>
           <p>
             Whenever you click &ldquo;Clear all files&rdquo;, &ldquo;Process Another File&rdquo;, or close the browser tab, all Object URLs (<code>URL.revokeObjectURL</code>) and file handles are immediately released to allow browser garbage collection.

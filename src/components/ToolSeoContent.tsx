@@ -192,7 +192,7 @@ export const ToolSeoContent: React.FC<ToolSeoContentProps> = ({ seo }) => {
       <div className="p-4 rounded-2xl bg-slate-100/70 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-300 flex items-center gap-3">
         <ShieldCheck className="w-5 h-5 flex-shrink-0 text-emerald-500" />
         <p>
-          <strong className="text-slate-800 dark:text-slate-200">fileMakeO Client-Side Security Assurance:</strong> All computations are executed directly inside your web browser. No files are uploaded to our servers, stored in databases, or logged in telemetry.
+          <strong className="text-slate-800 dark:text-slate-200">fileMakeR Client-Side Security Assurance:</strong> All computations are executed directly inside your web browser. No files are uploaded to our servers, stored in databases, or logged in telemetry.
         </p>
       </div>
     </div>

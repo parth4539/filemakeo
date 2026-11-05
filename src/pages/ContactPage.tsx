@@ -29,12 +29,12 @@ export const ContactPage: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    document.title = 'Contact & Support - fileMakeO | Developer Parth Prajapati';
+    document.title = 'Contact & Support - fileMakeR | Developer Parth Prajapati';
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
       metaDesc.setAttribute(
         'content',
-        'Contact Parth Prajapati, creator of fileMakeO. Submit bug reports, request new client-side PDF and image features, or get in touch for developer support.'
+        'Contact Parth Prajapati, creator of fileMakeR. Submit bug reports, request new client-side PDF and image features, or get in touch for developer support.'
       );
     }
 
@@ -52,8 +52,8 @@ export const ContactPage: React.FC = () => {
     if (!name.trim() || !message.trim()) return;
 
     // Trigger local user email client or confirm receipt
-    const mailtoUri = `mailto:support@filemakeo.local?subject=${encodeURIComponent(
-      `[fileMakeO ${subject}] from ${name}`
+    const mailtoUri = `mailto:support@filemaker.local?subject=${encodeURIComponent(
+      `[fileMakeR ${subject}] from ${name}`
     )}&body=${encodeURIComponent(message + `\n\nReply to: ${email}`)}`;
 
     window.location.href = mailtoUri;
@@ -103,7 +103,7 @@ export const ContactPage: React.FC = () => {
         </div>
         <div className="flex sm:flex-col gap-2">
           <a
-            href="mailto:support@filemakeo.local"
+            href="mailto:support@filemaker.local"
             className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition-all shadow-xs"
           >
             <Mail className="w-3.5 h-3.5" />
@@ -135,10 +135,10 @@ export const ContactPage: React.FC = () => {
               <p className="text-xs text-slate-600 dark:text-slate-400 max-w-sm mx-auto leading-relaxed">
                 Your default email client was opened. If it didn&apos;t open automatically, you can always write to us directly at{' '}
                 <a
-                  href="mailto:support@filemakeo.local"
+                  href="mailto:support@filemaker.local"
                   className="text-blue-600 dark:text-blue-400 underline font-semibold"
                 >
-                  support@filemakeo.local
+                  support@filemaker.local
                 </a>
                 .
               </p>
@@ -249,7 +249,7 @@ export const ContactPage: React.FC = () => {
               <span>Privacy Reminder</span>
             </h3>
             <p className="leading-relaxed">
-              Please do NOT attach or send sensitive personal documents, banking records, passwords, or government IDs. fileMakeO is designed so that files never leave your device.
+              Please do NOT attach or send sensitive personal documents, banking records, passwords, or government IDs. fileMakeR is designed so that files never leave your device.
             </p>
           </div>
 
@@ -261,7 +261,7 @@ export const ContactPage: React.FC = () => {
             <ul className="space-y-2">
               <li>
                 <Link to="/about" className="text-blue-600 dark:text-blue-400 hover:underline">
-                  &rarr; Learn how fileMakeO was built
+                  &rarr; Learn how fileMakeR was built
                 </Link>
               </li>
               <li>

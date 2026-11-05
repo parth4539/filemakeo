@@ -10,12 +10,12 @@ import { DiamondLogoIcon } from '../components/Logo';
 
 export const AboutPage: React.FC = () => {
   useEffect(() => {
-    document.title = 'About fileMakeO - Modern In-Browser Document Studio by Parth Prajapati';
+    document.title = 'About fileMakeR - Modern In-Browser Document Studio by Parth Prajapati';
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
       metaDesc.setAttribute(
         'content',
-        'Learn about fileMakeO, a free, 100% in-browser PDF and image toolkit engineered by Parth Prajapati. Discover our zero-upload privacy architecture and open-source foundation.'
+        'Learn about fileMakeR, a free, 100% in-browser PDF and image toolkit engineered by Parth Prajapati. Discover our zero-upload privacy architecture and open-source foundation.'
       );
     }
     let canonical = document.querySelector('link[rel="canonical"]');
@@ -34,7 +34,7 @@ export const AboutPage: React.FC = () => {
           <DiamondLogoIcon size={42} />
         </div>
         <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
-          About file<span className="text-blue-600 dark:text-blue-400">MakeO</span>
+          About file<span className="text-blue-600 dark:text-blue-400">MakeR</span>
         </h1>
         <p className="text-base text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
           Free, fast, and completely in-browser PDF and image utilities engineered for privacy.
@@ -55,7 +55,7 @@ export const AboutPage: React.FC = () => {
             Parth Prajapati
           </h2>
           <p className="text-xs text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
-            Architected and engineered fileMakeO with a single guiding mission: empower users worldwide with completely free, private, and offline-capable document and image tools without servers or subscriptions.
+            Architected and engineered fileMakeR with a single guiding mission: empower users worldwide with completely free, private, and offline-capable document and image tools without servers or subscriptions.
           </p>
         </div>
       </div>
@@ -63,7 +63,7 @@ export const AboutPage: React.FC = () => {
       <div className="p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-8 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
         <section className="space-y-4">
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100">
-            Why was fileMakeO built?
+            Why was fileMakeR built?
           </h2>
           <p>
             Traditional online PDF and image tools (such as iLovePDF, Smallpdf, or online converters) require you to upload your sensitive files to unknown remote servers. For bank statements, legal contracts, passports, and government forms, that presents a massive privacy and confidentiality risk.
@@ -72,7 +72,7 @@ export const AboutPage: React.FC = () => {
             Furthermore, most popular websites place users behind artificial paywalls, slow upload queues, &ldquo;3 free documents per day&rdquo; caps, and aggressive popups.
           </p>
           <p>
-            <strong>fileMakeO was created to change that.</strong> By utilizing modern WebAssembly and native browser APIs, we process everything inside your local browser memory with zero uploads and zero subscription walls.
+            <strong>fileMakeR was created to change that.</strong> By utilizing modern WebAssembly and native browser APIs, we process everything inside your local browser memory with zero uploads and zero subscription walls.
           </p>
         </section>
 

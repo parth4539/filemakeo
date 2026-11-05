@@ -40,11 +40,11 @@ export const TOOLS_SEO_DATA: Record<string, ToolSeoData> = {
     name: 'Merge PDF',
     category: 'pdf',
     h1: 'Merge PDF Files Online - 100% Free, Secure & In-Browser',
-    metaTitle: 'Merge PDF Online Free - Combine Multiple PDF Files In-Browser | fileMakeO',
+    metaTitle: 'Merge PDF Online Free - Combine Multiple PDF Files In-Browser | fileMakeR',
     metaDescription: 'Combine multiple PDF documents into a single organized file directly in your browser. 100% free, private client-side processing with zero file uploads and instant download.',
     canonicalUrl: `${SITE_URL}/merge-pdf`,
-    overviewHeading: 'Why Choose fileMakeO to Merge PDF Documents?',
-    overviewText: 'Merging PDF files is one of the most common daily document tasks, but traditional online converters force you to upload sensitive contracts, tax records, medical documents, and personal IDs to third-party cloud servers. fileMakeO fundamentally changes this workflow by running the entire merging process directly inside your web browser. Utilizing lightweight WebAssembly and JavaScript binary manipulation, our client-side engine reads your files into local device RAM, combines page trees losslessly, and renders a unified output PDF in milliseconds. No files are ever uploaded, no server logs exist, and no signup or payment is required. You enjoy unlimited document merging with total confidentiality.',
+    overviewHeading: 'Why Choose fileMakeR to Merge PDF Documents?',
+    overviewText: 'Merging PDF files is one of the most common daily document tasks, but traditional online converters force you to upload sensitive contracts, tax records, medical documents, and personal IDs to third-party cloud servers. fileMakeR fundamentally changes this workflow by running the entire merging process directly inside your web browser. Utilizing lightweight WebAssembly and JavaScript binary manipulation, our client-side engine reads your files into local device RAM, combines page trees losslessly, and renders a unified output PDF in milliseconds. No files are ever uploaded, no server logs exist, and no signup or payment is required. You enjoy unlimited document merging with total confidentiality.',
     keyFeatures: [
       '100% client-side: Zero bytes uploaded to any remote server or cloud infrastructure.',
       'Lossless stream concatenation: Retains embedded fonts, vector graphics, form fields, and hyperlinks.',
@@ -72,7 +72,7 @@ export const TOOLS_SEO_DATA: Record<string, ToolSeoData> = {
     faqs: [
       {
         question: 'Are my merged PDF files uploaded to any server or cloud?',
-        answer: 'No. fileMakeO is strictly 100% client-side. Your PDFs are read and merged directly in your browser\'s local memory using WebAssembly and JavaScript. No external server ever receives, reads, or inspects your files.',
+        answer: 'No. fileMakeR is strictly 100% client-side. Your PDFs are read and merged directly in your browser\'s local memory using WebAssembly and JavaScript. No external server ever receives, reads, or inspects your files.',
       },
       {
         question: 'Is there a limit on how many PDFs I can combine at once?',
@@ -96,11 +96,11 @@ export const TOOLS_SEO_DATA: Record<string, ToolSeoData> = {
     name: 'Split PDF',
     category: 'pdf',
     h1: 'Split PDF Online - Extract Pages & Ranges In-Browser',
-    metaTitle: 'Split PDF Online Free - Extract Pages & Ranges Privately | fileMakeO',
+    metaTitle: 'Split PDF Online Free - Extract Pages & Ranges Privately | fileMakeR',
     metaDescription: 'Split PDF documents into individual pages or custom page ranges online. 100% free and client-side with zero uploads. Download pages separately or as a ZIP archive.',
     canonicalUrl: `${SITE_URL}/split-pdf`,
     overviewHeading: 'Effortless PDF Splitting & Page Extraction in Browser',
-    overviewText: 'Need to extract specific chapters, single invoices, or custom intervals from a large multi-page PDF? fileMakeO provides a lightning-fast, 100% client-side PDF splitter. Whether you want to split every page into a standalone PDF file or extract non-consecutive page ranges like "1-3, 5, 8-12", our engine handles the segmentation in local device memory. Output files can be downloaded individually or packaged together in a single lightweight ZIP archive. Because all execution happens directly inside your browser tab, sensitive documents remain strictly confidential with zero risk of cloud leaks.',
+    overviewText: 'Need to extract specific chapters, single invoices, or custom intervals from a large multi-page PDF? fileMakeR provides a lightning-fast, 100% client-side PDF splitter. Whether you want to split every page into a standalone PDF file or extract non-consecutive page ranges like "1-3, 5, 8-12", our engine handles the segmentation in local device memory. Output files can be downloaded individually or packaged together in a single lightweight ZIP archive. Because all execution happens directly inside your browser tab, sensitive documents remain strictly confidential with zero risk of cloud leaks.',
     keyFeatures: [
       'Flexible range extraction: Extract continuous sections or custom comma-separated page ranges.',
       'Batch ZIP packaging: Download all split PDF pages bundled in an organized ZIP archive.',
@@ -132,7 +132,7 @@ export const TOOLS_SEO_DATA: Record<string, ToolSeoData> = {
       },
       {
         question: 'Can I download all separated pages in one archive?',
-        answer: 'Yes. When extracting all pages or multiple ranges, fileMakeO uses client-side JSZip to compress all output PDF documents into a single convenient .zip file for fast download.',
+        answer: 'Yes. When extracting all pages or multiple ranges, fileMakeR uses client-side JSZip to compress all output PDF documents into a single convenient .zip file for fast download.',
       },
       {
         question: 'Are any confidential documents uploaded during splitting?',
@@ -152,11 +152,11 @@ export const TOOLS_SEO_DATA: Record<string, ToolSeoData> = {
     name: 'Organize PDF',
     category: 'pdf',
     h1: 'Organize PDF Pages - Visual Reorder, Rotate & Delete',
-    metaTitle: 'Organize PDF Pages Free - Visual Reorder, Rotate & Delete | fileMakeO',
+    metaTitle: 'Organize PDF Pages Free - Visual Reorder, Rotate & Delete | fileMakeR',
     metaDescription: 'Visually reorder, rotate, and delete pages in your PDF document with interactive thumbnails. Free, private, and 100% in-browser with zero uploads.',
     canonicalUrl: `${SITE_URL}/organize-pdf`,
     overviewHeading: 'Visual Page Management with Instant Previews',
-    overviewText: 'Arranging pages in complex PDF files can be frustrating without visual feedback. fileMakeO brings interactive visual document organization straight into your web browser. When you load your PDF, our browser-side Mozilla PDF.js integration renders clear preview thumbnails of every single page. You can drag and drop or click arrow buttons to reorder pages, rotate upside-down sheets by 90 or 180 degrees, and delete redundant or blank pages with a single click. Everything is calculated in local memory, giving you complete creative control over your final document structure without uploading any data.',
+    overviewText: 'Arranging pages in complex PDF files can be frustrating without visual feedback. fileMakeR brings interactive visual document organization straight into your web browser. When you load your PDF, our browser-side Mozilla PDF.js integration renders clear preview thumbnails of every single page. You can drag and drop or click arrow buttons to reorder pages, rotate upside-down sheets by 90 or 180 degrees, and delete redundant or blank pages with a single click. Everything is calculated in local memory, giving you complete creative control over your final document structure without uploading any data.',
     keyFeatures: [
       'Interactive visual canvas: Inspect crisp thumbnail previews for every page before reorganizing.',
       'One-click page rotation: Fix rotated or inverted pages without changing the rest of the document.',
@@ -192,7 +192,7 @@ export const TOOLS_SEO_DATA: Record<string, ToolSeoData> = {
       },
       {
         question: 'Is there any risk of losing original files?',
-        answer: 'None. fileMakeO never modifies your original file on disk. It produces a brand-new downloaded PDF containing your modified page structure.',
+        answer: 'None. fileMakeR never modifies your original file on disk. It produces a brand-new downloaded PDF containing your modified page structure.',
       },
       {
         question: 'Are thumbnails generated privately?',
@@ -208,11 +208,11 @@ export const TOOLS_SEO_DATA: Record<string, ToolSeoData> = {
     name: 'Rotate PDF',
     category: 'pdf',
     h1: 'Rotate PDF Pages Online - Permanent Orientation Fix',
-    metaTitle: 'Rotate PDF Online Free - Rotate All or Selected Pages | fileMakeO',
+    metaTitle: 'Rotate PDF Online Free - Rotate All or Selected Pages | fileMakeR',
     metaDescription: 'Rotate PDF documents 90, 180, or 270 degrees clockwise or counter-clockwise. Permanent in-browser orientation fix with zero uploads and complete privacy.',
     canonicalUrl: `${SITE_URL}/rotate-pdf`,
     overviewHeading: 'Permanent In-Browser PDF Page Rotation',
-    overviewText: 'Documents scanned upside down or exported in the wrong orientation are difficult to read and unprofessional to share. Many online viewers only rotate pages temporarily for display without saving the orientation. fileMakeO permanently modifies the internal rotation metadata in your PDF file so it opens correctly in every PDF viewer, mobile app, and printer. Choose to rotate the entire document or target specific page numbers clockwise or counter-clockwise by 90, 180, or 270 degrees. The operation is instantaneous, lossless, and executes 100% in client memory.',
+    overviewText: 'Documents scanned upside down or exported in the wrong orientation are difficult to read and unprofessional to share. Many online viewers only rotate pages temporarily for display without saving the orientation. fileMakeR permanently modifies the internal rotation metadata in your PDF file so it opens correctly in every PDF viewer, mobile app, and printer. Choose to rotate the entire document or target specific page numbers clockwise or counter-clockwise by 90, 180, or 270 degrees. The operation is instantaneous, lossless, and executes 100% in client memory.',
     keyFeatures: [
       'Permanent orientation fix: Embeds rotation directly into the PDF structure for universal compatibility.',
       'Flexible angle control: Rotate 90° clockwise, 180° upside down, or 270° counter-clockwise.',
@@ -264,11 +264,11 @@ export const TOOLS_SEO_DATA: Record<string, ToolSeoData> = {
     name: 'Compress PDF',
     category: 'pdf',
     h1: 'Compress PDF Online - Reduce File Size Drastically',
-    metaTitle: 'Compress PDF Online Free - Reduce PDF Size In-Browser | fileMakeO',
+    metaTitle: 'Compress PDF Online Free - Reduce PDF Size In-Browser | fileMakeR',
     metaDescription: 'Reduce PDF file size quickly with Low, Medium, and High compression modes. 100% in-browser, private, and free with live before-and-after size stats.',
     canonicalUrl: `${SITE_URL}/compress-pdf`,
     overviewHeading: 'Smart Client-Side PDF Size Reduction',
-    overviewText: 'Oversized PDF files can cause failed email deliveries, rejected job portal submissions, and sluggish downloads. fileMakeO offers a powerful client-side compression engine that optimizes document streams and image assets right inside your browser. With three customizable compression tiers (Low, Medium, and High), you can choose the optimal balance between razor-sharp vector clarity and maximum byte reduction. High compression renders high-density scans onto efficient JPEG canvases to conquer stringent upload caps. Best of all, you receive real-time before-and-after size statistics and percentage savings without sending your file to any server.',
+    overviewText: 'Oversized PDF files can cause failed email deliveries, rejected job portal submissions, and sluggish downloads. fileMakeR offers a powerful client-side compression engine that optimizes document streams and image assets right inside your browser. With three customizable compression tiers (Low, Medium, and High), you can choose the optimal balance between razor-sharp vector clarity and maximum byte reduction. High compression renders high-density scans onto efficient JPEG canvases to conquer stringent upload caps. Best of all, you receive real-time before-and-after size statistics and percentage savings without sending your file to any server.',
     keyFeatures: [
       'Three tailored compression levels: Low (maximum clarity), Medium (balanced), and High (maximum compression).',
       'Real-time byte metrics: See exact original size, compressed size, and percentage reduction.',
@@ -316,20 +316,21 @@ export const TOOLS_SEO_DATA: Record<string, ToolSeoData> = {
 
   'image-to-pdf': {
     id: 'image-to-pdf',
-    slug: '/image-to-pdf',
-    name: 'JPG/PNG to PDF',
+    slug: '/create-pdf-from-images',
+    name: 'Create PDF from Images',
     category: 'pdf',
-    h1: 'Convert JPG and PNG to PDF - Fast In-Browser Converter',
-    metaTitle: 'Convert JPG & PNG to PDF Online Free - Custom Margins & Sizes | fileMakeO',
-    metaDescription: 'Convert photos, scans, JPG, PNG, and WebP images into clean PDF documents. Choose page orientation, margins, and standard paper sizes (A4, Letter, Fit).',
-    canonicalUrl: `${SITE_URL}/image-to-pdf`,
-    overviewHeading: 'Turn Photos & Scans into Professional PDFs',
-    overviewText: 'Converting photos, scanned documents, receipts, certificates, and ID cards into PDF format is essential for official submissions. fileMakeO transforms JPG, PNG, and WebP graphics into clean, standardized PDF documents directly in your web browser. You can arrange multiple images into your desired page sequence, configure standard paper formats such as ISO A4 or US Letter, apply margins, and set orientation. Because all processing occurs on device, your personal photos and sensitive documents remain 100% confidential.',
+    h1: 'Create PDF from Images - Fast In-Browser Converter',
+    metaTitle: 'Create PDF from Images Online Free - Custom Margins, Rotation & Sizes | fileMakeR',
+    metaDescription: 'Create a clean PDF from JPG, PNG, and WebP images. Rotate photos, reorder pages, select standard paper sizes (A4, Letter, A3, Legal, Fit), and add page numbers.',
+    canonicalUrl: `${SITE_URL}/create-pdf-from-images`,
+    overviewHeading: 'Turn Photos, Scans & Graphics into Clean PDFs',
+    overviewText: 'Converting photos, scanned documents, receipts, certificates, and ID cards into PDF format is essential for official submissions and archival. fileMakeR transforms JPG, PNG, and WebP graphics into clean, standardized PDF documents directly in your web browser. You can arrange multiple images into your desired page sequence, rotate sideways camera photos, configure standard paper formats (A4, Letter, A3, Legal, or Fit), apply margins, and stamp page numbers. Because all processing occurs on device, your personal photos and sensitive documents remain 100% confidential.',
     keyFeatures: [
-      'Multi-image batch conversion: Combine dozens of photos into a single multi-page PDF document.',
-      'Standard paper formats: Support for ISO A4, US Letter, and Fit-to-Image dimensions.',
-      'Custom margin settings: Choose between no margin, compact margins, or standard document borders.',
-      'Orientation control: Set Portrait, Landscape, or Auto-detect orientation per image.',
+      'Multi-image batch creation: Combine dozens of photos into a single multi-page PDF document.',
+      'Per-image rotation: Easily rotate sideways or upside-down camera photos 90° or 180° clockwise.',
+      'Standard paper formats: Support for ISO A4, US Letter, A3, US Legal, and Fit-to-Image dimensions.',
+      'Custom margin settings: Choose between border-to-border, compact, standard, or generous margins.',
+      'Page numbering: Automatically stamp clean page numbers ("Page X of Y") at the bottom.',
       '100% client-side privacy: Zero cloud uploads for personal IDs, receipts, and family photos.',
     ],
     howToSteps: [
@@ -356,7 +357,7 @@ export const TOOLS_SEO_DATA: Record<string, ToolSeoData> = {
       },
       {
         question: 'What standard paper sizes are supported?',
-        answer: 'fileMakeO supports standard ISO A4, US Letter, and Fit-to-Image (where each page adapts to the native dimensions of the photo without borders).',
+        answer: 'fileMakeR supports standard ISO A4, US Letter, and Fit-to-Image (where each page adapts to the native dimensions of the photo without borders).',
       },
       {
         question: 'Can I adjust page orientation between portrait and landscape?',
@@ -376,11 +377,11 @@ export const TOOLS_SEO_DATA: Record<string, ToolSeoData> = {
     name: 'PDF to JPG/PNG',
     category: 'pdf',
     h1: 'Convert PDF to JPG and PNG Images - High-Resolution Export',
-    metaTitle: 'Convert PDF to JPG & PNG Online Free - High Quality Export | fileMakeO',
+    metaTitle: 'Convert PDF to JPG & PNG Online Free - High Quality Export | fileMakeR',
     metaDescription: 'Extract and convert PDF pages into high-resolution JPG or PNG images. 100% private client-side conversion. Download pages individually or as a ZIP.',
     canonicalUrl: `${SITE_URL}/pdf-to-image`,
     overviewHeading: 'High-Resolution PDF Page to Image Conversion',
-    overviewText: 'Need to extract illustrations from a PDF or convert presentation slides into shareable image files? fileMakeO renders each page of your PDF into crisp, high-resolution JPG or PNG graphics directly inside your browser. Powered by Mozilla PDF.js, our tool respects original vector graphics, font kerning, and color profiles. You can preview all rendered pages in real time, download individual page images, or download all pages bundled in a single organized ZIP archive. Enjoy fast, private image extraction without third-party server exposure.',
+    overviewText: 'Need to extract illustrations from a PDF or convert presentation slides into shareable image files? fileMakeR renders each page of your PDF into crisp, high-resolution JPG or PNG graphics directly inside your browser. Powered by Mozilla PDF.js, our tool respects original vector graphics, font kerning, and color profiles. You can preview all rendered pages in real time, download individual page images, or download all pages bundled in a single organized ZIP archive. Enjoy fast, private image extraction without third-party server exposure.',
     keyFeatures: [
       'Dual format output: Export as high-efficiency JPEG or lossless PNG images.',
       'High DPI resolution: Scale multipliers ensure crisp text and sharp graphical rendering.',
@@ -423,7 +424,7 @@ export const TOOLS_SEO_DATA: Record<string, ToolSeoData> = {
         answer: 'No plugins or software required. It runs natively using Mozilla PDF.js inside Google Chrome, Mozilla Firefox, Apple Safari, and Microsoft Edge.',
       },
     ],
-    relatedToolSlugs: ['/image-to-pdf', '/split-pdf', '/compress-pdf', '/convert-image'],
+    relatedToolSlugs: ['/create-pdf-from-images', '/split-pdf', '/compress-pdf', '/convert-image'],
   },
 
   'add-page-numbers': {
@@ -432,11 +433,11 @@ export const TOOLS_SEO_DATA: Record<string, ToolSeoData> = {
     name: 'Add Page Numbers',
     category: 'pdf',
     h1: 'Add Page Numbers to PDF Online - Custom Format & Position',
-    metaTitle: 'Add Page Numbers to PDF Free - Custom Position & Format | fileMakeO',
+    metaTitle: 'Add Page Numbers to PDF Free - Custom Position & Format | fileMakeR',
     metaDescription: 'Number pages in PDF documents with custom position, starting number, font sizes, and styles like "Page X of Y". 100% private in-browser utility.',
     canonicalUrl: `${SITE_URL}/add-page-numbers`,
     overviewHeading: 'Professional PDF Pagination & Header/Footer Numbering',
-    overviewText: 'Numbering the pages of academic reports, legal briefs, manuscripts, and corporate proposals is vital for readability and reference. fileMakeO stamps customizable page numbers across your PDF pages directly inside your browser. You can position page numbers in any corner or center position (Bottom-Right, Bottom-Center, Top-Right, etc.), choose formatting styles like "Page 1 of 10" or simple digits, adjust starting page numbers, and pick font sizes. The numbers are rendered losslessly as native vector typography without rasterizing or blurring your existing document contents.',
+    overviewText: 'Numbering the pages of academic reports, legal briefs, manuscripts, and corporate proposals is vital for readability and reference. fileMakeR stamps customizable page numbers across your PDF pages directly inside your browser. You can position page numbers in any corner or center position (Bottom-Right, Bottom-Center, Top-Right, etc.), choose formatting styles like "Page 1 of 10" or simple digits, adjust starting page numbers, and pick font sizes. The numbers are rendered losslessly as native vector typography without rasterizing or blurring your existing document contents.',
     keyFeatures: [
       'Flexible alignment options: Place page numbers across 6 distinct header and footer positions.',
       'Custom numbering formats: Support for simple digits, "Page N", or "Page N of Total".',
@@ -488,11 +489,11 @@ export const TOOLS_SEO_DATA: Record<string, ToolSeoData> = {
     name: 'Add Watermark',
     category: 'pdf',
     h1: 'Add Watermark to PDF Online - Text & Confidential Stamp',
-    metaTitle: 'Add Watermark to PDF Free - Text, Opacity & Rotation | fileMakeO',
+    metaTitle: 'Add Watermark to PDF Free - Text, Opacity & Rotation | fileMakeR',
     metaDescription: 'Stamp customized text watermarks onto PDF pages with opacity, angle, color, and font control. 100% client-side security with zero server uploads.',
     canonicalUrl: `${SITE_URL}/add-watermark`,
     overviewHeading: 'Protect Intellectual Property with Custom Watermarks',
-    overviewText: 'Protecting confidential drafts, trade secrets, sensitive contracts, and copyrighted materials requires prominent document watermarking. fileMakeO stamps custom text watermarks—such as "CONFIDENTIAL", "DO NOT COPY", "DRAFT", or your company brand—across every page of your PDF file directly in your browser. With fine-grained control over rotation angle (e.g. diagonal 45°), opacity transparency, font size, and color, you can make your ownership unmistakable while preserving full legibility of the underlying text. Everything executes privately in device RAM.',
+    overviewText: 'Protecting confidential drafts, trade secrets, sensitive contracts, and copyrighted materials requires prominent document watermarking. fileMakeR stamps custom text watermarks—such as "CONFIDENTIAL", "DO NOT COPY", "DRAFT", or your company brand—across every page of your PDF file directly in your browser. With fine-grained control over rotation angle (e.g. diagonal 45°), opacity transparency, font size, and color, you can make your ownership unmistakable while preserving full legibility of the underlying text. Everything executes privately in device RAM.',
     keyFeatures: [
       'Complete typography control: Custom text, font size, and color palette customization.',
       'Adjustable transparency: Set opacity from 10% to 100% to balance visibility and legibility.',
@@ -544,11 +545,11 @@ export const TOOLS_SEO_DATA: Record<string, ToolSeoData> = {
     name: 'Remove Pages',
     category: 'pdf',
     h1: 'Remove Pages from PDF Online - Delete Unwanted Sheets',
-    metaTitle: 'Remove Pages from PDF Free - Delete Unwanted Sheets Privately | fileMakeO',
+    metaTitle: 'Remove Pages from PDF Free - Delete Unwanted Sheets Privately | fileMakeR',
     metaDescription: 'Quickly delete unwanted, duplicate, or blank pages from your PDF file. Click thumbnail previews to remove pages with zero uploads and 100% privacy.',
     canonicalUrl: `${SITE_URL}/remove-pages`,
     overviewHeading: 'Strip Unneeded Sheets & Shrink Your PDF',
-    overviewText: 'Documents often accumulate unnecessary cover sheets, blank pages, duplicate scans, or confidential appendixes that should not be shared. fileMakeO makes removing unwanted pages from your PDF document effortless and visual. By rendering interactive thumbnail previews for each page using browser-side PDF.js, you can click directly on unwanted pages to mark them for removal, or type specific page numbers into the input box. Our client-side engine strips out the unwanted page streams and produces a clean, trimmed PDF in seconds without any cloud transmission.',
+    overviewText: 'Documents often accumulate unnecessary cover sheets, blank pages, duplicate scans, or confidential appendixes that should not be shared. fileMakeR makes removing unwanted pages from your PDF document effortless and visual. By rendering interactive thumbnail previews for each page using browser-side PDF.js, you can click directly on unwanted pages to mark them for removal, or type specific page numbers into the input box. Our client-side engine strips out the unwanted page streams and produces a clean, trimmed PDF in seconds without any cloud transmission.',
     keyFeatures: [
       'Visual thumbnail selection: Click individual page cards to mark them for instant removal.',
       'Multi-range page removal: Enter comma-separated ranges (e.g. "2, 4-6, 11") for fast batch deletion.',
@@ -600,11 +601,11 @@ export const TOOLS_SEO_DATA: Record<string, ToolSeoData> = {
     name: 'PDF N-Up (Multiple Pages Per Sheet)',
     category: 'pdf',
     h1: 'PDF N-Up - Multiple Pages Per Sheet for Printing',
-    metaTitle: 'PDF N-Up: Multiple Pages Per Sheet Free | fileMakeO',
+    metaTitle: 'PDF N-Up: Multiple Pages Per Sheet Free | fileMakeR',
     metaDescription: 'Print multiple PDF pages on one sheet (2, 4, 6, 8, 9-up). 100% in-browser, sharp vector rendering, custom margins & orientation with zero file uploads.',
     canonicalUrl: `${SITE_URL}/pdf-n-up`,
     overviewHeading: 'Print Multiple PDF Pages on a Single Sheet with Zero Quality Loss',
-    overviewText: 'Printing multi-page PDF documents often wastes paper, ink, and binder space. PDF N-Up—arranging 2, 4, 6, 8, or 9 pages onto a single printed sheet—is the industry-standard solution for printing lecture slides, handouts, pocket reference guides, and proofing drafts. fileMakeO brings true in-browser N-Up imposition directly to your device. Powered by client-side pdf-lib embedding without rasterization, your original typography, vector diagrams, and form lines remain 100% razor-sharp at any scale. Each page is independently scaled proportionally to fit its grid cell perfectly with zero distortion and zero edge clipping. With flexible support for standard paper sizes (ISO A4, A3, US Letter, US Legal), custom margins, cell gaps, optional page borders, and orientation controls, you can craft production-grade print layouts in seconds while keeping your files 100% private in local device RAM.',
+    overviewText: 'Printing multi-page PDF documents often wastes paper, ink, and binder space. PDF N-Up—arranging 2, 4, 6, 8, or 9 pages onto a single printed sheet—is the industry-standard solution for printing lecture slides, handouts, pocket reference guides, and proofing drafts. fileMakeR brings true in-browser N-Up imposition directly to your device. Powered by client-side pdf-lib embedding without rasterization, your original typography, vector diagrams, and form lines remain 100% razor-sharp at any scale. Each page is independently scaled proportionally to fit its grid cell perfectly with zero distortion and zero edge clipping. With flexible support for standard paper sizes (ISO A4, A3, US Letter, US Legal), custom margins, cell gaps, optional page borders, and orientation controls, you can craft production-grade print layouts in seconds while keeping your files 100% private in local device RAM.',
     keyFeatures: [
       'Pure vector embedding: Uses pdf-lib drawPage so text and vector graphics stay crisp with zero rasterization.',
       'Proportional fit & centering: Pages are never stretched or cropped; mixed orientations and sizes scale independently.',
@@ -636,7 +637,7 @@ export const TOOLS_SEO_DATA: Record<string, ToolSeoData> = {
       },
       {
         question: 'Does this tool rasterize or blur text when scaling down pages?',
-        answer: 'No. Unlike basic image-based converters that turn pages into low-resolution JPEGs, fileMakeO embeds pages as native vector XObjects using pdf-lib. All fonts, line art, mathematical formulas, and vector curves remain completely scalable and print at the maximum resolution of your printer.',
+        answer: 'No. Unlike basic image-based converters that turn pages into low-resolution JPEGs, fileMakeR embeds pages as native vector XObjects using pdf-lib. All fonts, line art, mathematical formulas, and vector curves remain completely scalable and print at the maximum resolution of your printer.',
       },
       {
         question: 'How does N-Up handle odd page counts or single-page documents?',
@@ -648,7 +649,7 @@ export const TOOLS_SEO_DATA: Record<string, ToolSeoData> = {
       },
       {
         question: 'Are my confidential documents uploaded to any remote server?',
-        answer: 'Never. fileMakeO is built strictly with zero-upload privacy architecture. All page embedding, matrix transformations, and sheet rendering execute locally inside your web browser. No external server ever receives or views your PDF files.',
+        answer: 'Never. fileMakeR is built strictly with zero-upload privacy architecture. All page embedding, matrix transformations, and sheet rendering execute locally inside your web browser. No external server ever receives or views your PDF files.',
       },
     ],
     relatedToolSlugs: ['/merge-pdf', '/split-pdf', '/compress-pdf', '/organize-pdf'],
@@ -660,11 +661,11 @@ export const TOOLS_SEO_DATA: Record<string, ToolSeoData> = {
     name: 'Compress Image',
     category: 'image',
     h1: 'Compress Image Online - Reduce JPG, PNG & WebP File Size',
-    metaTitle: 'Compress Image Online Free - Reduce KB Size with Target Mode | fileMakeO',
+    metaTitle: 'Compress Image Online Free - Reduce KB Size with Target Mode | fileMakeR',
     metaDescription: 'Compress JPG, PNG, and WebP images online with real-time quality slider and Target Size mode (<50KB, <100KB, <200KB) for government exam forms.',
     canonicalUrl: `${SITE_URL}/compress-image`,
     overviewHeading: 'Intelligent In-Browser Image Compression with Target Size Mode',
-    overviewText: 'Whether preparing photos for website performance or uploading profile images to strict government recruitment portals, optimizing image file size is essential. fileMakeO provides a state-of-the-art client-side image compression utility supporting JPG, PNG, and modern WebP formats. In addition to a fine-tuned visual quality slider, fileMakeO features an automated "Target Size" mode (e.g. Under 50 KB, Under 100 KB, or Under 200 KB). This runs a client-side binary search on encoding parameters to guarantee your image satisfies portal limits (such as SSC, UPSC, and passport portals) without trial and error. All compression occurs via HTML5 Canvas in local memory.',
+    overviewText: 'Whether preparing photos for website performance or uploading profile images to strict government recruitment portals, optimizing image file size is essential. fileMakeR provides a state-of-the-art client-side image compression utility supporting JPG, PNG, and modern WebP formats. In addition to a fine-tuned visual quality slider, fileMakeR features an automated "Target Size" mode (e.g. Under 50 KB, Under 100 KB, or Under 200 KB). This runs a client-side binary search on encoding parameters to guarantee your image satisfies portal limits (such as SSC, UPSC, and passport portals) without trial and error. All compression occurs via HTML5 Canvas in local memory.',
     keyFeatures: [
       'Automated Target Size Mode: Instantly compress photos to strictly under 50KB, 100KB, or 200KB.',
       'Supports JPG, PNG & WebP: Compress modern formats with full transparency handling.',
@@ -707,7 +708,7 @@ export const TOOLS_SEO_DATA: Record<string, ToolSeoData> = {
         answer: 'Yes. You can preserve transparency with WebP or PNG compression, or choose to fill transparent pixels with clean white background for JPEG exports.',
       },
     ],
-    relatedToolSlugs: ['/resize-image', '/convert-image', '/crop-image', '/image-to-pdf'],
+    relatedToolSlugs: ['/resize-image', '/convert-image', '/crop-image', '/create-pdf-from-images'],
   },
 
   'resize-image': {
@@ -716,11 +717,11 @@ export const TOOLS_SEO_DATA: Record<string, ToolSeoData> = {
     name: 'Resize Image',
     category: 'image',
     h1: 'Resize Image Online - Pixels, Percentages & Government Presets',
-    metaTitle: 'Resize Image Online Free - Dimensions, Percentages & Form Presets | fileMakeO',
+    metaTitle: 'Resize Image Online Free - Dimensions, Percentages & Form Presets | fileMakeR',
     metaDescription: 'Change image dimensions in pixels or percentage with aspect ratio lock. Built-in presets for Passport photos, Signatures, SSC, and UPSC applications.',
     canonicalUrl: `${SITE_URL}/resize-image`,
     overviewHeading: 'Precise Image Resizing with Official Portal Presets',
-    overviewText: 'Government recruitment tests, passport applications, and social media platforms require strict image dimensions. fileMakeO offers an in-browser image resizer that adjusts pixel dimensions, percentages, and standard biometric formats with zero quality distortion. Use the aspect ratio lock to scale photos proportionally, or enter exact custom width and height. Built-in presets for Indian Passport Photos (3.5x4.5cm / 413x531 px), official exam signature scans (140x60 px / 200x60 px), and popular web dimensions let you prepare compliant files in one click without complicated graphic editing software.',
+    overviewText: 'Government recruitment tests, passport applications, and social media platforms require strict image dimensions. fileMakeR offers an in-browser image resizer that adjusts pixel dimensions, percentages, and standard biometric formats with zero quality distortion. Use the aspect ratio lock to scale photos proportionally, or enter exact custom width and height. Built-in presets for Indian Passport Photos (3.5x4.5cm / 413x531 px), official exam signature scans (140x60 px / 200x60 px), and popular web dimensions let you prepare compliant files in one click without complicated graphic editing software.',
     keyFeatures: [
       'Proportional aspect ratio lock: Resize width or height without distorting image proportions.',
       'Official form presets: Built-in specifications for Passport, Signature, SSC, and UPSC portals.',
@@ -763,7 +764,7 @@ export const TOOLS_SEO_DATA: Record<string, ToolSeoData> = {
         answer: 'Yes. All resampling is performed using your computer\'s GPU hardware acceleration through the browser\'s HTML5 Canvas 2D engine.',
       },
     ],
-    relatedToolSlugs: ['/compress-image', '/crop-image', '/convert-image', '/image-to-pdf'],
+    relatedToolSlugs: ['/compress-image', '/crop-image', '/convert-image', '/create-pdf-from-images'],
   },
 
   'convert-image': {
@@ -772,11 +773,11 @@ export const TOOLS_SEO_DATA: Record<string, ToolSeoData> = {
     name: 'Convert Image',
     category: 'image',
     h1: 'Convert Image Online - JPG, PNG & WebP Format Converter',
-    metaTitle: 'Convert Image Online Free - JPG, PNG & WebP Converter | fileMakeO',
+    metaTitle: 'Convert Image Online Free - JPG, PNG & WebP Converter | fileMakeR',
     metaDescription: 'Batch convert images between JPG, PNG, and modern WebP formats in seconds. 100% free client-side image conversion with zero quality loss and no limits.',
     canonicalUrl: `${SITE_URL}/convert-image`,
     overviewHeading: 'Fast In-Browser Format Conversion for Photos & Graphics',
-    overviewText: 'Different applications demand different image formats: WebP for cutting-edge web performance, PNG for transparent logos and vector charts, and JPEG for universal compatibility. fileMakeO enables batch image conversion between JPG, PNG, and WebP directly within your browser. When converting transparent PNG files into JPEG, our engine intelligently composites transparent pixels against a clean white background. You can convert multiple images simultaneously, adjust quality parameters, and download all files individually or packaged in an organized ZIP archive.',
+    overviewText: 'Different applications demand different image formats: WebP for cutting-edge web performance, PNG for transparent logos and vector charts, and JPEG for universal compatibility. fileMakeR enables batch image conversion between JPG, PNG, and WebP directly within your browser. When converting transparent PNG files into JPEG, our engine intelligently composites transparent pixels against a clean white background. You can convert multiple images simultaneously, adjust quality parameters, and download all files individually or packaged in an organized ZIP archive.',
     keyFeatures: [
       'Multi-format support: Seamless conversion between JPG, PNG, and modern WebP.',
       'Batch conversion: Convert dozens of photos simultaneously with single-click ZIP download.',
@@ -816,10 +817,10 @@ export const TOOLS_SEO_DATA: Record<string, ToolSeoData> = {
       },
       {
         question: 'Is there any charge or subscription required to convert images?',
-        answer: 'No. fileMakeO is 100% free with no hidden fees, subscriptions, or daily conversion limits.',
+        answer: 'No. fileMakeR is 100% free with no hidden fees, subscriptions, or daily conversion limits.',
       },
     ],
-    relatedToolSlugs: ['/compress-image', '/resize-image', '/crop-image', '/image-to-pdf'],
+    relatedToolSlugs: ['/compress-image', '/resize-image', '/crop-image', '/create-pdf-from-images'],
   },
 
   'crop-image': {
@@ -828,11 +829,11 @@ export const TOOLS_SEO_DATA: Record<string, ToolSeoData> = {
     name: 'Crop Image',
     category: 'image',
     h1: 'Crop Image Online - Interactive Bounding Box & Presets',
-    metaTitle: 'Crop Image Online Free - Custom Aspect Ratios & Passport Crop | fileMakeO',
+    metaTitle: 'Crop Image Online Free - Custom Aspect Ratios & Passport Crop | fileMakeR',
     metaDescription: 'Crop photos online with an interactive visual crop box and aspect ratio presets (1:1 Square, 4:3, 16:9, Passport 3:4). Zero uploads, 100% in-browser.',
     canonicalUrl: `${SITE_URL}/crop-image`,
     overviewHeading: 'Visual In-Browser Photo Cropping with Aspect Presets',
-    overviewText: 'Trimming unwanted margins, removing photobombers, or framing a portrait for an official document should not require heavy photo editing software. fileMakeO offers an interactive in-browser image crop tool with real-time canvas preview. Adjust the bounding crop frame freely or lock into popular aspect ratio presets such as 1:1 Square (Instagram / profile avatars), 4:3, 16:9 (widescreen), and 3:4 / 3.5:4.5 (official passport headshots). The cropped region is extracted at full native camera resolution without artificial downsampling or compression artifacts.',
+    overviewText: 'Trimming unwanted margins, removing photobombers, or framing a portrait for an official document should not require heavy photo editing software. fileMakeR offers an interactive in-browser image crop tool with real-time canvas preview. Adjust the bounding crop frame freely or lock into popular aspect ratio presets such as 1:1 Square (Instagram / profile avatars), 4:3, 16:9 (widescreen), and 3:4 / 3.5:4.5 (official passport headshots). The cropped region is extracted at full native camera resolution without artificial downsampling or compression artifacts.',
     keyFeatures: [
       'Interactive crop handles: Freely adjust bounding crop rectangles with real-time visual feedback.',
       'Aspect ratio presets: Instant locking to Square 1:1, 4:3, 16:9, and Passport 3:4 / 3.5:4.5 ratios.',
@@ -875,6 +876,6 @@ export const TOOLS_SEO_DATA: Record<string, ToolSeoData> = {
         answer: 'Yes. The canvas respects orientation metadata, ensuring your cropped picture is oriented upright across all devices.',
       },
     ],
-    relatedToolSlugs: ['/resize-image', '/compress-image', '/convert-image', '/image-to-pdf'],
+    relatedToolSlugs: ['/resize-image', '/compress-image', '/convert-image', '/create-pdf-from-images'],
   },
 };

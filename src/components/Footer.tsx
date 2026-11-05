@@ -37,7 +37,7 @@ export const Footer: React.FC = () => {
               No signup. No uploads. 100% Free.
             </p>
             <p className="text-sm text-slate-600 dark:text-slate-300 max-w-xl mx-auto">
-              fileMakeO runs completely in your web browser. Your private PDFs and sensitive photos never touch any server or cloud storage.
+              fileMakeR runs completely in your web browser. Your private PDFs and sensitive photos never touch any server or cloud storage.
             </p>
           </div>
         </div>
@@ -134,7 +134,7 @@ export const Footer: React.FC = () => {
                     to="/about"
                     className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                   >
-                    About fileMakeO
+                    About fileMakeR
                   </Link>
                 </li>
                 <li>
@@ -170,7 +170,7 @@ export const Footer: React.FC = () => {
 
           {/* Bottom copyright line with hidden/discreet matrix button */}
           <div className="mt-12 pt-6 border-t border-slate-200/80 dark:border-slate-800 text-center flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600 dark:text-slate-300">
-            <p>&copy; {new Date().getFullYear()} fileMakeO. Designed &amp; Developed by <strong className="text-slate-900 dark:text-slate-100 font-bold">Parth Prajapati</strong>.</p>
+            <p>&copy; {new Date().getFullYear()} fileMakeR. Designed &amp; Developed by <strong className="text-slate-900 dark:text-slate-100 font-bold">Parth Prajapati</strong>.</p>
             
             <div className="flex items-center gap-3">
               <span className="text-[11px] text-slate-600 dark:text-slate-400 font-medium">

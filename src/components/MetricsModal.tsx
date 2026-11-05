@@ -69,7 +69,7 @@ export const MetricsModal: React.FC<MetricsModalProps> = ({ isOpen, onClose }) =
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="font-bold text-slate-900 dark:text-slate-100 text-base">
-                  fileMakeO App Metrics &amp; Analytics
+                  fileMakeR App Metrics &amp; Analytics
                 </h3>
                 <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400 font-semibold">
                   Developer Portal
@@ -218,7 +218,7 @@ export const MetricsModal: React.FC<MetricsModalProps> = ({ isOpen, onClose }) =
         {/* Footer with Downloads */}
         <div className="p-5 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/60 flex flex-col sm:flex-row items-center justify-between gap-3">
           <span className="text-xs text-slate-400 font-mono">
-            fileMakeO Owner Matrix v2.1
+            fileMakeR Owner Matrix v2.1
           </span>
 
           <div className="flex items-center gap-2 w-full sm:w-auto">

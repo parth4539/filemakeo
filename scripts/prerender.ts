@@ -33,7 +33,7 @@ function generateToolHtml(seo: ToolSeoData, baseHtml: string): string {
   const webAppSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
-    name: `${seo.name} - fileMakeO`,
+    name: `${seo.name} - fileMakeR`,
     url: seo.canonicalUrl,
     description: seo.metaDescription,
     applicationCategory: 'UtilitiesApplication',
@@ -69,7 +69,7 @@ function generateToolHtml(seo: ToolSeoData, baseHtml: string): string {
     <div class="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
       <header class="sticky top-0 z-40 w-full backdrop-blur-md bg-white/80 dark:bg-slate-950/80 border-b border-slate-200/80 dark:border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <a href="/" class="font-extrabold text-lg text-slate-900 dark:text-slate-100">fileMakeO</a>
+          <a href="/" class="font-extrabold text-lg text-slate-900 dark:text-slate-100">fileMakeR</a>
           <nav class="flex items-center gap-4 text-sm font-medium text-slate-600 dark:text-slate-300">
             <a href="/?category=pdf#pdf-tools">PDF Tools</a>
             <a href="/?category=image#image-tools">Image Tools</a>
@@ -165,7 +165,7 @@ function generateToolHtml(seo: ToolSeoData, baseHtml: string): string {
       </main>
 
       <footer class="mt-20 border-t border-slate-200 dark:border-slate-800 py-8 text-center text-xs text-slate-600 dark:text-slate-300">
-        <p>&copy; ${new Date().getFullYear()} fileMakeO. Designed &amp; Developed by Parth Prajapati. 100% In-Browser &amp; Zero-Upload.</p>
+        <p>&copy; ${new Date().getFullYear()} fileMakeR. Designed &amp; Developed by Parth Prajapati. 100% In-Browser &amp; Zero-Upload.</p>
       </footer>
     </div>
   `;
@@ -186,7 +186,7 @@ function generateToolHtml(seo: ToolSeoData, baseHtml: string): string {
     <meta property="og:description" content="${seo.metaDescription}" />
     <meta property="og:url" content="${seo.canonicalUrl}" />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="fileMakeO" />
+    <meta property="og:site_name" content="fileMakeR" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${seo.metaTitle}" />
     <meta name="twitter:description" content="${seo.metaDescription}" />
@@ -218,17 +218,28 @@ function generateStaticPages() {
 
   console.log('🚀 Pre-rendering static SEO HTML pages for all tools and routes...');
 
-  // 1. Generate pages for all 14 tools
+  // 1. Generate pages for all 15 tools
   for (const [toolId, seo] of Object.entries(TOOLS_SEO_DATA)) {
-    const routeDir = path.join(distDir, toolId);
-    if (!fs.existsSync(routeDir)) {
-      fs.mkdirSync(routeDir, { recursive: true });
-    }
-
+    const cleanSlug = seo.slug.replace(/^\//, '');
     const toolHtml = generateToolHtml(seo, baseHtml);
-    const destPath = path.join(routeDir, 'index.html');
-    fs.writeFileSync(destPath, toolHtml, 'utf-8');
-    console.log(`  ✓ Generated static HTML for: ${seo.slug} -> ${destPath}`);
+
+    // Primary route directory
+    const primaryDir = path.join(distDir, cleanSlug);
+    if (!fs.existsSync(primaryDir)) {
+      fs.mkdirSync(primaryDir, { recursive: true });
+    }
+    fs.writeFileSync(path.join(primaryDir, 'index.html'), toolHtml, 'utf-8');
+    console.log(`  ✓ Generated static HTML for: ${seo.slug} -> ${primaryDir}`);
+
+    // If toolId differs from slug (e.g. image-to-pdf vs create-pdf-from-images), alias it too
+    if (toolId !== cleanSlug) {
+      const aliasDir = path.join(distDir, toolId);
+      if (!fs.existsSync(aliasDir)) {
+        fs.mkdirSync(aliasDir, { recursive: true });
+      }
+      fs.writeFileSync(path.join(aliasDir, 'index.html'), toolHtml, 'utf-8');
+      console.log(`  ✓ Generated alias static HTML for: /${toolId} -> ${aliasDir}`);
+    }
   }
 
   // 2. Generate pages for About, Privacy, Contact
@@ -236,26 +247,26 @@ function generateStaticPages() {
     {
       slug: '/about',
       dir: 'about',
-      title: 'About fileMakeO - Modern In-Browser Document Studio by Parth Prajapati',
-      desc: 'Learn about fileMakeO, a free, 100% in-browser PDF and image toolkit engineered by Parth Prajapati. Discover our zero-upload privacy architecture and open-source foundation.',
-      h1: 'About fileMakeO - In-Browser Document Toolkit',
-      bodyText: 'fileMakeO is an open, client-side document processing suite engineered by Parth Prajapati. Unlike conventional online PDF services that upload your files to remote servers, fileMakeO executes 100% of operations in your device browser RAM using WebAssembly, Mozilla PDF.js, pdf-lib, and HTML5 Canvas. Zero uploads, zero telemetry, zero paywalls.',
+      title: 'About fileMakeR - Modern In-Browser Document Studio by Parth Prajapati',
+      desc: 'Learn about fileMakeR, a free, 100% in-browser PDF and image toolkit engineered by Parth Prajapati. Discover our zero-upload privacy architecture and open-source foundation.',
+      h1: 'About fileMakeR - In-Browser Document Toolkit',
+      bodyText: 'fileMakeR is an open, client-side document processing suite engineered by Parth Prajapati. Unlike conventional online PDF services that upload your files to remote servers, fileMakeR executes 100% of operations in your device browser RAM using WebAssembly, Mozilla PDF.js, pdf-lib, and HTML5 Canvas. Zero uploads, zero telemetry, zero paywalls.',
     },
     {
       slug: '/privacy',
       dir: 'privacy',
-      title: 'Privacy Policy & Architecture - fileMakeO',
-      desc: 'fileMakeO privacy policy: 100% client-side guarantee. Zero server uploads, zero database storage, zero tracking. All files remain in browser RAM.',
+      title: 'Privacy Policy & Architecture - fileMakeR',
+      desc: 'fileMakeR privacy policy: 100% client-side guarantee. Zero server uploads, zero database storage, zero tracking. All files remain in browser RAM.',
       h1: 'Privacy Policy & In-Browser Security Architecture',
-      bodyText: 'Our privacy model is absolute: files processed on fileMakeO never leave your device. We run zero server-side file processing, have no file databases, log no user telemetry, and explicitly revoke object URLs after download. You can verify this anytime by running fileMakeO with your internet disconnected.',
+      bodyText: 'Our privacy model is absolute: files processed on fileMakeR never leave your device. We run zero server-side file processing, have no file databases, log no user telemetry, and explicitly revoke object URLs after download. You can verify this anytime by running fileMakeR with your internet disconnected.',
     },
     {
       slug: '/contact',
       dir: 'contact',
-      title: 'Contact & Support - fileMakeO | Developer Parth Prajapati',
-      desc: 'Contact Parth Prajapati, creator of fileMakeO. Submit bug reports, request new client-side PDF and image features, or get in touch for developer support.',
+      title: 'Contact & Support - fileMakeR | Developer Parth Prajapati',
+      desc: 'Contact Parth Prajapati, creator of fileMakeR. Submit bug reports, request new client-side PDF and image features, or get in touch for developer support.',
       h1: 'Contact Developer & Report Bugs',
-      bodyText: 'Reach out to developer Parth Prajapati for inquiries, feedback, and technical support regarding fileMakeO. Email support@filemakeo.local for direct inquiries.',
+      bodyText: 'Reach out to developer Parth Prajapati for inquiries, feedback, and technical support regarding fileMakeR. Email support@filemakeo.local for direct inquiries.',
     },
   ];
 
@@ -278,7 +289,7 @@ function generateStaticPages() {
       <meta property="og:description" content="${info.desc}" />
       <meta property="og:url" content="${SITE_URL}${info.slug}" />
       <meta property="og:type" content="website" />
-      <meta property="og:site_name" content="fileMakeO" />
+      <meta property="og:site_name" content="fileMakeR" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content="${info.title}" />
       <meta name="twitter:description" content="${info.desc}" />
@@ -390,7 +401,7 @@ function generateStaticPages() {
 
       <!-- Pre-rendered Footer -->
       <footer class="w-full bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 mt-20 py-8 text-center text-xs text-slate-600 dark:text-slate-300">
-        <p>&copy; ${new Date().getFullYear()} fileMakeO. Designed &amp; Developed by <strong class="text-slate-900 dark:text-slate-100 font-bold">Parth Prajapati</strong>. 100% Client-Side Privacy.</p>
+        <p>&copy; ${new Date().getFullYear()} fileMakeR. Designed &amp; Developed by <strong class="text-slate-900 dark:text-slate-100 font-bold">Parth Prajapati</strong>. 100% Client-Side Privacy.</p>
       </footer>
     </div>
   `;

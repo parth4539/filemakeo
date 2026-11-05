@@ -110,7 +110,7 @@ export const HomePage: React.FC = () => {
           </div>
 
           <h1 className="text-4xl sm:text-6xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight leading-[1.15]">
-            file<span className="text-blue-600 dark:text-blue-400">MakeO</span> — Free Tools for{' '}
+            file<span className="text-blue-600 dark:text-blue-400">MakeR</span> — Free Tools for{' '}
             <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 bg-clip-text text-transparent">
               PDFs &amp; Images
             </span>
@@ -253,7 +253,7 @@ export const HomePage: React.FC = () => {
         <AdSlot slotId="ad-slot-home-banner" label="Home Page Banner" />
       </div>
 
-      {/* Why Choose fileMakeO / Architecture Highlights */}
+      {/* Why Choose fileMakeR / Architecture Highlights */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         <div className="rounded-3xl bg-gradient-to-b from-slate-100/80 to-white dark:from-slate-900/80 dark:to-slate-950 border border-slate-200 dark:border-slate-800 p-8 sm:p-12 space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-2">
@@ -261,7 +261,7 @@ export const HomePage: React.FC = () => {
               Engineered with True In-Browser Privacy
             </h2>
             <p className="text-sm text-slate-600 dark:text-slate-300">
-              Unlike cloud services that upload your personal documents to remote servers, fileMakeO executes 100% of the computations on your local device.
+              Unlike cloud services that upload your personal documents to remote servers, fileMakeR executes 100% of the computations on your local device.
             </p>
           </div>
 
@@ -320,19 +320,19 @@ export const HomePage: React.FC = () => {
           {[
             {
               q: 'Are my files uploaded to your servers?',
-              a: 'No. fileMakeO does not possess a backend storage server. All processing is executed directly inside your web browser using HTML5 Canvas, Mozilla PDF.js, and pdf-lib WebAssembly modules.',
+              a: 'No. fileMakeR does not possess a backend storage server. All processing is executed directly inside your web browser using HTML5 Canvas, Mozilla PDF.js, and pdf-lib WebAssembly modules.',
             },
             {
               q: 'How does the "Target Size" image compression work?',
               a: 'Our compression engine uses a client-side binary search algorithm to test encoding parameters, guaranteeing your output photo stays strictly beneath your required quota (e.g. under 50 KB or 100 KB) for government job applications or exam portals.',
             },
             {
-              q: 'Can I use fileMakeO offline?',
+              q: 'Can I use fileMakeR offline?',
               a: 'Yes. Once the web application is loaded in your browser tab, all tools continue working even if you disconnect from the internet.',
             },
             {
               q: 'Is there a file size limit?',
-              a: 'Because files are handled in browser RAM, fileMakeO comfortably handles files up to ~100 MB without freezing, provided your device has standard memory capacity.',
+              a: 'Because files are handled in browser RAM, fileMakeR comfortably handles files up to ~100 MB without freezing, provided your device has standard memory capacity.',
             },
           ].map((faq, idx) => (
             <div

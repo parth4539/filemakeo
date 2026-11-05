@@ -23,7 +23,7 @@ export const DiamondLogoIcon: React.FC<{ size?: number; className?: string }> = 
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
-      aria-label="fileMakeO Diamond Emblem"
+      aria-label="fileMakeR Diamond Emblem"
     >
       <defs>
         {/* Modern multi-facet diamond gradients */}
@@ -106,7 +106,7 @@ export const Logo: React.FC<LogoProps> = ({ size = 'md', showText = true, classN
         <div className="flex flex-col">
           <div className="flex items-center gap-1.5">
             <span className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
-              file<span className="text-blue-600 dark:text-blue-400 font-black">MakeO</span>
+              file<span className="text-blue-600 dark:text-blue-400 font-black">MakeR</span>
             </span>
             <span className="hidden sm:inline-block text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded-md bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-900/40">
               Studio

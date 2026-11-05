@@ -1,0 +1,3 @@
+# Netlify SPA Fallback Redirects
+# Static pre-rendered files in dist/ (e.g. /merge-pdf/index.html) are served first automatically
+/*    /index.html   200

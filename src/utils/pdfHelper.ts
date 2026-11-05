@@ -373,13 +373,26 @@ export async function compressPdf(
 /**
  * Convert Images (JPG, PNG, WebP) to PDF
  */
+export interface ImageToPdfItem {
+  file: File;
+  rotation?: number; // 0, 90, 180, 270 degrees
+}
+
+export interface ImagesToPdfOptions {
+  pageSize: 'A4' | 'Letter' | 'A3' | 'Legal' | 'Fit';
+  margin: number;
+  orientation: 'portrait' | 'landscape' | 'auto';
+  addPageNumbers?: boolean;
+  pageNumberPosition?: 'bottom-center' | 'bottom-right';
+}
+
+/**
+ * Converts an array of image files into a cohesive PDF document with per-image rotation,
+ * configurable page formats (A4, Letter, A3, Legal, Fit), margins, and optional page numbers.
+ */
 export async function imagesToPdf(
-  images: { file: File }[],
-  options: {
-    pageSize: 'A4' | 'Letter' | 'Fit';
-    margin: number;
-    orientation: 'portrait' | 'landscape' | 'auto';
-  },
+  images: ImageToPdfItem[],
+  options: ImagesToPdfOptions,
   onProgress?: (percent: number, msg: string) => void
 ): Promise<Uint8Array> {
   const pdfDoc = await PDFDocument.create();
@@ -389,10 +402,20 @@ export async function imagesToPdf(
   const pageSizes = {
     A4: { width: 595.28, height: 841.89 },
     Letter: { width: 612.0, height: 792.0 },
+    A3: { width: 841.89, height: 1190.55 },
+    Legal: { width: 612.0, height: 1008.0 },
   };
 
+  let font: any = null;
+  if (options.addPageNumbers) {
+    font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+  }
+
   for (let i = 0; i < total; i++) {
-    const { file } = images[i];
+    const item = images[i];
+    const file = item.file;
+    const rotation = ((item.rotation || 0) % 360 + 360) % 360;
+
     if (onProgress) {
       onProgress(Math.round(((i + 1) / total) * 90), `Processing image ${i + 1} of ${total}...`);
     }
@@ -406,16 +429,42 @@ export async function imagesToPdf(
       el.src = objectUrl;
     });
 
+    let embeddedImage: any;
+    let imgWidth: number;
+    let imgHeight: number;
+
     const isJpeg = file.type === 'image/jpeg' || file.name.match(/\.(jpe?g)$/i);
     const isPng = file.type === 'image/png' || file.name.match(/\.png$/i);
 
-    let embeddedImage;
-    if (isJpeg) {
+    if (rotation !== 0) {
+      // Rotate image cleanly using an in-memory canvas
+      const canvas = document.createElement('canvas');
+      const isQuarterTurn = rotation === 90 || rotation === 270;
+      canvas.width = isQuarterTurn ? img.naturalHeight : img.naturalWidth;
+      canvas.height = isQuarterTurn ? img.naturalWidth : img.naturalHeight;
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.translate(canvas.width / 2, canvas.height / 2);
+        ctx.rotate((rotation * Math.PI) / 180);
+        ctx.drawImage(img, -img.naturalWidth / 2, -img.naturalHeight / 2);
+      }
+      const jpegDataUrl = canvas.toDataURL('image/jpeg', 0.95);
+      const bytes = await fetch(jpegDataUrl).then((r) => r.arrayBuffer());
+      embeddedImage = await pdfDoc.embedJpg(bytes);
+      imgWidth = canvas.width;
+      imgHeight = canvas.height;
+      canvas.width = 0;
+      canvas.height = 0;
+    } else if (isJpeg) {
       const bytes = await file.arrayBuffer();
       embeddedImage = await pdfDoc.embedJpg(bytes);
+      imgWidth = img.naturalWidth;
+      imgHeight = img.naturalHeight;
     } else if (isPng) {
       const bytes = await file.arrayBuffer();
       embeddedImage = await pdfDoc.embedPng(bytes);
+      imgWidth = img.naturalWidth;
+      imgHeight = img.naturalHeight;
     } else {
       // For WebP or other formats, convert to PNG via Canvas
       const canvas = document.createElement('canvas');
@@ -426,14 +475,13 @@ export async function imagesToPdf(
       const pngDataUrl = canvas.toDataURL('image/png');
       const pngBytes = await fetch(pngDataUrl).then((r) => r.arrayBuffer());
       embeddedImage = await pdfDoc.embedPng(pngBytes);
+      imgWidth = canvas.width;
+      imgHeight = canvas.height;
       canvas.width = 0;
       canvas.height = 0;
     }
 
     URL.revokeObjectURL(objectUrl);
-
-    const imgWidth = img.naturalWidth;
-    const imgHeight = img.naturalHeight;
 
     let targetPageWidth: number;
     let targetPageHeight: number;
@@ -457,8 +505,9 @@ export async function imagesToPdf(
     const page = pdfDoc.addPage([targetPageWidth, targetPageHeight]);
 
     // Available area inside margins
+    const bottomReserve = options.addPageNumbers ? Math.max(options.margin, 20) : options.margin;
     const availWidth = Math.max(1, targetPageWidth - options.margin * 2);
-    const availHeight = Math.max(1, targetPageHeight - options.margin * 2);
+    const availHeight = Math.max(1, targetPageHeight - options.margin - bottomReserve);
 
     // Calculate scale to fit image within available area preserving aspect ratio
     const scale = Math.min(availWidth / imgWidth, availHeight / imgHeight);
@@ -467,7 +516,7 @@ export async function imagesToPdf(
 
     // Center image on the page
     const drawX = options.margin + (availWidth - drawWidth) / 2;
-    const drawY = options.margin + (availHeight - drawHeight) / 2;
+    const drawY = bottomReserve + (availHeight - drawHeight) / 2;
 
     page.drawImage(embeddedImage, {
       x: drawX,
@@ -475,6 +524,25 @@ export async function imagesToPdf(
       width: drawWidth,
       height: drawHeight,
     });
+
+    // Add optional page number
+    if (options.addPageNumbers && font) {
+      const pageText = `Page ${i + 1} of ${total}`;
+      const textSize = 9;
+      const textWidth = font.widthOfTextAtSize(pageText, textSize);
+      let textX = (targetPageWidth - textWidth) / 2;
+      if (options.pageNumberPosition === 'bottom-right') {
+        textX = targetPageWidth - textWidth - Math.max(options.margin, 24);
+      }
+      const textY = Math.max(10, Math.min(bottomReserve - 10, 16));
+      page.drawText(pageText, {
+        x: textX,
+        y: textY,
+        size: textSize,
+        font,
+        color: rgb(0.38, 0.42, 0.48),
+      });
+    }
   }
 
   return await pdfDoc.save();

@@ -120,7 +120,7 @@ app.get('/api/metrics/summary', (_req, res) => {
   res.json({
     ...globalMetrics,
     currentOnlineUsers: Math.max(1, online),
-    appName: 'fileMakeO',
+    appName: 'fileMakeR',
     developer: 'Parth Prajapati',
   });
 });
@@ -146,7 +146,7 @@ async function startServer() {
   }
 
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`🚀 fileMakeO server running on http://0.0.0.0:${PORT} (${isProd ? 'production' : 'development'})`);
+    console.log(`🚀 fileMakeR server running on http://0.0.0.0:${PORT} (${isProd ? 'production' : 'development'})`);
   });
 }
 
