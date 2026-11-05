@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e1b4b" />
+    </linearGradient>
+    <linearGradient id="favFacetTop" x1="24" y1="4" x2="24" y2="18" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#2563eb" />
+    </linearGradient>
+    <linearGradient id="favFacetLeft" x1="6" y1="18" x2="24" y2="44" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1d4ed8" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+    <linearGradient id="favFacetRight" x1="42" y1="18" x2="24" y2="44" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#4f46e5" />
+      <stop offset="100%" stop-color="#9333ea" />
+    </linearGradient>
+    <linearGradient id="favSparkle" x1="24" y1="14" x2="24" y2="22" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#bae6fd" stop-opacity="0.4" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background squircle for high contrast in light & dark browser tabs -->
+  <rect width="64" height="64" rx="16" fill="url(#bgGrad)" stroke="#3b82f6" stroke-width="2" stroke-opacity="0.6" />
+
+  <!-- Multi-faceted Diamond Emblem centered at (8, 8) -->
+  <g transform="translate(8, 8)">
+    <!-- Top Table Facet -->
+    <polygon points="15,5 33,5 29,17 19,17" fill="url(#favFacetTop)" />
+
+    <!-- Top Left Crown Facet -->
+    <polygon points="6,17 15,5 19,17" fill="#60a5fa" />
+
+    <!-- Top Right Crown Facet -->
+    <polygon points="33,5 42,17 29,17" fill="#a78bfa" />
+
+    <!-- Central Upper Triangle -->
+    <polygon points="19,17 29,17 24,25" fill="url(#favSparkle)" />
+
+    <!-- Lower Left Pavilion -->
+    <polygon points="6,17 19,17 24,25 24,44" fill="url(#favFacetLeft)" />
+
+    <!-- Lower Right Pavilion -->
+    <polygon points="42,17 29,17 24,25 24,44" fill="url(#favFacetRight)" />
+
+    <!-- Center Refraction Spire -->
+    <polygon points="24,25 19,17 24,14 29,17" fill="#e0f2fe" opacity="0.95" />
+
+    <!-- Highlight Facet Edge Strokes -->
+    <polyline
+      points="15,5 19,17 24,44 29,17 33,5"
+      stroke="#ffffff"
+      stroke-width="1.3"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-opacity="0.6"
+    />
+    <line
+      x1="6"
+      y1="17"
+      x2="42"
+      y2="17"
+      stroke="#ffffff"
+      stroke-width="1.3"
+      stroke-opacity="0.5"
+    />
+  </g>
+</svg>

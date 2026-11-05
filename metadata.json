@@ -1,0 +1,8 @@
+{
+  "name": "FileForge - Client-Side PDF & Image Toolkit",
+  "description": "Fast, 100% private in-browser PDF & Image tools. Merge, split, compress, convert, watermark, rotate, crop, and resize without file uploads.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
