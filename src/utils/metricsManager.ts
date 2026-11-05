@@ -167,6 +167,20 @@ export function recordOperation(toolId: string, fileSizeBytes: number = 0): void
     }
 
     saveMetrics(metrics);
+
+    // Sync anonymous operation count with multi-device metrics server
+    try {
+      fetch('/api/metrics/track-operation', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          toolId,
+          fileCount: 1,
+          byteCount: fileSizeBytes,
+        }),
+        keepalive: true,
+      }).catch(() => {});
+    } catch {}
   } catch (err) {
     console.error('Failed to record operation', err);
   }
@@ -179,17 +193,32 @@ export function recordOperation(toolId: string, fileSizeBytes: number = 0): void
 
 let currentTabId: string = '';
 let broadcastChannel: BroadcastChannel | null = null;
+let liveServerOnlineUsers: number | null = null;
 const listeners = new Set<(count: number) => void>();
 
 function getTabId(): string {
   if (!currentTabId && typeof window !== 'undefined') {
-    currentTabId = 'tab_' + Math.random().toString(36).slice(2, 9);
+    // Generate an anonymous session client ID per tab/device
+    let storedSessionId = '';
+    try {
+      storedSessionId = sessionStorage.getItem('filemakeo_client_presence_id') || '';
+    } catch {}
+    if (!storedSessionId) {
+      storedSessionId = 'dev_' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+      try {
+        sessionStorage.setItem('filemakeo_client_presence_id', storedSessionId);
+      } catch {}
+    }
+    currentTabId = storedSessionId;
   }
   return currentTabId;
 }
 
 export function getLiveOnlineUsers(): number {
   if (typeof window === 'undefined') return 1;
+  if (liveServerOnlineUsers !== null && liveServerOnlineUsers > 0) {
+    return liveServerOnlineUsers;
+  }
   try {
     const raw = localStorage.getItem(PEERS_KEY);
     if (!raw) return 1;
@@ -197,11 +226,9 @@ export function getLiveOnlineUsers(): number {
     const now = Date.now();
     // Keep peers seen within last 7 seconds
     let activeCount = 0;
-    const cleanPeers: Record<string, number> = {};
 
-    for (const [id, lastSeen] of Object.entries(peers)) {
+    for (const [, lastSeen] of Object.entries(peers)) {
       if (now - lastSeen < 7000) {
-        cleanPeers[id] = lastSeen;
         activeCount++;
       }
     }
@@ -225,44 +252,81 @@ function notifyListeners(count: number) {
   listeners.forEach((fn) => fn(count));
 }
 
-function pulseHeartbeat() {
+async function pulseHeartbeat() {
   if (typeof window === 'undefined') return;
+  const tabId = getTabId();
+
+  // 1. Maintain local tab peer registry for local multi-tab sync
   try {
-    const tabId = getTabId();
     const raw = localStorage.getItem(PEERS_KEY);
     const peers: Record<string, number> = raw ? JSON.parse(raw) : {};
     const now = Date.now();
 
-    // Clean expired
     const activePeers: Record<string, number> = {};
     for (const [id, lastSeen] of Object.entries(peers)) {
       if (now - lastSeen < 7000) {
         activePeers[id] = lastSeen;
       }
     }
-    // Update self
     activePeers[tabId] = now;
     localStorage.setItem(PEERS_KEY, JSON.stringify(activePeers));
-
-    const total = Math.max(1, Object.keys(activePeers).length);
-
-    // Update peak online users if exceeded
-    const metrics = getStoredMetrics();
-    if (total > (metrics.peakOnlineUsers || 1)) {
-      metrics.peakOnlineUsers = total;
-      saveMetrics(metrics);
-    }
-
-    notifyListeners(total);
   } catch (err) {
-    console.error('Heartbeat pulse error', err);
+    // ignore
   }
+
+  // 2. Real-time Multi-Device Sync over /api/presence/heartbeat
+  try {
+    const res = await fetch('/api/presence/heartbeat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ clientId: tabId }),
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      if (typeof data.onlineUsers === 'number') {
+        const count = Math.max(1, data.onlineUsers);
+        liveServerOnlineUsers = count;
+
+        const metrics = getStoredMetrics();
+        if (count > (metrics.peakOnlineUsers || 1)) {
+          metrics.peakOnlineUsers = count;
+          saveMetrics(metrics);
+        }
+
+        notifyListeners(count);
+        return;
+      }
+    }
+  } catch {
+    // Network / static host fallback: fall back to local count
+  }
+
+  // Fallback to local device peers count if server is unreachable
+  notifyListeners(getLiveOnlineUsers());
 }
 
 function leavePresence() {
   if (typeof window === 'undefined') return;
+  const tabId = getTabId();
+
+  // Send departure to multi-device server immediately via sendBeacon
   try {
-    const tabId = getTabId();
+    const payload = JSON.stringify({ clientId: tabId });
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon('/api/presence/leave', new Blob([payload], { type: 'application/json' }));
+    } else {
+      fetch('/api/presence/leave', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: payload,
+        keepalive: true,
+      }).catch(() => {});
+    }
+  } catch {}
+
+  // Local storage cleanup
+  try {
     const raw = localStorage.getItem(PEERS_KEY);
     if (raw) {
       const peers: Record<string, number> = JSON.parse(raw);
