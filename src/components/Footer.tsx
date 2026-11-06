@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ShieldCheck, Sparkles, UserCheck, Activity } from 'lucide-react';
+import { ShieldCheck, Sparkles, UserCheck, Activity, Youtube } from 'lucide-react';
 import { TOOLS } from '../types/tool';
 import { Logo } from './Logo';
 
@@ -136,6 +136,17 @@ export const Footer: React.FC = () => {
                   >
                     Contact &amp; Bug Reports
                   </Link>
+                </li>
+                <li>
+                  <a
+                    href="https://www.youtube.com/@A-X1-4539"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 hover:text-red-600 dark:hover:text-red-400 transition-colors group"
+                  >
+                    <Youtube className="w-3.5 h-3.5 text-red-600 group-hover:scale-110 transition-transform" />
+                    <span>YouTube Channel</span>
+                  </a>
                 </li>
               </ul>
 

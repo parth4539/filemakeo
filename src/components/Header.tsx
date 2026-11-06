@@ -15,6 +15,7 @@ import {
   Image as ImageIcon,
   X,
   Command,
+  Youtube,
 } from 'lucide-react';
 import { TOOLS } from '../types/tool';
 import { Logo } from './Logo';
@@ -164,6 +165,19 @@ export const Header: React.FC<HeaderProps> = ({ isDark, onToggleTheme }) => {
                 /
               </kbd>
             </button>
+
+            {/* YouTube Channel Redirect */}
+            <a
+              href="https://www.youtube.com/@A-X1-4539"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-200 hover:text-red-600 dark:hover:text-red-400 bg-slate-100 dark:bg-slate-900 hover:bg-red-50 dark:hover:bg-red-950/40 border border-slate-300 dark:border-slate-800 hover:border-red-300 dark:hover:border-red-900/60 transition-all cursor-pointer active:scale-95 group shadow-2xs"
+              title="YouTube Channel (@A-X1-4539)"
+              aria-label="Visit YouTube Channel (@A-X1-4539)"
+            >
+              <Youtube className="w-4 h-4 text-red-600 dark:text-red-500 group-hover:scale-110 transition-transform" />
+              <span className="hidden sm:inline text-xs font-semibold">YouTube</span>
+            </a>
 
             {/* Dark Mode Toggle */}
             <button
