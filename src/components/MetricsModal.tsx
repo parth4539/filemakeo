@@ -19,8 +19,6 @@ import {
 } from 'lucide-react';
 import {
   getStoredMetrics,
-  getLiveOnlineUsers,
-  subscribeToOnlineUsers,
   resetMetrics,
   downloadMetricsCSV,
   downloadMetricsJSON,
@@ -35,15 +33,11 @@ interface MetricsModalProps {
 
 export const MetricsModal: React.FC<MetricsModalProps> = ({ isOpen, onClose }) => {
   const [metrics, setMetrics] = useState<AppMetrics>(getStoredMetrics());
-  const [onlineUsers, setOnlineUsers] = useState<number>(getLiveOnlineUsers());
   const [isResetConfirmed, setIsResetConfirmed] = useState(false);
 
   useEffect(() => {
     if (!isOpen) return;
     setMetrics(getStoredMetrics());
-    return subscribeToOnlineUsers((count) => {
-      setOnlineUsers(count);
-    });
   }, [isOpen]);
 
   const handleReset = () => {
@@ -92,25 +86,18 @@ export const MetricsModal: React.FC<MetricsModalProps> = ({ isOpen, onClose }) =
 
         {/* Modal Body */}
         <div className="p-6 overflow-y-auto space-y-6">
-          {/* Live Online Users Card */}
-          <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          {/* Privacy Architecture Status Banner */}
+          <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="flex items-center gap-3">
-              <div className="relative flex items-center justify-center w-4 h-4">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500" />
+              <div className="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold">
+                <Sparkles className="w-4 h-4 text-emerald-500" />
               </div>
               <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-emerald-900 dark:text-emerald-200">
-                  Live Active Users Online
+                <p className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-100">
+                  Client-Side Device Privacy Architecture
                 </p>
-                <p className="text-2xl font-black text-emerald-700 dark:text-emerald-300 font-mono mt-0.5">
-                  {onlineUsers}{' '}
-                  <span className="text-xs font-normal text-emerald-600 dark:text-emerald-400">
-                    {onlineUsers === 1 ? 'active session right now (You)' : 'active sessions right now'}
-                  </span>
-                </p>
-                <p className="text-[11px] text-emerald-700/80 dark:text-emerald-400/80 mt-0.5">
-                  100% genuine real-time tab presence &bull; Zero simulated or mock numbers
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  100% Local In-Browser Processing &bull; Zero Server Uploads &bull; Zero Polling
                 </p>
               </div>
             </div>

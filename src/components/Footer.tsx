@@ -8,21 +8,13 @@ import { Link } from 'react-router-dom';
 import { ShieldCheck, Sparkles, UserCheck, Activity } from 'lucide-react';
 import { TOOLS } from '../types/tool';
 import { Logo } from './Logo';
-import { getLiveOnlineUsers, subscribeToOnlineUsers } from '../utils/metricsManager';
 
 const MetricsModal = React.lazy(() =>
   import('./MetricsModal').then((m) => ({ default: m.MetricsModal }))
 );
 
 export const Footer: React.FC = () => {
-  const [onlineUsers, setOnlineUsers] = useState<number>(getLiveOnlineUsers());
   const [isMetricsOpen, setIsMetricsOpen] = useState(false);
-
-  useEffect(() => {
-    return subscribeToOnlineUsers((count) => {
-      setOnlineUsers(count);
-    });
-  }, []);
 
   const pdfTools = TOOLS.filter((t) => t.category === 'pdf');
   const imageTools = TOOLS.filter((t) => t.category === 'image');
@@ -152,18 +144,6 @@ export const Footer: React.FC = () => {
                   <Sparkles className="w-3 h-3 text-amber-500" />
                   <span>Runs 100% on device</span>
                 </span>
-
-                {/* Live Online Users Counter */}
-                <div 
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 text-[11px] font-mono border border-emerald-200/80 dark:border-emerald-800/60 w-fit"
-                  title="Real-time active browser sessions on this device (100% genuine peer presence)"
-                >
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-                  </span>
-                  <span>{onlineUsers === 1 ? '1 user online (You)' : `${onlineUsers} users online`}</span>
-                </div>
               </div>
             </div>
           </div>

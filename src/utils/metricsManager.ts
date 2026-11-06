@@ -136,8 +136,6 @@ export function initSessionMetrics(): void {
     metrics.lastActiveTimestamp = new Date().toISOString();
     saveMetrics(metrics);
 
-    // Setup active peer presence
-    initPresenceHeartbeat();
   } catch (err) {
     console.error('Failed to init session metrics', err);
   }
@@ -166,287 +164,28 @@ export function recordOperation(toolId: string, fileSizeBytes: number = 0): void
     }
 
     saveMetrics(metrics);
-
-    // Sync anonymous operation count with multi-device metrics server
-    try {
-      fetch('/api/metrics/track-operation', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          toolId,
-          fileCount: 1,
-          byteCount: fileSizeBytes,
-        }),
-        keepalive: true,
-      }).catch(() => {});
-    } catch {}
   } catch (err) {
     console.error('Failed to record operation', err);
   }
 }
 
 /* =====================================================================
-   REAL-TIME ACTIVE ONLINE PEERS TRACKER (Multi-Device SSE Presence Mesh)
-   Tracks actual active devices across phones, tablets, and computers worldwide.
-   Works 100% reliably on Netlify, static hosts, cellular 4G/5G, and Wi-Fi.
-===================================================================== */
-
-const PRESENCE_TOPIC = 'filemaker_presence_mesh_v2';
-let currentDeviceId: string = '';
-let currentTabId: string = '';
-let broadcastChannel: BroadcastChannel | null = null;
-let eventSource: EventSource | null = null;
-let liveServerOnlineUsers: number | null = null;
-const activeGlobalDevices = new Map<string, number>();
-const listeners = new Set<(count: number) => void>();
-
-function getDeviceId(): string {
-  if (currentDeviceId) return currentDeviceId;
-  if (typeof window === 'undefined') return 'server';
-  try {
-    let id = localStorage.getItem('filemaker_device_presence_id');
-    if (!id) {
-      id = 'dev_' + Math.random().toString(36).slice(2, 9) + Date.now().toString(36);
-      localStorage.setItem('filemaker_device_presence_id', id);
-    }
-    currentDeviceId = id;
-    return id;
-  } catch {
-    currentDeviceId = 'dev_' + Math.random().toString(36).slice(2, 9);
-    return currentDeviceId;
-  }
-}
-
-function getTabId(): string {
-  if (!currentTabId && typeof window !== 'undefined') {
-    currentTabId = getDeviceId() + '_' + Math.random().toString(36).slice(2, 6);
-  }
-  return currentTabId;
-}
-
-export function getLiveOnlineUsers(): number {
-  if (typeof window === 'undefined') return 1;
-
-  // Always count self
-  const myDeviceId = getDeviceId();
-  activeGlobalDevices.set(myDeviceId, Date.now());
-
-  // Prune any devices whose last heartbeat was > 16 seconds ago
-  const now = Date.now();
-  for (const [id, lastSeen] of activeGlobalDevices.entries()) {
-    if (id !== myDeviceId && now - lastSeen > 16000) {
-      activeGlobalDevices.delete(id);
-    }
-  }
-
-  const globalCount = activeGlobalDevices.size;
-  if (liveServerOnlineUsers !== null && liveServerOnlineUsers > globalCount) {
-    return liveServerOnlineUsers;
-  }
-
-  return Math.max(1, globalCount);
-}
-
-export function subscribeToOnlineUsers(callback: (count: number) => void): () => void {
-  listeners.add(callback);
-  callback(getLiveOnlineUsers());
-  return () => {
-    listeners.delete(callback);
-  };
-}
-
-function notifyListeners(count: number) {
-  const finalCount = Math.max(1, count);
-  listeners.forEach((fn) => fn(finalCount));
-
-  // Update peak online users in local analytics
-  try {
-    const metrics = getStoredMetrics();
-    if (finalCount > (metrics.peakOnlineUsers || 1)) {
-      metrics.peakOnlineUsers = finalCount;
-      saveMetrics(metrics);
-    }
-  } catch {}
-}
-
-async function sendGlobalHeartbeat(isLeave = false) {
-  if (typeof window === 'undefined') return;
-  const deviceId = getDeviceId();
-  const tabId = getTabId();
-
-  const payload = JSON.stringify({
-    deviceId,
-    tabId,
-    t: Date.now(),
-    leave: isLeave,
-  });
-
-  try {
-    if (isLeave && navigator.sendBeacon) {
-      navigator.sendBeacon(`https://ntfy.sh/${PRESENCE_TOPIC}`, new Blob([payload], { type: 'text/plain' }));
-    } else {
-      fetch(`https://ntfy.sh/${PRESENCE_TOPIC}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain' },
-        body: payload,
-        mode: 'cors',
-        keepalive: true,
-      }).catch(() => {});
-    }
-  } catch {}
-
-  // Also notify server backend if running on full-stack instance
-  try {
-    const serverEndpoint = isLeave ? '/api/presence/leave' : '/api/presence/heartbeat';
-    if (isLeave && navigator.sendBeacon) {
-      navigator.sendBeacon(serverEndpoint, new Blob([payload], { type: 'application/json' }));
-    } else {
-      fetch(serverEndpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ clientId: tabId }),
-        keepalive: true,
-      })
-        .then((res) => {
-          if (res.ok && res.headers.get('content-type')?.includes('application/json')) {
-            return res.json();
-          }
-          return null;
-        })
-        .then((data) => {
-          if (data && typeof data.onlineUsers === 'number') {
-            liveServerOnlineUsers = Math.max(1, data.onlineUsers);
-            notifyListeners(getLiveOnlineUsers());
-          }
-        })
-        .catch(() => {});
-    }
-  } catch {}
-}
-
-function initGlobalPresenceMesh(): void {
-  if (typeof window === 'undefined') return;
-  const myDeviceId = getDeviceId();
-  activeGlobalDevices.set(myDeviceId, Date.now());
-
-  try {
-    eventSource = new EventSource(`https://ntfy.sh/${PRESENCE_TOPIC}/sse`);
-
-    eventSource.onmessage = (event) => {
-      try {
-        const data = JSON.parse(event.data);
-        if (data.event === 'message' && data.message) {
-          const msg = JSON.parse(data.message);
-          if (msg.deviceId) {
-            if (msg.leave) {
-              activeGlobalDevices.delete(msg.deviceId);
-            } else {
-              const isNew = !activeGlobalDevices.has(msg.deviceId) && msg.deviceId !== myDeviceId;
-              activeGlobalDevices.set(msg.deviceId, Date.now());
-              // If a new device arrived, quickly reciprocate with our heartbeat so they register us immediately
-              if (isNew) {
-                sendGlobalHeartbeat(false);
-              }
-            }
-            notifyListeners(getLiveOnlineUsers());
-          }
-        }
-      } catch {}
-    };
-
-    eventSource.onerror = () => {
-      // EventSource automatically retries connections in modern browsers
-    };
-  } catch {}
-}
-
-function pulseHeartbeat() {
-  if (typeof window === 'undefined') return;
-
-  // Send mesh heartbeat
-  sendGlobalHeartbeat(false);
-
-  // Re-calculate active devices and notify UI
-  notifyListeners(getLiveOnlineUsers());
-}
-
-function leavePresence() {
-  if (typeof window === 'undefined') return;
-  sendGlobalHeartbeat(true);
-
-  if (eventSource) {
-    try {
-      eventSource.close();
-      eventSource = null;
-    } catch {}
-  }
-
-  const myDeviceId = getDeviceId();
-  activeGlobalDevices.delete(myDeviceId);
-  notifyListeners(getLiveOnlineUsers());
-  broadcastChannel?.postMessage({ type: 'leave', deviceId: myDeviceId });
-}
-
-let isInitialized = false;
-
-export function initPresenceHeartbeat(): void {
-  if (typeof window === 'undefined' || isInitialized) return;
-  isInitialized = true;
-
-  // 1. Initialize real-time multi-device SSE presence mesh
-  initGlobalPresenceMesh();
-
-  // 2. Initial heartbeat pulse
-  pulseHeartbeat();
-
-  // 3. Periodic heartbeat every 4 seconds
-  setInterval(pulseHeartbeat, 4000);
-
-  // 4. Local cross-tab BroadcastChannel
-  if ('BroadcastChannel' in window) {
-    try {
-      broadcastChannel = new BroadcastChannel('filemaker_presence_channel');
-      broadcastChannel.onmessage = (event) => {
-        if (event.data?.type === 'ping' || event.data?.type === 'leave') {
-          notifyListeners(getLiveOnlineUsers());
-        }
-      };
-      broadcastChannel.postMessage({ type: 'ping' });
-    } catch {}
-  }
-
-  // 5. Clean teardown on tab or window close
-  window.addEventListener('beforeunload', leavePresence);
-  window.addEventListener('pagehide', leavePresence);
-
-  // 6. Immediate heartbeat sync when user switches tabs or wakes device screen
-  document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'visible') {
-      pulseHeartbeat();
-    }
-  });
-}
-
-/* =====================================================================
-   REPORTS DOWNLOAD (CSV & JSON)
+   REPORTS DOWNLOAD (CSV & JSON) - 100% Client-Side Privacy
 ===================================================================== */
 
 export function downloadMetricsJSON(): void {
   const metrics = getStoredMetrics();
-  const currentOnline = getLiveOnlineUsers();
 
   const exportData = {
     appName: 'fileMakeR',
     developer: 'Parth Prajapati',
     generatedAt: new Date().toISOString(),
-    liveOnlineUsers: currentOnline,
     summary: {
       totalVisitors: metrics.totalVisitors,
       totalSessions: metrics.totalSessions,
       totalFilesProcessed: metrics.totalFilesProcessed,
       totalBytesProcessed: metrics.totalBytesProcessed,
       totalVolumeFormatted: formatBytes(metrics.totalBytesProcessed),
-      peakOnlineUsers: Math.max(metrics.peakOnlineUsers, currentOnline),
     },
     toolUsageBreakdown: metrics.toolUsageBreakdown,
     dailyBreakdown: metrics.dailyBreakdown,
@@ -465,19 +204,16 @@ export function downloadMetricsJSON(): void {
 
 export function downloadMetricsCSV(): void {
   const metrics = getStoredMetrics();
-  const currentOnline = getLiveOnlineUsers();
 
   const rows: string[] = [
     'fileMakeR Analytics Matrix',
     `Developer,Parth Prajapati`,
     `Generated At,"${new Date().toISOString()}"`,
-    `Live Online Users,${currentOnline}`,
     `Total Unique Visitors,${metrics.totalVisitors}`,
     `Total Recorded Sessions,${metrics.totalSessions}`,
     `Total Operations Processed,${metrics.totalFilesProcessed}`,
     `Total Volume Processed (Bytes),${metrics.totalBytesProcessed}`,
     `Total Volume Processed (Formatted),"${formatBytes(metrics.totalBytesProcessed)}"`,
-    `Peak Online Users Recorded,${Math.max(metrics.peakOnlineUsers, currentOnline)}`,
     '',
     'Tool Breakdown:',
     'Tool Name,Total Usage Count,Percentage of Total',
@@ -495,7 +231,7 @@ export function downloadMetricsCSV(): void {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `filemakeo_analytics_matrix_${new Date().toISOString().slice(0, 10)}.csv`;
+  a.download = `filemaker_analytics_matrix_${new Date().toISOString().slice(0, 10)}.csv`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);

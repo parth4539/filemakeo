@@ -18,7 +18,6 @@ import {
 } from 'lucide-react';
 import { TOOLS } from '../types/tool';
 import { Logo } from './Logo';
-import { getLiveOnlineUsers, subscribeToOnlineUsers } from '../utils/metricsManager';
 
 interface HeaderProps {
   isDark: boolean;
@@ -28,15 +27,8 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ isDark, onToggleTheme }) => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [onlineUsers, setOnlineUsers] = useState<number>(getLiveOnlineUsers());
   const navigate = useNavigate();
   const location = useLocation();
-
-  useEffect(() => {
-    return subscribeToOnlineUsers((count) => {
-      setOnlineUsers(count);
-    });
-  }, []);
 
   const handleNavClick = (category: 'pdf' | 'image') => {
     if (location.pathname === '/') {
@@ -157,20 +149,8 @@ export const Header: React.FC<HeaderProps> = ({ isDark, onToggleTheme }) => {
             </Link>
           </nav>
 
-          {/* Search Trigger, Live Online Counter & Theme Toggle */}
+          {/* Search Trigger & Theme Toggle */}
           <div className="flex items-center gap-2">
-            {/* Live Online Users Badge */}
-            <div
-              className="hidden lg:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 text-xs font-mono border border-emerald-200/60 dark:border-emerald-800/60 shadow-xs"
-              title="Real active browser sessions on this device (100% genuine peer presence)"
-            >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-              </span>
-              <span>{onlineUsers === 1 ? '1 Online (You)' : `${onlineUsers} Online`}</span>
-            </div>
-
             <button
               type="button"
               onClick={() => setIsSearchOpen(true)}
