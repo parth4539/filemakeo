@@ -3,6 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import {
+  computeRotatedBoundingBox,
+  computeWatermarkPositions,
+  pixelateRgbaBuffer,
+  blurRgbaBuffer,
+  blackoutRgbaBuffer,
+  WatermarkPosition,
+  RedactRegion,
+} from './imageProcessingMath';
+
 export interface ImageDimensions {
   width: number;
   height: number;
@@ -345,4 +355,212 @@ export async function cropImage(
     height,
     size: blob.size,
   };
+}
+
+export type RedactMode = 'pixelate' | 'blur' | 'blackout';
+
+export interface ImageTransformOptions {
+  angleDeg: number; // arbitrary angle or 0/90/180/270
+  flipHorizontal: boolean;
+  flipVertical: boolean;
+  outputType?: 'image/jpeg' | 'image/png' | 'image/webp';
+  quality?: number;
+  backgroundColor?: string;
+}
+
+export async function transformImage(
+  file: File,
+  options: ImageTransformOptions
+): Promise<{ blob: Blob; dataUrl: string; width: number; height: number; size: number }> {
+  const img = await fileToImage(file);
+  const srcW = img.naturalWidth;
+  const srcH = img.naturalHeight;
+
+  const { width: outW, height: outH } = computeRotatedBoundingBox(srcW, srcH, options.angleDeg);
+  const canvas = document.createElement('canvas');
+  canvas.width = outW;
+  canvas.height = outH;
+
+  const ctx = canvas.getContext('2d');
+  if (!ctx) throw new Error('Could not get canvas context.');
+
+  let mimeType = options.outputType || (file.type as 'image/jpeg' | 'image/png' | 'image/webp');
+  if (!['image/jpeg', 'image/png', 'image/webp'].includes(mimeType)) {
+    mimeType = 'image/png';
+  }
+
+  if (mimeType === 'image/jpeg') {
+    ctx.fillStyle = options.backgroundColor || '#ffffff';
+    ctx.fillRect(0, 0, outW, outH);
+  }
+
+  ctx.save();
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = 'high';
+  ctx.translate(outW / 2, outH / 2);
+  ctx.rotate((options.angleDeg * Math.PI) / 180);
+  ctx.scale(options.flipHorizontal ? -1 : 1, options.flipVertical ? -1 : 1);
+  ctx.drawImage(img, -srcW / 2, -srcH / 2, srcW, srcH);
+  ctx.restore();
+
+  const quality = options.quality ?? 0.94;
+  const dataUrl = canvas.toDataURL(mimeType, quality);
+  const blob = await new Promise<Blob>((resolve) => {
+    canvas.toBlob((b) => resolve(b || new Blob()), mimeType, quality);
+  });
+
+  canvas.width = 0;
+  canvas.height = 0;
+
+  return { blob, dataUrl, width: outW, height: outH, size: blob.size };
+}
+
+export interface ImageWatermarkOptions {
+  mode: 'text' | 'logo';
+  text?: string;
+  logoFile?: File;
+  fontSizeRatio?: number; // percentage of min(w,h) e.g. 0.06
+  logoScaleRatio?: number; // fraction of canvas width e.g. 0.22
+  opacity: number; // 0.05..1
+  colorHex?: string;
+  rotationDeg?: number;
+  position: WatermarkPosition;
+  margin?: number;
+  outputType?: 'image/jpeg' | 'image/png' | 'image/webp';
+  quality?: number;
+}
+
+export async function watermarkImage(
+  file: File,
+  options: ImageWatermarkOptions
+): Promise<{ blob: Blob; dataUrl: string; width: number; height: number; size: number }> {
+  const baseImg = await fileToImage(file);
+  const w = baseImg.naturalWidth;
+  const h = baseImg.naturalHeight;
+
+  const canvas = document.createElement('canvas');
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) throw new Error('Could not get canvas context.');
+
+  let mimeType = options.outputType || (file.type as 'image/jpeg' | 'image/png' | 'image/webp');
+  if (!['image/jpeg', 'image/png', 'image/webp'].includes(mimeType)) {
+    mimeType = 'image/png';
+  }
+
+  if (mimeType === 'image/jpeg') {
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, w, h);
+  }
+  ctx.drawImage(baseImg, 0, 0, w, h);
+
+  const margin = options.margin ?? Math.round(Math.min(w, h) * 0.04);
+  const rotRad = ((options.rotationDeg || 0) * Math.PI) / 180;
+
+  ctx.save();
+  ctx.globalAlpha = Math.max(0.05, Math.min(1, options.opacity));
+
+  if (options.mode === 'logo' && options.logoFile) {
+    const logoImg = await fileToImage(options.logoFile);
+    const scaleRatio = options.logoScaleRatio ?? 0.22;
+    const markW = Math.max(24, Math.round(w * scaleRatio));
+    const markH = Math.max(24, Math.round((markW / Math.max(1, logoImg.naturalWidth)) * logoImg.naturalHeight));
+
+    const coords = computeWatermarkPositions(w, h, markW, markH, options.position, margin);
+    for (const pos of coords) {
+      ctx.save();
+      ctx.translate(pos.x + markW / 2, pos.y + markH / 2);
+      ctx.rotate(rotRad);
+      ctx.drawImage(logoImg, -markW / 2, -markH / 2, markW, markH);
+      ctx.restore();
+    }
+  } else {
+    const text = (options.text || 'fileMakeR').trim() || 'fileMakeR';
+    const fontSize = Math.max(14, Math.round(Math.min(w, h) * (options.fontSizeRatio ?? 0.065)));
+    ctx.font = `700 ${fontSize}px "Plus Jakarta Sans", system-ui, sans-serif`;
+    ctx.fillStyle = options.colorHex || '#ffffff';
+    ctx.textBaseline = 'middle';
+    ctx.textAlign = 'center';
+
+    const metrics = ctx.measureText(text);
+    const markW = Math.max(20, Math.ceil(metrics.width));
+    const markH = Math.max(16, Math.ceil(fontSize * 1.1));
+
+    const coords = computeWatermarkPositions(w, h, markW, markH, options.position, margin);
+    for (const pos of coords) {
+      ctx.save();
+      ctx.translate(pos.x + markW / 2, pos.y + markH / 2);
+      ctx.rotate(rotRad);
+      ctx.shadowColor = 'rgba(0,0,0,0.35)';
+      ctx.shadowBlur = Math.max(2, Math.round(fontSize * 0.12));
+      ctx.fillText(text, 0, 0);
+      ctx.restore();
+    }
+  }
+
+  ctx.restore();
+
+  const q = options.quality ?? 0.93;
+  const dataUrl = canvas.toDataURL(mimeType, q);
+  const blob = await new Promise<Blob>((resolve) => {
+    canvas.toBlob((b) => resolve(b || new Blob()), mimeType, q);
+  });
+
+  canvas.width = 0;
+  canvas.height = 0;
+
+  return { blob, dataUrl, width: w, height: h, size: blob.size };
+}
+
+export async function redactImageRegions(
+  file: File,
+  regions: (RedactRegion & { mode: RedactMode; intensity: number })[],
+  outputType?: 'image/jpeg' | 'image/png' | 'image/webp',
+  quality: number = 0.95
+): Promise<{ blob: Blob; dataUrl: string; width: number; height: number; size: number }> {
+  const img = await fileToImage(file);
+  const w = img.naturalWidth;
+  const h = img.naturalHeight;
+
+  const canvas = document.createElement('canvas');
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
+  if (!ctx) throw new Error('Could not get canvas context.');
+
+  let mimeType = outputType || (file.type as 'image/jpeg' | 'image/png' | 'image/webp');
+  if (!['image/jpeg', 'image/png', 'image/webp'].includes(mimeType)) {
+    mimeType = 'image/png';
+  }
+
+  if (mimeType === 'image/jpeg') {
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, w, h);
+  }
+  ctx.drawImage(img, 0, 0, w, h);
+
+  if (regions.length > 0) {
+    const imgData = ctx.getImageData(0, 0, w, h);
+    for (const r of regions) {
+      if (r.mode === 'pixelate') {
+        pixelateRgbaBuffer(imgData.data, w, h, r, Math.max(6, Math.round(r.intensity)));
+      } else if (r.mode === 'blur') {
+        blurRgbaBuffer(imgData.data, w, h, r, Math.max(3, Math.round(r.intensity)));
+      } else {
+        blackoutRgbaBuffer(imgData.data, w, h, r, [15, 23, 42]);
+      }
+    }
+    ctx.putImageData(imgData, 0, 0);
+  }
+
+  const dataUrl = canvas.toDataURL(mimeType, quality);
+  const blob = await new Promise<Blob>((resolve) => {
+    canvas.toBlob((b) => resolve(b || new Blob()), mimeType, quality);
+  });
+
+  canvas.width = 0;
+  canvas.height = 0;
+
+  return { blob, dataUrl, width: w, height: h, size: blob.size };
 }

@@ -59,6 +59,41 @@ const CropImagePage = lazy(() =>
   import('./pages/image/CropImagePage').then((m) => ({ default: m.CropImagePage }))
 );
 
+// Newly added PDF, Image & Utility Tool Pages
+const SignPdfPage = lazy(() =>
+  import('./pages/pdf/SignPdfPage').then((m) => ({ default: m.SignPdfPage }))
+);
+const ProtectPdfPage = lazy(() =>
+  import('./pages/pdf/ProtectPdfPage').then((m) => ({ default: m.ProtectPdfPage }))
+);
+const UnlockPdfPage = lazy(() =>
+  import('./pages/pdf/UnlockPdfPage').then((m) => ({ default: m.UnlockPdfPage }))
+);
+const PdfMetadataPage = lazy(() =>
+  import('./pages/pdf/PdfMetadataPage').then((m) => ({ default: m.PdfMetadataPage }))
+);
+const RotateFlipImagePage = lazy(() =>
+  import('./pages/image/RotateFlipImagePage').then((m) => ({ default: m.RotateFlipImagePage }))
+);
+const WatermarkImagePage = lazy(() =>
+  import('./pages/image/WatermarkImagePage').then((m) => ({ default: m.WatermarkImagePage }))
+);
+const BlurImagePage = lazy(() =>
+  import('./pages/image/BlurImagePage').then((m) => ({ default: m.BlurImagePage }))
+);
+const SvgToImagePage = lazy(() =>
+  import('./pages/image/SvgToImagePage').then((m) => ({ default: m.SvgToImagePage }))
+);
+const Base64ImagePage = lazy(() =>
+  import('./pages/image/Base64ImagePage').then((m) => ({ default: m.Base64ImagePage }))
+);
+const QrCodePage = lazy(() =>
+  import('./pages/utility/QrCodePage').then((m) => ({ default: m.QrCodePage }))
+);
+const ZipArchivePage = lazy(() =>
+  import('./pages/utility/ZipArchivePage').then((m) => ({ default: m.ZipArchivePage }))
+);
+
 // Lazy-loaded Info & Support Pages
 const PrivacyPage = lazy(() =>
   import('./pages/PrivacyPage').then((m) => ({ default: m.PrivacyPage }))
@@ -148,11 +183,23 @@ export default function App() {
               <Route path="/add-watermark" element={<AddWatermarkPage />} />
               <Route path="/remove-pages" element={<RemovePagesPage />} />
               <Route path="/pdf-n-up" element={<PdfNUpPage />} />
+              <Route path="/sign-pdf" element={<SignPdfPage />} />
+              <Route path="/protect-pdf" element={<ProtectPdfPage />} />
+              <Route path="/unlock-pdf" element={<UnlockPdfPage />} />
+              <Route path="/pdf-metadata" element={<PdfMetadataPage />} />
               {/* Image Tools */}
               <Route path="/compress-image" element={<CompressImagePage />} />
               <Route path="/resize-image" element={<ResizeImagePage />} />
               <Route path="/convert-image" element={<ConvertImagePage />} />
               <Route path="/crop-image" element={<CropImagePage />} />
+              <Route path="/rotate-flip-image" element={<RotateFlipImagePage />} />
+              <Route path="/watermark-image" element={<WatermarkImagePage />} />
+              <Route path="/blur-image" element={<BlurImagePage />} />
+              <Route path="/svg-to-image" element={<SvgToImagePage />} />
+              <Route path="/base64-image" element={<Base64ImagePage />} />
+              {/* Utility Tools */}
+              <Route path="/qr-code" element={<QrCodePage />} />
+              <Route path="/zip-archive" element={<ZipArchivePage />} />
               {/* Info & Legal Pages */}
               <Route path="/privacy" element={<PrivacyPage />} />
               <Route path="/about" element={<AboutPage />} />

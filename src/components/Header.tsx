@@ -10,11 +10,10 @@ import {
   Search,
   Sun,
   Moon,
-  Layers,
   FileText,
   Image as ImageIcon,
+  Wrench,
   X,
-  Command,
   Youtube,
 } from 'lucide-react';
 import { TOOLS } from '../types/tool';
@@ -31,7 +30,7 @@ export const Header: React.FC<HeaderProps> = ({ isDark, onToggleTheme }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleNavClick = (category: 'pdf' | 'image') => {
+  const handleNavClick = (category: 'pdf' | 'image' | 'utility') => {
     if (location.pathname === '/') {
       navigate(`/?category=${category}#${category}-tools`);
       const el = document.getElementById('tools-section');
@@ -108,7 +107,7 @@ export const Header: React.FC<HeaderProps> = ({ isDark, onToggleTheme }) => {
                 e.preventDefault();
                 handleNavClick('image');
               }}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium transition-all ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${
                 location.pathname === '/' && location.search.includes('category=image')
                   ? 'bg-blue-50 text-blue-600 dark:bg-blue-950/60 dark:text-blue-400 font-semibold shadow-xs'
                   : 'text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-slate-900'
@@ -116,6 +115,21 @@ export const Header: React.FC<HeaderProps> = ({ isDark, onToggleTheme }) => {
             >
               <ImageIcon className="w-4 h-4 text-blue-500" />
               <span>Image Tools</span>
+            </Link>
+            <Link
+              to="/?category=utility#utility-tools"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavClick('utility');
+              }}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${
+                location.pathname === '/' && location.search.includes('category=utility')
+                  ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 font-semibold shadow-xs'
+                  : 'text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-slate-900'
+              }`}
+            >
+              <Wrench className="w-4 h-4 text-emerald-500" />
+              <span>Utilities</span>
             </Link>
             <Link
               to="/about"
@@ -237,13 +251,17 @@ export const Header: React.FC<HeaderProps> = ({ isDark, onToggleTheme }) => {
                         className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${
                           tool.category === 'pdf'
                             ? 'bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400'
-                            : 'bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400'
+                            : tool.category === 'image'
+                            ? 'bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400'
+                            : 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400'
                         }`}
                       >
                         {tool.category === 'pdf' ? (
                           <FileText className="w-4 h-4" />
-                        ) : (
+                        ) : tool.category === 'image' ? (
                           <ImageIcon className="w-4 h-4" />
+                        ) : (
+                          <Wrench className="w-4 h-4" />
                         )}
                       </div>
                       <div className="min-w-0">

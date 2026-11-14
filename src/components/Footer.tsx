@@ -18,6 +18,7 @@ export const Footer: React.FC = () => {
 
   const pdfTools = TOOLS.filter((t) => t.category === 'pdf');
   const imageTools = TOOLS.filter((t) => t.category === 'image');
+  const utilityTools = TOOLS.filter((t) => t.category === 'utility');
 
   return (
     <>
@@ -65,7 +66,7 @@ export const Footer: React.FC = () => {
                 PDF Utilities
               </h4>
               <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-400">
-                {pdfTools.slice(0, 7).map((tool) => (
+                {pdfTools.map((tool) => (
                   <li key={tool.id}>
                     <Link
                       to={tool.slug}
@@ -78,10 +79,10 @@ export const Footer: React.FC = () => {
               </ul>
             </div>
 
-            {/* More PDF & Image Tools */}
+            {/* Image & Web Utilities */}
             <div className="space-y-3">
               <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-100">
-                Image Utilities
+                Image &amp; Web Utilities
               </h4>
               <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-400">
                 {imageTools.map((tool) => (
@@ -94,7 +95,7 @@ export const Footer: React.FC = () => {
                     </Link>
                   </li>
                 ))}
-                {pdfTools.slice(7).map((tool) => (
+                {utilityTools.map((tool) => (
                   <li key={tool.id}>
                     <Link
                       to={tool.slug}

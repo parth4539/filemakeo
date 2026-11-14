@@ -17,6 +17,7 @@ import {
   Lock,
   Layers,
   HelpCircle,
+  Wrench,
 } from 'lucide-react';
 import { TOOLS, ToolCategory, ToolDef } from '../types/tool';
 import { AdSlot } from '../components/AdSlot';
@@ -28,11 +29,12 @@ export const HomePage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<'all' | ToolCategory | 'popular' | 'govt'>(
     () => {
       const cat = searchParams.get('category');
-      if (cat === 'pdf' || cat === 'image' || cat === 'popular' || cat === 'govt') {
+      if (cat === 'pdf' || cat === 'image' || cat === 'utility' || cat === 'popular' || cat === 'govt') {
         return cat;
       }
       if (location.hash === '#pdf-tools') return 'pdf';
       if (location.hash === '#image-tools') return 'image';
+      if (location.hash === '#utility-tools') return 'utility';
       return 'all';
     }
   );
@@ -41,7 +43,7 @@ export const HomePage: React.FC = () => {
   // Synchronize when URL search param or hash changes (e.g. clicked from Header)
   useEffect(() => {
     const cat = searchParams.get('category');
-    if (cat === 'pdf' || cat === 'image' || cat === 'popular' || cat === 'govt') {
+    if (cat === 'pdf' || cat === 'image' || cat === 'utility' || cat === 'popular' || cat === 'govt') {
       setSelectedCategory(cat);
       const el = document.getElementById('tools-section');
       if (el) {
@@ -53,6 +55,10 @@ export const HomePage: React.FC = () => {
       if (el) el.scrollIntoView({ behavior: 'smooth' });
     } else if (location.hash === '#image-tools') {
       setSelectedCategory('image');
+      const el = document.getElementById('tools-section');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    } else if (location.hash === '#utility-tools') {
+      setSelectedCategory('utility');
       const el = document.getElementById('tools-section');
       if (el) el.scrollIntoView({ behavior: 'smooth' });
     }
@@ -89,6 +95,7 @@ export const HomePage: React.FC = () => {
 
   const pdfCount = TOOLS.filter((t) => t.category === 'pdf').length;
   const imageCount = TOOLS.filter((t) => t.category === 'image').length;
+  const utilityCount = TOOLS.filter((t) => t.category === 'utility').length;
 
   return (
     <div className="space-y-16 pb-12">
@@ -128,7 +135,7 @@ export const HomePage: React.FC = () => {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search all 15 tools (e.g. merge pdf, compress under 50kb, resize)..."
+                placeholder={`Search all ${TOOLS.length} tools (e.g. sign pdf, protect pdf, qr code, blur)...`}
                 className="w-full pl-12 pr-4 py-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-500 dark:placeholder-slate-400 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
               />
               {searchQuery && (
@@ -148,6 +155,7 @@ export const HomePage: React.FC = () => {
                 { id: 'all', label: `All Tools (${TOOLS.length})` },
                 { id: 'pdf', label: `PDF Tools (${pdfCount})` },
                 { id: 'image', label: `Image Tools (${imageCount})` },
+                { id: 'utility', label: `Utilities (${utilityCount})` },
                 { id: 'popular', label: 'Popular' },
                 { id: 'govt', label: 'Govt Form Ready' },
               ].map((cat) => (
@@ -173,6 +181,7 @@ export const HomePage: React.FC = () => {
       <section id="tools-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 scroll-mt-24">
         <div id="pdf-tools" className="scroll-mt-24" />
         <div id="image-tools" className="scroll-mt-24" />
+        <div id="utility-tools" className="scroll-mt-24" />
         <div className="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-800">
           <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
             <span>Available Utilities</span>
@@ -212,13 +221,17 @@ export const HomePage: React.FC = () => {
                       className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-105 ${
                         tool.category === 'pdf'
                           ? 'bg-rose-50 dark:bg-rose-950/50 text-rose-600 dark:text-rose-400'
-                          : 'bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400'
+                          : tool.category === 'image'
+                          ? 'bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400'
+                          : 'bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400'
                       }`}
                     >
                       {tool.category === 'pdf' ? (
                         <FileText className="w-6 h-6" />
-                      ) : (
+                      ) : tool.category === 'image' ? (
                         <ImageIcon className="w-6 h-6" />
+                      ) : (
+                        <Wrench className="w-6 h-6" />
                       )}
                     </div>
 

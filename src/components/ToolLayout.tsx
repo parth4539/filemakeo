@@ -41,10 +41,20 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
           </Link>
           <ChevronRight className="w-4 h-4 text-slate-400" />
           <Link
-            to={tool.category === 'pdf' ? '/?category=pdf#pdf-tools' : '/?category=image#image-tools'}
+            to={
+              tool.category === 'pdf'
+                ? '/?category=pdf#pdf-tools'
+                : tool.category === 'image'
+                ? '/?category=image#image-tools'
+                : '/?category=utility#utility-tools'
+            }
             className="capitalize hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
           >
-            {tool.category === 'pdf' ? 'PDF Tools' : 'Image Tools'}
+            {tool.category === 'pdf'
+              ? 'PDF Tools'
+              : tool.category === 'image'
+              ? 'Image Tools'
+              : 'Utilities'}
           </Link>
           <ChevronRight className="w-4 h-4 text-slate-400" />
           <span className="font-semibold text-slate-900 dark:text-slate-100">{tool.name}</span>
@@ -73,7 +83,11 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
             </span>
           )}
           <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-            {tool.category === 'pdf' ? 'PDF Document Utility' : 'Image Graphic Utility'}
+            {tool.category === 'pdf'
+              ? 'PDF Document Utility'
+              : tool.category === 'image'
+              ? 'Image Graphic Utility'
+              : 'Smart Web Utility'}
           </span>
         </div>
 

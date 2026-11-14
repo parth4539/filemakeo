@@ -27,13 +27,26 @@ export function revokeAllObjectUrls(): void {
   activeObjectUrls.clear();
 }
 
+export function formatBrandedFilename(filename: string): string {
+  const normalized = (filename || '').trim().replace(/\\/g, '/');
+  const baseOnly = normalized.split('/').pop()?.trim() || '';
+  if (!baseOnly) return 'fileMakeR_download';
+
+  const finalName = baseOnly.startsWith('.') ? `file${baseOnly}` : baseOnly;
+  if (/filemaker/i.test(finalName)) {
+    return finalName;
+  }
+  return `fileMakeR_${finalName}`;
+}
+
 export function downloadBlob(blob: Blob, filename: string): void {
+  const brandedName = formatBrandedFilename(filename);
   const url = URL.createObjectURL(blob);
   registerObjectUrl(url);
 
   const a = document.createElement('a');
   a.href = url;
-  a.download = filename;
+  a.download = brandedName;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
@@ -57,9 +70,10 @@ export function downloadBlob(blob: Blob, filename: string): void {
 }
 
 export function downloadDataUrl(dataUrl: string, filename: string): void {
+  const brandedName = formatBrandedFilename(filename);
   const a = document.createElement('a');
   a.href = dataUrl;
-  a.download = filename;
+  a.download = brandedName;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);

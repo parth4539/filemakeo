@@ -18,7 +18,7 @@ export interface ToolSeoData {
   id: string;
   slug: string;
   name: string;
-  category: 'pdf' | 'image';
+  category: 'pdf' | 'image' | 'utility';
   h1: string;
   metaTitle: string;
   metaDescription: string;
@@ -877,5 +877,621 @@ export const TOOLS_SEO_DATA: Record<string, ToolSeoData> = {
       },
     ],
     relatedToolSlugs: ['/resize-image', '/compress-image', '/convert-image', '/create-pdf-from-images'],
+  },
+
+  'sign-pdf': {
+    id: 'sign-pdf',
+    slug: '/sign-pdf',
+    name: 'Sign PDF (e-Signature)',
+    category: 'pdf',
+    h1: 'Sign PDF Online Free - Draw, Type & Stamp e-Signatures In-Browser',
+    metaTitle: 'Sign PDF Online Free - Handwritten & Typed e-Signature | fileMakeR',
+    metaDescription: 'Add electronic signatures to any PDF document directly in your browser. Draw, type, or upload transparent PNG signatures with zero uploads and instant download.',
+    canonicalUrl: `${SITE_URL}/sign-pdf`,
+    overviewHeading: 'Private Client-Side Electronic Signatures for Contracts & Forms',
+    overviewText: 'Signing agreements, consent forms, tax documents, and invoices online often forces you to upload confidential paperwork to cloud e-signature platforms with paywalls. fileMakeR lets you create crisp handwritten signatures on a responsive canvas pad, style clean typed signatures, or upload a scanned photo of your wet-ink signature with automatic white background removal. Click directly on any rendered page preview to position your signature, adjust dimensions, choose single-page or all-page placement, and flatten the signature into a universally readable PDF directly in device RAM.',
+    keyFeatures: [
+      'Three signature modes: Smooth handwritten drawing pad, stylized typed text, or image upload.',
+      'Auto-transparent background cleanup: Strips white paper backgrounds from scanned signature photos.',
+      'Interactive page placement: Click or drag directly over any rendered PDF page preview.',
+      'Multi-page stamping: Place your signature on a specific page or repeat across every page.',
+      '100% client-side privacy: Contracts and legal paperwork never touch external servers.',
+    ],
+    howToSteps: [
+      {
+        step: 1,
+        title: 'Upload PDF Document',
+        description: 'Select or drag and drop the PDF contract, form, or agreement you need to sign.',
+      },
+      {
+        step: 2,
+        title: 'Create & Position Signature',
+        description: 'Draw, type, or upload your signature stamp, then click anywhere on the page preview to place and resize it.',
+      },
+      {
+        step: 3,
+        title: 'Sign & Download PDF',
+        description: 'Click "Sign & Download PDF" to permanently embed your e-signature and save the signed file immediately.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'Are my signed contracts uploaded to any server?',
+        answer: 'No. Signature creation, page rendering, and PDF embedding execute 100% inside your local browser memory.',
+      },
+      {
+        question: 'Can I upload a photo of my handwritten signature on white paper?',
+        answer: 'Yes. Enable the white-background removal option when uploading a signature image so your ink blends cleanly onto the PDF page.',
+      },
+      {
+        question: 'Can I place my signature on multiple pages at once?',
+        answer: 'Yes. You can stamp only the selected page or apply the signature automatically at the same position across all pages.',
+      },
+      {
+        question: 'Will the signed PDF open properly in Adobe Acrobat and Chrome?',
+        answer: 'Yes. The signature is embedded directly into the PDF page stream as a lossless PNG overlay readable in all standard PDF viewers.',
+      },
+    ],
+    relatedToolSlugs: ['/protect-pdf', '/add-watermark', '/merge-pdf', '/compress-pdf'],
+  },
+
+  'protect-pdf': {
+    id: 'protect-pdf',
+    slug: '/protect-pdf',
+    name: 'Protect / Encrypt PDF',
+    category: 'pdf',
+    h1: 'Protect & Encrypt PDF Online - Add Password & Permissions',
+    metaTitle: 'Protect PDF with Password Free - Client-Side PDF Encryption | fileMakeR',
+    metaDescription: 'Encrypt and password-protect PDF documents inside your browser. Restrict opening, printing, copying, or modifying sensitive PDFs without uploading files.',
+    canonicalUrl: `${SITE_URL}/protect-pdf`,
+    overviewHeading: 'Zero-Upload PDF Password Encryption & Permission Control',
+    overviewText: 'Sharing salary slips, bank statements, medical reports, or legal agreements over email carries real exposure risk if files remain unencrypted. Sending confidential files to an online PDF locker server defeats the purpose of security. fileMakeR encrypts your PDF entirely inside local browser RAM before you share it. Set a required open password (User Password), configure a separate Owner Password for administrative control, and restrict unauthorized printing, text copying, or page modifications.',
+    keyFeatures: [
+      'Zero-knowledge encryption: Passwords and unencrypted PDFs never leave your device.',
+      'User & Owner passwords: Require an open password to view or lock editing permissions separately.',
+      'Granular permission flags: Disable printing, clipboard text extraction, or content modification.',
+      'Password strength indicator: Visual strength meter guides you toward resilient passphrases.',
+      'Universal PDF reader support: Encrypted outputs prompt for passwords in Adobe, Chrome, Preview, and mobile.',
+    ],
+    howToSteps: [
+      {
+        step: 1,
+        title: 'Upload PDF to Encrypt',
+        description: 'Drag and drop your unencrypted PDF document into the secure local upload box.',
+      },
+      {
+        step: 2,
+        title: 'Set Password & Restrictions',
+        description: 'Enter and confirm your open password and toggle print, copy, and edit permission flags.',
+      },
+      {
+        step: 3,
+        title: 'Encrypt & Download Protected PDF',
+        description: 'Click "Protect & Download" to encrypt the file in memory and save your locked PDF.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'Does fileMakeR store or see my PDF password?',
+        answer: 'Never. Encryption happens completely in client-side JavaScript inside your browser tab with zero network requests.',
+      },
+      {
+        question: 'What happens if I forget the password I added?',
+        answer: 'Because we never transmit or escrow passwords, a lost open password cannot be recovered by fileMakeR. Keep your password stored safely.',
+      },
+      {
+        question: 'What is the difference between User Password and Owner Password?',
+        answer: 'The User Password is required just to open and view the PDF. The Owner Password grants full administrative override to print, copy, or change permissions.',
+      },
+      {
+        question: 'Can I restrict recipients from copying text or printing?',
+        answer: 'Yes. Uncheck the Allow Printing or Allow Copying checkboxes before encrypting to enforce those PDF permission flags.',
+      },
+    ],
+    relatedToolSlugs: ['/unlock-pdf', '/sign-pdf', '/pdf-metadata', '/compress-pdf'],
+  },
+
+  'unlock-pdf': {
+    id: 'unlock-pdf',
+    slug: '/unlock-pdf',
+    name: 'Unlock / Decrypt PDF',
+    category: 'pdf',
+    h1: 'Unlock PDF Online Free - Remove Known Password Restrictions',
+    metaTitle: 'Unlock PDF Online Free - Decrypt Password-Protected PDFs | fileMakeR',
+    metaDescription: 'Remove open passwords and printing or copying restrictions from your authorized PDF documents 100% locally in your browser with zero file uploads.',
+    canonicalUrl: `${SITE_URL}/unlock-pdf`,
+    overviewHeading: 'Safely Remove Passwords from Your Authorized PDFs',
+    overviewText: 'Tax portals, banks, credit card statements, and payroll systems regularly lock downloaded PDFs behind annoying passwords that prevent merging, annotating, or convenient printing. Uploading your bank statements and your password to a remote web server is a serious privacy hazard. fileMakeR unlocks encrypted PDF documents completely inside your browser using the password you already possess, preserving original document metadata and page formatting while outputting a clean, restriction-free PDF.',
+    keyFeatures: [
+      'Authorized local decryption: Unlock files strictly inside device RAM without transmitting passwords.',
+      'Removes open & permission locks: Clears password prompts as well as print/copy blocks.',
+      'Metadata preservation: Keeps original PDF Title and Author tags intact where readable.',
+      'Instant inline retry: Clear error prompt if a typo occurs when typing complex passwords.',
+      'Works offline: Decrypt stored statements even with Wi-Fi disabled.',
+    ],
+    howToSteps: [
+      {
+        step: 1,
+        title: 'Select Locked PDF',
+        description: 'Upload the password-protected bank statement, invoice, or report.',
+      },
+      {
+        step: 2,
+        title: 'Enter Document Password',
+        description: 'Type the open or owner password authorized for the document.',
+      },
+      {
+        step: 3,
+        title: 'Decrypt & Download Clean PDF',
+        description: 'Click "Unlock PDF" to strip encryption layers and save an unrestricted PDF copy.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'Can this tool crack or bypass an unknown password?',
+        answer: 'No. This utility cleanly decrypts PDFs for which you already have the authorized password, removing repetitive password prompts for personal archiving and merging.',
+      },
+      {
+        question: 'Are my financial statements or passwords sent anywhere?',
+        answer: 'Never. Both your encrypted PDF and the password you enter remain exclusively in your browser memory.',
+      },
+      {
+        question: 'Why should I unlock a PDF before using Merge PDF or Split PDF?',
+        answer: 'Encrypted PDFs prevent browser page-tree editors from copying streams until unlocked. Unlocking first lets you merge, split, or compress smoothly.',
+      },
+      {
+        question: 'Will unlocking affect text searchability or image sharpness?',
+        answer: 'No. Text vectors, fonts, and embedded images remain identical in the decrypted output.',
+      },
+    ],
+    relatedToolSlugs: ['/protect-pdf', '/merge-pdf', '/split-pdf', '/pdf-metadata'],
+  },
+
+  'pdf-metadata': {
+    id: 'pdf-metadata',
+    slug: '/pdf-metadata',
+    name: 'View / Edit PDF Metadata',
+    category: 'pdf',
+    h1: 'View & Edit PDF Metadata Online - Update or Strip Document Properties',
+    metaTitle: 'View & Edit PDF Metadata Free - Remove Hidden Info Tags | fileMakeR',
+    metaDescription: 'Inspect, edit, or completely strip hidden Title, Author, Subject, Keywords, Creator, and Producer tags from PDF files 100% locally in your browser.',
+    canonicalUrl: `${SITE_URL}/pdf-metadata`,
+    overviewHeading: 'Audit, Customize & Scrub Hidden PDF Info Dictionaries',
+    overviewText: 'Every PDF file silently stores a hidden Info dictionary containing the original author name, software version, creation date, internal project keywords, and producer tags. Sharing raw PDFs can accidentally leak personal names or internal workflows, while poorly tagged files look unprofessional in browser tabs and search results. fileMakeR reveals every stored metadata property inside your browser so you can update Title, Author, Subject, Keywords, Creator, and Producer—or scrub all identifiable metadata in one click.',
+    keyFeatures: [
+      'Complete metadata inspector: View Title, Author, Subject, Keywords, Creator, Producer, and Dates.',
+      'One-click Strip All Metadata: Scrub identifying author and software tags before anonymous sharing.',
+      'SEO & presentation polish: Set proper document Titles so files display cleanly in Chrome/Acrobat tabs.',
+      'Lossless pass-through: Updates the PDF trailer dictionary without touching page visual content.',
+      '100% private client-side execution: Inspect confidential drafts safely offline.',
+    ],
+    howToSteps: [
+      {
+        step: 1,
+        title: 'Load Any PDF File',
+        description: 'Upload your PDF document to automatically decode and display its hidden Info dictionary properties.',
+      },
+      {
+        step: 2,
+        title: 'Edit or Scrub Fields',
+        description: 'Update Title, Author, Subject, Keywords, Creator, and Producer fields, or click "Strip All Metadata".',
+      },
+      {
+        step: 3,
+        title: 'Save & Download Clean PDF',
+        description: 'Click "Save Metadata & Download" to export the updated document cleanly.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'Why does changing the PDF Title matter?',
+        answer: 'Web browsers and PDF readers show the internal PDF Title in the tab bar instead of the filename. Setting a clean Title gives documents a polished look.',
+      },
+      {
+        question: 'What does "Strip All Metadata" remove?',
+        answer: 'It clears Title, Author, Subject, Keywords, Creator, and Producer tags so hidden personal or software names are wiped before publishing.',
+      },
+      {
+        question: 'Does editing metadata alter page text, fonts, or layout?',
+        answer: 'No. Only the PDF Info metadata fields are modified while every page object remains untouched.',
+      },
+      {
+        question: 'Does this work with zero server uploads?',
+        answer: 'Yes. Inspection and updating are executed directly inside browser RAM via pdf-lib.',
+      },
+    ],
+    relatedToolSlugs: ['/protect-pdf', '/unlock-pdf', '/sign-pdf', '/compress-pdf'],
+  },
+
+  'rotate-flip-image': {
+    id: 'rotate-flip-image',
+    slug: '/rotate-flip-image',
+    name: 'Rotate & Flip Image',
+    category: 'image',
+    h1: 'Rotate & Flip Images Online - 90° Turns, Mirror Flip & Fine Angle',
+    metaTitle: 'Rotate & Flip Image Online Free - Batch Mirror & Custom Angle | fileMakeR',
+    metaDescription: 'Rotate JPG, PNG, and WebP photos by 90°, 180°, 270°, mirror horizontally or vertically, or straighten crooked horizons with fine degree precision.',
+    canonicalUrl: `${SITE_URL}/rotate-flip-image`,
+    overviewHeading: 'Fix Orientation & Straighten Photos Instantly in Browser',
+    overviewText: 'Sideways phone photos, mirrored webcam selfies, and slightly tilted document scans are effortless to fix without opening desktop photo editors. fileMakeR applies hardware-accelerated HTML5 Canvas matrix transformations to rotate images in crisp 90-degree increments, mirror flip horizontally or vertically, or fine-tune any angle between -180° and +180°. Automatically expands canvas dimensions to prevent corner clipping during free-angle straightening and supports single or batch ZIP downloads.',
+    keyFeatures: [
+      'Instant 90° left/right turns and 180° flips with zero quality degradation.',
+      'Horizontal and vertical mirror reflection for inverted scans and selfies.',
+      'Fine angle slider (-180° to +180°) with automatic bounding-box expansion.',
+      'Batch orientation transforms with unified ZIP archive download.',
+      'Live canvas preview showing exact transformed pixels before export.',
+    ],
+    howToSteps: [
+      {
+        step: 1,
+        title: 'Upload Single or Batch Images',
+        description: 'Drop one or multiple JPG, PNG, or WebP files into the workspace.',
+      },
+      {
+        step: 2,
+        title: 'Rotate, Flip or Tilt',
+        description: 'Use quick 90° rotate/flip buttons or adjust the custom degree slider while watching the live preview.',
+      },
+      {
+        step: 3,
+        title: 'Export Transformed File(s)',
+        description: 'Select target format and click apply to download your corrected image or ZIP pack.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'Does rotating by a custom angle cut off corners of my photo?',
+        answer: 'No. Our trigonometric bounding-box formula expands the output canvas automatically so every corner of the rotated photo fits intact.',
+      },
+      {
+        question: 'Can I preserve transparent backgrounds when rotating PNG logos?',
+        answer: 'Yes. Exporting as PNG or WebP preserves full alpha channel transparency around rotated edges.',
+      },
+      {
+        question: 'Can I mirror a photo horizontally and rotate at the same time?',
+        answer: 'Yes. Flip and rotation transforms combine seamlessly in a single lossless pass.',
+      },
+      {
+        question: 'Can I process multiple sideways images together?',
+        answer: 'Yes. Upload a batch of images, set the transform once, and download all fixed photos inside a ZIP archive.',
+      },
+    ],
+    relatedToolSlugs: ['/crop-image', '/resize-image', '/watermark-image', '/convert-image'],
+  },
+
+  'watermark-image': {
+    id: 'watermark-image',
+    slug: '/watermark-image',
+    name: 'Add Watermark to Image',
+    category: 'image',
+    h1: 'Add Watermark to Image Online - Custom Text & Logo Overlay',
+    metaTitle: 'Add Watermark to Image Free - Text, Logo & Tiled Protection | fileMakeR',
+    metaDescription: 'Protect photos and graphics with custom translucent text or PNG logo watermarks across corners, center, or diagonal tiled grids directly in your browser.',
+    canonicalUrl: `${SITE_URL}/watermark-image`,
+    overviewHeading: 'Brand & Protect Photography with Text or Logo Watermarks',
+    overviewText: 'Photographers, designers, e-commerce sellers, and agencies need an effortless way to stamp copyright notices or brand logos onto photos before sharing proofs online. fileMakeR renders crisp live-preview text watermarks and transparent PNG/SVG logo overlays completely inside your browser. Place your mark in any of 9 standard grid positions or generate a full diagonal tiled pattern across every pixel, with fine control over opacity, scale, color, and angle—for single photos or entire batches exported as a ZIP.',
+    keyFeatures: [
+      'Dual watermark modes: Custom typography text watermark or uploaded transparent brand logo.',
+      '9-point placement + Tiled Grid mode: Lock stamps to corners, center, or repeat diagonally.',
+      'Granular opacity, scale & angle controls with real-time canvas preview.',
+      'Batch watermarking: Protect multiple product photos or proofs simultaneously.',
+      '100% private client-side rendering: Unwatermarked originals never leave your computer.',
+    ],
+    howToSteps: [
+      {
+        step: 1,
+        title: 'Upload Photo(s) to Protect',
+        description: 'Select one or multiple JPG, PNG, or WebP images you want to brand or protect.',
+      },
+      {
+        step: 2,
+        title: 'Customize Text or Logo Mark',
+        description: 'Choose Text or Logo mode, tune opacity, size, color, rotation angle, and grid placement.',
+      },
+      {
+        step: 3,
+        title: 'Apply & Download Watermarked Output',
+        description: 'Click apply to bake the watermark cleanly into every image and download or save as ZIP.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'Can I upload my company logo PNG as a watermark?',
+        answer: 'Yes. Switch to Logo mode and upload a PNG or SVG brand mark with transparency for crisp corner or tiled branding.',
+      },
+      {
+        question: 'What does Tiled Grid mode do?',
+        answer: 'Tiled mode repeats your watermark evenly across the entire photo surface so no part of the image can be easily cropped clean.',
+      },
+      {
+        question: 'Are my original unwatermarked photos uploaded anywhere?',
+        answer: 'Never. All pixel compositing executes inside local browser HTML5 Canvas.',
+      },
+      {
+        question: 'Can I batch watermark multiple product images at once?',
+        answer: 'Yes. Upload all images in one batch, configure your watermark once, and download everything as a ZIP archive.',
+      },
+    ],
+    relatedToolSlugs: ['/add-watermark', '/blur-image', '/compress-image', '/resize-image'],
+  },
+
+  'blur-image': {
+    id: 'blur-image',
+    slug: '/blur-image',
+    name: 'Blur / Pixelate Faces & Info',
+    category: 'image',
+    h1: 'Blur & Pixelate Faces or Sensitive Info in Photos Online Free',
+    metaTitle: 'Blur & Pixelate Faces, IDs & Text Online Free | fileMakeR',
+    metaDescription: 'Interactively blur, pixelate, or blackout faces, license plates, Aadhaar/ID numbers, and sensitive screenshot details 100% locally in your browser.',
+    canonicalUrl: `${SITE_URL}/blur-image`,
+    overviewHeading: 'Irreversible Client-Side Photo Redaction for Complete Privacy',
+    overviewText: 'Screenshots, receipts, identity cards, and street photographs frequently contain sensitive details—faces, phone numbers, home addresses, license plates, or account numbers—that must be censored before posting online. fileMakeR provides an interactive HTML5 Canvas redaction studio running 100% on your device. Simply drag rectangles or ovals across any region to apply true pixelation, smooth blur, or solid blackout masks, adjust block intensity, undo steps freely, and export a flattened high-resolution image with redacted pixels baked permanently into the bitmap.',
+    keyFeatures: [
+      'Three censoring styles: Classic Pixelate blocks, soft Gaussian-style Blur, and Solid Blackout bars.',
+      'Rectangle & Oval masks: Drag rectangular redaction boxes over text or ovals over faces.',
+      'True pixel-level flattening: Redacted areas are mathematically overwritten in output pixel buffers.',
+      'Multi-region editing with Undo & Clear All history on live canvas preview.',
+      'Zero cloud exposure: Uncensored source photos remain strictly on your device.',
+    ],
+    howToSteps: [
+      {
+        step: 1,
+        title: 'Upload Photo or Screenshot',
+        description: 'Open any JPG, PNG, or WebP image containing sensitive regions you want to hide.',
+      },
+      {
+        step: 2,
+        title: 'Drag Over Faces or Text',
+        description: 'Select Pixelate, Blur, or Blackout and Box or Oval shape, then drag directly on the canvas over sensitive details.',
+      },
+      {
+        step: 3,
+        title: 'Export Flattened Redacted Image',
+        description: 'Review the live censored preview and click download to save your permanently redacted photo.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'Can someone undo or reverse the pixelation after I download the image?',
+        answer: 'No. Because regions are flattened directly into a fresh raster PNG/JPG image buffer, original pixels underneath Blackout and aggressive Pixelate/Blur masks are permanently replaced.',
+      },
+      {
+        question: 'Which mode is best for hiding credit card or ID numbers?',
+        answer: 'Solid Blackout or high-intensity Pixelation provides the strongest protection for readable digits and barcodes.',
+      },
+      {
+        question: 'Can I blur multiple areas in the same picture?',
+        answer: 'Yes. Draw as many rectangular or oval zones as needed and use the Undo button anytime if you misplace a box.',
+      },
+      {
+        question: 'Is my uncensored photo ever sent over the internet?',
+        answer: 'Never. All pixel array manipulation runs in local JavaScript memory on your computer or phone.',
+      },
+    ],
+    relatedToolSlugs: ['/watermark-image', '/crop-image', '/compress-image', '/rotate-flip-image'],
+  },
+
+  'svg-to-image': {
+    id: 'svg-to-image',
+    slug: '/svg-to-image',
+    name: 'SVG to PNG / JPG Converter',
+    category: 'image',
+    h1: 'Convert SVG to High-Resolution PNG, JPG & WebP Online Free',
+    metaTitle: 'SVG to PNG / JPG Converter Online Free - 1x to 8x Retina Scale | fileMakeR',
+    metaDescription: 'Convert .svg files or pasted SVG vector markup into sharp high-DPI PNG, JPG, or WebP images up to 8x scale with transparent or custom solid backgrounds.',
+    canonicalUrl: `${SITE_URL}/svg-to-image`,
+    overviewHeading: 'Sharp Vector-to-Raster SVG Export up to 8x Scale',
+    overviewText: 'Designers, developers, and marketers regularly need crisp bitmap assets from scalable SVG icons, illustrations, and logos for slide decks, mobile apps, and email newsletters where raw .svg attachments are blocked. fileMakeR parses both uploaded .svg files and pasted raw <svg> XML markup inside your browser, preserves viewBox proportions, lets you scale resolution from 1x up to razor-sharp 8x Retina dimensions, and exports transparent PNGs or solid-background JPG and WebP files with zero server uploads.',
+    keyFeatures: [
+      'Dual input support: Upload multiple .svg files in batch or paste raw <svg> XML code directly.',
+      'Ultra-sharp scaling: Export at 1x, 2x, 3x, 4x, or 8x resolution multipliers without pixelation.',
+      'Transparency or custom fill: Keep transparent alpha channels in PNG/WebP or apply any background color.',
+      'Automatic viewBox & dimension parsing: Safely handles SVGs lacking explicit width/height attributes.',
+      'Batch ZIP download: Export dozens of converted vector icons in a single compressed archive.',
+    ],
+    howToSteps: [
+      {
+        step: 1,
+        title: 'Upload .SVG File(s) or Paste Markup',
+        description: 'Drag and drop one or more SVG vector files or switch to the Paste SVG Code tab.',
+      },
+      {
+        step: 2,
+        title: 'Choose Scale & Format',
+        description: 'Select PNG, JPG, or WebP output, pick resolution scale (1x–8x), and configure background fill.',
+      },
+      {
+        step: 3,
+        title: 'Convert & Download Raster Assets',
+        description: 'Render your high-DPI bitmap images and save individually or as a ZIP pack.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'Can I paste raw SVG code copied from Figma or Illustrator?',
+        answer: 'Yes. Switch to Paste Code mode, paste your <svg>...</svg> snippet, and render it straight to PNG, JPG, or WebP.',
+      },
+      {
+        question: 'Why does SVG to PNG preserve sharp edges when scaled to 4x or 8x?',
+        answer: 'Unlike raster JPEGs, SVG stores mathematical vector paths. Scaling before rasterization instructs your browser to paint vector curves cleanly at full target resolution.',
+      },
+      {
+        question: 'Does PNG export keep transparent backgrounds?',
+        answer: 'Yes. Select "Transparent" background fill with PNG or WebP format to keep crisp transparent backdrops around icons and logos.',
+      },
+      {
+        question: 'Is this converter safe for proprietary brand icons?',
+        answer: '100% safe. Vector parsing and canvas rasterization occur strictly inside your local browser memory.',
+      },
+    ],
+    relatedToolSlugs: ['/convert-image', '/base64-image', '/resize-image', '/watermark-image'],
+  },
+
+  'base64-image': {
+    id: 'base64-image',
+    slug: '/base64-image',
+    name: 'Base64 Image Encoder & Decoder',
+    category: 'image',
+    h1: 'Base64 Image Encoder & Decoder - Data URI, HTML, CSS & Download',
+    metaTitle: 'Base64 Image Encoder & Decoder Online Free | fileMakeR',
+    metaDescription: 'Encode JPG, PNG, WebP, or SVG images into Base64 Data URIs, HTML <img> tags, and CSS snippets, or decode Base64 strings back into downloadable image files.',
+    canonicalUrl: `${SITE_URL}/base64-image`,
+    overviewHeading: 'Bidirectional Developer Tool for Base64 Images & Data URIs',
+    overviewText: 'Embedding small icons directly into stylesheets, inspecting JSON API image payloads, or recovering images stored as raw Base64 strings is part of everyday web engineering. fileMakeR delivers both directions cleanly in a single private browser utility. Drop any image to copy ready-to-paste Data URIs, raw Base64 strings, HTML <img> tags, CSS background-image rules, or download a .txt bundle. Or switch to Decoder mode to paste any raw Base64 string or Data URI—magic bytes automatically detect PNG, JPG, GIF, WebP, or SVG MIME types for immediate preview and download.',
+    keyFeatures: [
+      'Image → Base64 snippets: Generate Data URI, Raw Base64, HTML <img>, and CSS background rules.',
+      'Base64 → Image decoder: Accepts both full data:image/... URIs and bare raw Base64 strings.',
+      'Magic-byte MIME detection: Automatically identifies PNG, JPEG, GIF, WebP, and SVG signatures.',
+      'Payload size breakdown: Inspect original byte size vs Base64 encoded string length.',
+      '100% client-side execution: Safe for internal API payloads, tokens, and proprietary assets.',
+    ],
+    howToSteps: [
+      {
+        step: 1,
+        title: 'Choose Encode or Decode Mode',
+        description: 'Pick "Image to Base64" to generate code snippets or "Base64 to Image" to reconstruct a file.',
+      },
+      {
+        step: 2,
+        title: 'Provide Image or Paste Base64',
+        description: 'Upload a graphic file or paste your Base64 / Data URI text string into the decoder field.',
+      },
+      {
+        step: 3,
+        title: 'Copy Snippets or Download Result',
+        description: 'Copy formatted HTML/CSS/Data URI outputs or download the decoded image file.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'Can the decoder handle raw Base64 without a data:image prefix?',
+        answer: 'Yes. Even if your string lacks the "data:image/png;base64," header, magic-byte inspection detects PNG, JPG, WebP, GIF, and SVG automatically.',
+      },
+      {
+        question: 'Why is a Base64 string larger than the original image file?',
+        answer: 'Base64 encoding maps 3 binary bytes into 4 ASCII characters, resulting in roughly 33% size overhead—useful for small inline icons rather than large photographs.',
+      },
+      {
+        question: 'Can I download the generated Base64 text as a file?',
+        answer: 'Yes. Click download to save the complete Data URI text neatly to a .txt file.',
+      },
+      {
+        question: 'Are proprietary screenshots or Base64 strings sent to a backend?',
+        answer: 'Never. Conversion runs completely inside your browser with zero external requests.',
+      },
+    ],
+    relatedToolSlugs: ['/svg-to-image', '/convert-image', '/qr-code', '/zip-archive'],
+  },
+
+  'qr-code': {
+    id: 'qr-code',
+    slug: '/qr-code',
+    name: 'QR Code Generator & Scanner',
+    category: 'utility',
+    h1: 'QR Code Generator & Scanner Online Free - URL, Wi-Fi, UPI, vCard & Logo',
+    metaTitle: 'QR Code Generator & Scanner Online Free - Wi-Fi, UPI, SVG & Camera | fileMakeR',
+    metaDescription: 'Generate custom QR codes with URLs, Wi-Fi login, UPI payments, vCards, colors, and center logos (PNG/SVG), or scan QR codes live from camera or image files.',
+    canonicalUrl: `${SITE_URL}/qr-code`,
+    overviewHeading: 'All-in-One Custom QR Code Studio & In-Browser Scanner',
+    overviewText: 'Generating clean high-resolution QR codes for websites, guest Wi-Fi networks, UPI instant payments, contact cards, or product packaging should be effortless and track-free—with zero expiring dynamic redirects. fileMakeR generates genuine static QR codes directly inside your browser that never expire. Customize foreground and background colors, select High (H) error correction, optionally embed a crisp center logo, and export vector SVG or high-DPI PNG files. Need to inspect a QR code safely first? Switch to the Scanner tab to decode any uploaded QR image or scan live via your webcam.',
+    keyFeatures: [
+      'Rich payload builders: Dedicated forms for URLs, Plain Text, Wi-Fi auto-join, UPI Payments, Email, and vCard Contacts.',
+      'Brand styling & Center Logo: Customize colors, pixel size, quiet zone, Error Correction (L/M/Q/H), and logo overlay.',
+      'Dual crisp exports: Download high-resolution PNG graphics or infinite-scale vector SVG artwork.',
+      'Built-in QR Scanner: Decode QR codes safely from uploaded images or live camera feed without visiting links blindly.',
+      'Static & permanent: Zero third-party tracking redirects—your generated QR codes never expire.',
+    ],
+    howToSteps: [
+      {
+        step: 1,
+        title: 'Choose Generate or Scan Mode',
+        description: 'Stay on Generate QR to build custom codes, or switch to Scan QR to read existing codes from images or camera.',
+      },
+      {
+        step: 2,
+        title: 'Enter Data & Customize Style',
+        description: 'Fill out URL, Wi-Fi, UPI, Email, or vCard fields, tune colors/size, and optionally add a center logo.',
+      },
+      {
+        step: 3,
+        title: 'Download PNG/SVG or Copy Scanned Result',
+        description: 'Save crisp PNG/SVG QR files or view and copy decoded payloads from your camera or uploaded image.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'Do QR codes created with fileMakeR ever expire?',
+        answer: 'No. Because data is encoded directly into static QR modules rather than routed through a redirect server, your codes remain valid permanently.',
+      },
+      {
+        question: 'Can I add my brand logo in the center of a QR code reliably?',
+        answer: 'Yes. Selecting "High (30%)" error correction leaves sufficient redundant parity data so phones continue scanning smoothly even with a center logo overlay.',
+      },
+      {
+        question: 'Does Wi-Fi QR scanning automatically connect smartphones?',
+        answer: 'Yes. Standard WIFI:T:... payloads let iOS and Android cameras join the Wi-Fi SSID cleanly with a single tap without typing long passwords.',
+      },
+      {
+        question: 'Is my webcam stream or scanned QR image recorded anywhere?',
+        answer: 'Never. Camera frames are decoded strictly frame-by-frame in local JavaScript memory using jsQR and discarded immediately.',
+      },
+    ],
+    relatedToolSlugs: ['/base64-image', '/svg-to-image', '/zip-archive', '/watermark-image'],
+  },
+
+  'zip-archive': {
+    id: 'zip-archive',
+    slug: '/zip-archive',
+    name: 'ZIP Archive Creator & Extractor',
+    category: 'utility',
+    h1: 'ZIP Archive Creator & Extractor Online Free - Compress & Unzip Files',
+    metaTitle: 'ZIP Creator & Extractor Online Free - Bundle Folders & Unzip | fileMakeR',
+    metaDescription: 'Create DEFLATE-compressed .zip archives from files or folders, or inspect folder contents and extract individual files from any .zip archive 100% locally.',
+    canonicalUrl: `${SITE_URL}/zip-archive`,
+    overviewHeading: 'Private In-Browser ZIP Compression & Safe Archive Inspection',
+    overviewText: 'Need to bundle project folders for delivery or inspect a suspicious .zip attachment before extracting files onto your hard drive? fileMakeR gives you full client-side archive creation and inspection powered by JSZip inside browser RAM. In Creator mode, drag files or entire nested directories into the queue, preserve folder hierarchies, adjust DEFLATE compression levels (0–9), and inspect real-time archive size before saving. In Extractor mode, preview every filename, directory path, uncompressed size, and compression ratio inside any .zip archive, extract single items safely, or save everything cleanly.',
+    keyFeatures: [
+      'Create ZIP from files or folders: Supports drag-and-drop files plus full directory hierarchy uploads.',
+      'Custom DEFLATE compression: Choose Store (Level 0) through Maximum Compression (Level 9).',
+      'Safe archive inspector: Preview exact filenames, folder paths, and sizes before extracting.',
+      'Individual file extraction: Pull out only the single document you need without unpacking an entire bundle.',
+      'Path traversal sanitization: Safely normalizes archive entry names inside isolated browser memory.',
+    ],
+    howToSteps: [
+      {
+        step: 1,
+        title: 'Choose Create ZIP or Extract ZIP',
+        description: 'Pick Creator tab to bundle files/folders, or Extractor tab to open an existing .zip archive.',
+      },
+      {
+        step: 2,
+        title: 'Configure Files or Inspect Entries',
+        description: 'Add files/folders and set compression level (or browse every entry listed inside your uploaded archive).',
+      },
+      {
+        step: 3,
+        title: 'Download ZIP or Extract Files',
+        description: 'Save your freshly compressed .zip archive or extract individual entries directly to your device.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'Can I upload an entire folder while keeping subfolders intact inside the ZIP?',
+        answer: 'Yes. Use the "Add Folder" selector to preserve relative folder paths automatically inside your compressed archive.',
+      },
+      {
+        question: 'Can I extract just one file from a large ZIP without extracting everything?',
+        answer: 'Yes. Extractor mode lists every file inside the archive with an individual Extract button next to each entry.',
+      },
+      {
+        question: 'What compression level should I choose?',
+        answer: 'Level 6 (Balanced) delivers strong size reduction quickly for most files, while Level 9 maximizes compression for text/code and Level 0 bundles uncompressible videos rapidly.',
+      },
+      {
+        question: 'Are my archived documents uploaded to a cloud server?',
+        answer: 'Never. All compression and decompression happens strictly in your browser RAM with zero server transmission.',
+      },
+    ],
+    relatedToolSlugs: ['/merge-pdf', '/split-pdf', '/qr-code', '/base64-image'],
   },
 };

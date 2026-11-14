@@ -82,7 +82,7 @@ function generateToolHtml(seo: ToolSeoData, baseHtml: string): string {
 
       <main class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 py-8 space-y-10">
         <nav aria-label="Breadcrumb" class="text-sm text-slate-600 dark:text-slate-300">
-          <a href="/">Home</a> &gt; <span>${seo.category === 'pdf' ? 'PDF Tools' : 'Image Tools'}</span> &gt; <span>${seo.name}</span>
+          <a href="/">Home</a> &gt; <span>${seo.category === 'pdf' ? 'PDF Tools' : seo.category === 'image' ? 'Image Tools' : 'Utilities'}</span> &gt; <span>${seo.name}</span>
         </nav>
 
         <section class="text-center space-y-3">
@@ -218,7 +218,10 @@ function generateStaticPages() {
 
   console.log('🚀 Pre-rendering static SEO HTML pages for all tools and routes...');
 
-  // 1. Generate pages for all 15 tools
+  // 1. Generate pages for all registered tools
+  const pdfCount = TOOLS.filter((t) => t.category === 'pdf').length;
+  const imageCount = TOOLS.filter((t) => t.category === 'image').length;
+  const utilityCount = TOOLS.filter((t) => t.category === 'utility').length;
   for (const [toolId, seo] of Object.entries(TOOLS_SEO_DATA)) {
     const cleanSlug = seo.slug.replace(/^\//, '');
     const toolHtml = generateToolHtml(seo, baseHtml);
@@ -321,11 +324,12 @@ function generateStaticPages() {
             <div class="relative flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 via-indigo-600 to-blue-700 text-white shadow-md shadow-blue-500/20">
               <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12l4 6-10 12L2 9z"/></svg>
             </div>
-            <span class="text-xl font-black tracking-tight text-slate-900 dark:text-slate-100">file<span class="text-blue-600 dark:text-blue-400">MakeO</span></span>
+            <span class="text-xl font-black tracking-tight text-slate-900 dark:text-slate-100">file<span class="text-blue-600 dark:text-blue-400">MakeR</span></span>
           </a>
           <nav class="hidden md:flex items-center gap-1 text-sm font-medium text-slate-600 dark:text-slate-300">
             <a href="/?category=pdf#pdf-tools" class="px-3 py-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900">PDF Tools</a>
             <a href="/?category=image#image-tools" class="px-3 py-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900">Image Tools</a>
+            <a href="/?category=utility#utility-tools" class="px-3 py-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900">Utilities</a>
             <a href="/about" class="px-3 py-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900">About</a>
             <a href="/privacy" class="px-3 py-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900">Privacy</a>
             <a href="/contact" class="px-3 py-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900">Contact</a>
@@ -348,7 +352,7 @@ function generateStaticPages() {
             </div>
 
             <h1 class="text-4xl sm:text-6xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight leading-[1.15]">
-              file<span class="text-blue-600 dark:text-blue-400">MakeO</span> — Free Tools for <span class="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 bg-clip-text text-transparent">PDFs &amp; Images</span>
+              file<span class="text-blue-600 dark:text-blue-400">MakeR</span> — Free Tools for <span class="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 bg-clip-text text-transparent">PDFs &amp; Images</span>
             </h1>
 
             <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
@@ -357,12 +361,13 @@ function generateStaticPages() {
 
             <div class="max-w-xl mx-auto pt-4 space-y-4">
               <div class="flex items-center gap-2 px-4 py-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-slate-500 text-sm sm:text-base shadow-md">
-                <span>Search all 15 tools (e.g. merge pdf, compress under 50kb, resize)...</span>
+                <span>Search all ${TOOLS.length} tools (e.g. sign pdf, protect pdf, qr code, blur)...</span>
               </div>
               <div class="flex flex-wrap items-center justify-center gap-2">
-                <span class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-blue-600 text-white shadow-sm">All Tools (15)</span>
-                <a href="/?category=pdf#pdf-tools" class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-800">PDF Tools (11)</a>
-                <a href="/?category=image#image-tools" class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-800">Image Tools (4)</a>
+                <span class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-blue-600 text-white shadow-sm">All Tools (${TOOLS.length})</span>
+                <a href="/?category=pdf#pdf-tools" class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-800">PDF Tools (${pdfCount})</a>
+                <a href="/?category=image#image-tools" class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-800">Image Tools (${imageCount})</a>
+                <a href="/?category=utility#utility-tools" class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-800">Utilities (${utilityCount})</a>
               </div>
             </div>
           </div>
@@ -373,7 +378,7 @@ function generateStaticPages() {
           <div class="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-800">
             <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
               <span>Available Utilities</span>
-              <span class="text-xs font-medium text-slate-600 dark:text-slate-400">(15 tools)</span>
+              <span class="text-xs font-medium text-slate-600 dark:text-slate-400">(${TOOLS.length} tools)</span>
             </h2>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
@@ -381,7 +386,7 @@ function generateStaticPages() {
               <a href="${tool.slug}" class="group relative flex flex-col justify-between p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs hover:border-blue-400 transition-all">
                 <div>
                   <div class="flex items-start justify-between gap-2 mb-4">
-                    <div class="w-12 h-12 rounded-2xl flex items-center justify-center ${tool.category === 'pdf' ? 'bg-rose-50 text-rose-600 dark:bg-rose-950/50 dark:text-rose-400' : 'bg-blue-50 text-blue-600 dark:bg-blue-950/50 dark:text-blue-400'}">
+                    <div class="w-12 h-12 rounded-2xl flex items-center justify-center ${tool.category === 'pdf' ? 'bg-rose-50 text-rose-600 dark:bg-rose-950/50 dark:text-rose-400' : tool.category === 'image' ? 'bg-blue-50 text-blue-600 dark:bg-blue-950/50 dark:text-blue-400' : 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950/50 dark:text-emerald-400'}">
                       <span class="font-bold text-xs uppercase">${tool.category}</span>
                     </div>
                     ${tool.badge ? `<span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">${tool.badge}</span>` : ''}

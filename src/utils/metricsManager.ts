@@ -40,10 +40,22 @@ const DEFAULT_REAL_METRICS: AppMetrics = {
     'add-page-numbers': 0,
     'add-watermark': 0,
     'remove-pages': 0,
+    'pdf-n-up': 0,
+    'sign-pdf': 0,
+    'protect-pdf': 0,
+    'unlock-pdf': 0,
+    'pdf-metadata': 0,
     'compress-image': 0,
     'resize-image': 0,
     'convert-image': 0,
     'crop-image': 0,
+    'rotate-flip-image': 0,
+    'watermark-image': 0,
+    'blur-image': 0,
+    'svg-to-image': 0,
+    'base64-image': 0,
+    'qr-code': 0,
+    'zip-archive': 0,
   },
   dailyBreakdown: {},
 };
@@ -97,10 +109,22 @@ export function resetMetrics(): AppMetrics {
       'add-page-numbers': 0,
       'add-watermark': 0,
       'remove-pages': 0,
+      'pdf-n-up': 0,
+      'sign-pdf': 0,
+      'protect-pdf': 0,
+      'unlock-pdf': 0,
+      'pdf-metadata': 0,
       'compress-image': 0,
       'resize-image': 0,
       'convert-image': 0,
       'crop-image': 0,
+      'rotate-flip-image': 0,
+      'watermark-image': 0,
+      'blur-image': 0,
+      'svg-to-image': 0,
+      'base64-image': 0,
+      'qr-code': 0,
+      'zip-archive': 0,
     },
     dailyBreakdown: {},
   };
@@ -195,7 +219,7 @@ export function downloadMetricsJSON(): void {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `filemaker_analytics_matrix_${new Date().toISOString().slice(0, 10)}.json`;
+  a.download = `fileMakeR_analytics_matrix_${new Date().toISOString().slice(0, 10)}.json`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
@@ -231,7 +255,7 @@ export function downloadMetricsCSV(): void {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `filemaker_analytics_matrix_${new Date().toISOString().slice(0, 10)}.csv`;
+  a.download = `fileMakeR_analytics_matrix_${new Date().toISOString().slice(0, 10)}.csv`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);

@@ -6,6 +6,7 @@
 import React, { useEffect } from 'react';
 import { Download, CheckCircle2, RotateCcw, Archive, FileText, Image as ImageIcon, ArrowDownRight } from 'lucide-react';
 import { formatBytes, calculateSavings } from '../utils/formatters';
+import { formatBrandedFilename } from '../utils/downloadHelper';
 import { recordOperation } from '../utils/metricsManager';
 import { AdSlot } from './AdSlot';
 
@@ -40,6 +41,8 @@ export const DownloadResult: React.FC<DownloadResultProps> = ({
   title = 'Your file is ready!',
   details,
 }) => {
+  const displayFilename = formatBrandedFilename(filename);
+  const displayZipFilename = formatBrandedFilename(zipFilename);
   const savings = originalSize && resultSize ? calculateSavings(originalSize, resultSize) : null;
 
   useEffect(() => {
@@ -90,7 +93,7 @@ export const DownloadResult: React.FC<DownloadResultProps> = ({
         {!savings && resultSize && (
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-700 dark:text-slate-300">
             {isImage ? <ImageIcon className="w-4 h-4 text-blue-500" /> : <FileText className="w-4 h-4 text-rose-500" />}
-            <span className="truncate max-w-xs">{filename}</span>
+            <span className="truncate max-w-xs">{displayFilename}</span>
             <span className="text-slate-400 dark:text-slate-500 font-mono text-xs">({formatBytes(resultSize)})</span>
           </div>
         )}
@@ -110,7 +113,7 @@ export const DownloadResult: React.FC<DownloadResultProps> = ({
             className="w-full flex items-center justify-center gap-2.5 py-4 px-6 rounded-2xl bg-blue-600 hover:bg-blue-700 active:scale-[0.99] text-white font-semibold text-base shadow-lg shadow-blue-500/25 transition-all"
           >
             <Download className="w-5 h-5" />
-            <span>Download {filename}</span>
+            <span>Download {displayFilename}</span>
           </button>
 
           {zipBlob && onDownloadZip && (
@@ -120,7 +123,7 @@ export const DownloadResult: React.FC<DownloadResultProps> = ({
               className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-2xl bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 border border-indigo-200 dark:border-indigo-800 font-medium text-sm transition-all"
             >
               <Archive className="w-4 h-4" />
-              <span>Download All as ZIP ({zipFilename})</span>
+              <span>Download All as ZIP ({displayZipFilename})</span>
             </button>
           )}
 

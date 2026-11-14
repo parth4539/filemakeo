@@ -13,6 +13,7 @@ import {
   ShieldCheck,
   FileText,
   Image as ImageIcon,
+  Wrench,
   BookOpen,
 } from 'lucide-react';
 import { ToolSeoData } from '../data/toolsSeoData';
@@ -161,13 +162,17 @@ export const ToolSeoContent: React.FC<ToolSeoContentProps> = ({ seo }) => {
                     className={`w-9 h-9 rounded-xl flex items-center justify-center ${
                       relTool.category === 'pdf'
                         ? 'bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400'
-                        : 'bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400'
+                        : relTool.category === 'image'
+                        ? 'bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400'
+                        : 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400'
                     }`}
                   >
                     {relTool.category === 'pdf' ? (
                       <FileText className="w-4 h-4" />
-                    ) : (
+                    ) : relTool.category === 'image' ? (
                       <ImageIcon className="w-4 h-4" />
+                    ) : (
+                      <Wrench className="w-4 h-4" />
                     )}
                   </div>
                   <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
