@@ -29,6 +29,11 @@ export const SeoHead: React.FC<SeoHeadProps> = ({ seo }) => {
     // 2. Set Meta Description
     setMetaTag('name', 'description', seo.metaDescription);
 
+    const resolvedCanonicalUrl =
+      typeof window !== 'undefined'
+        ? `${window.location.origin}${seo.slug}`
+        : seo.canonicalUrl;
+
     // 3. Set Canonical Link
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
@@ -36,12 +41,12 @@ export const SeoHead: React.FC<SeoHeadProps> = ({ seo }) => {
       canonical.setAttribute('rel', 'canonical');
       document.head.appendChild(canonical);
     }
-    canonical.setAttribute('href', seo.canonicalUrl);
+    canonical.setAttribute('href', resolvedCanonicalUrl);
 
     // 4. OpenGraph Tags
     setMetaTag('property', 'og:title', seo.metaTitle);
     setMetaTag('property', 'og:description', seo.metaDescription);
-    setMetaTag('property', 'og:url', seo.canonicalUrl);
+    setMetaTag('property', 'og:url', resolvedCanonicalUrl);
     setMetaTag('property', 'og:type', 'website');
     setMetaTag('property', 'og:site_name', 'fileMakeR');
 
@@ -55,7 +60,7 @@ export const SeoHead: React.FC<SeoHeadProps> = ({ seo }) => {
       '@context': 'https://schema.org',
       '@type': 'WebApplication',
       name: `${seo.name} - fileMakeR`,
-      url: seo.canonicalUrl,
+      url: resolvedCanonicalUrl,
       description: seo.metaDescription,
       applicationCategory: 'UtilitiesApplication',
       operatingSystem: 'All',

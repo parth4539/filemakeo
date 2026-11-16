@@ -18,8 +18,9 @@ import {
   Code,
   Github,
 } from 'lucide-react';
-import { DiamondLogoIcon } from '../components/Logo';
+import { DiamondLogoIcon, PORTFOLIO_URL } from '../components/Logo';
 import { SITE_URL } from '../data/toolsSeoData';
+import { TOOLS } from '../types/tool';
 
 export const ContactPage: React.FC = () => {
   const [name, setName] = useState('');
@@ -38,13 +39,14 @@ export const ContactPage: React.FC = () => {
       );
     }
 
+    const origin = typeof window !== 'undefined' ? window.location.origin : SITE_URL;
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
       canonical = document.createElement('link');
       canonical.setAttribute('rel', 'canonical');
       document.head.appendChild(canonical);
     }
-    canonical.setAttribute('href', `${SITE_URL}/contact`);
+    canonical.setAttribute('href', `${origin}/contact`);
   }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -77,7 +79,7 @@ export const ContactPage: React.FC = () => {
           <DiamondLogoIcon size={42} />
         </div>
         <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
-          Get in Touch with file<span className="text-blue-600 dark:text-blue-400">MakeO</span>
+          Get in Touch with file<span className="text-blue-600 dark:text-blue-400">MakeR</span>
         </h1>
         <p className="text-base text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
           Have feedback, found a bug, or want to suggest a new client-side document tool? We would love to hear from you.
@@ -95,7 +97,14 @@ export const ContactPage: React.FC = () => {
             <span>Developer &amp; Maintainer</span>
           </div>
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100">
-            Parth Prajapati
+            <a
+              href={PORTFOLIO_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-blue-600 dark:hover:text-blue-400 hover:underline transition-colors"
+            >
+              Parth Prajapati
+            </a>
           </h2>
           <p className="text-xs text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
             Leading development of privacy-first, zero-upload web software. Feel free to reach out directly with questions, bug reports, or partnership opportunities.
@@ -271,7 +280,7 @@ export const ContactPage: React.FC = () => {
               </li>
               <li>
                 <Link to="/" className="text-blue-600 dark:text-blue-400 hover:underline">
-                  &rarr; Explore all 14 free PDF and Image tools
+                  &rarr; Explore all {TOOLS.length} free PDF, Image &amp; Utility tools
                 </Link>
               </li>
             </ul>

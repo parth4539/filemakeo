@@ -1,3 +1,6 @@
 # Netlify SPA Fallback Redirects
-# Static pre-rendered files in dist/ (e.g. /merge-pdf/index.html) are served first automatically
-/*    /index.html   200
+# Normalize sitemap variants before SPA fallback so XML is always served
+/sitemap      /sitemap.xml  301!
+/sitemap/     /sitemap.xml  301!
+/sitemap.xml/ /sitemap.xml  301!
+/*            /index.html   200

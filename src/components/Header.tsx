@@ -80,9 +80,7 @@ export const Header: React.FC<HeaderProps> = ({ isDark, onToggleTheme }) => {
       <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-white/80 dark:bg-slate-950/80 border-b border-slate-200/80 dark:border-slate-800 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
           {/* Logo */}
-          <Link to="/" className="group">
-            <Logo size="md" />
-          </Link>
+          <Logo size="md" linkHome />
 
           {/* Quick Nav Links */}
           <nav className="hidden md:flex items-center gap-1.5">

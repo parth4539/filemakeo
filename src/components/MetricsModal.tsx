@@ -25,6 +25,7 @@ import {
   AppMetrics,
 } from '../utils/metricsManager';
 import { formatBytes } from '../utils/formatters';
+import { PORTFOLIO_URL } from './Logo';
 
 interface MetricsModalProps {
   isOpen: boolean;
@@ -70,7 +71,15 @@ export const MetricsModal: React.FC<MetricsModalProps> = ({ isOpen, onClose }) =
                 </span>
               </div>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-                Created &amp; Maintained by Parth Prajapati
+                Created &amp; Maintained by{' '}
+                <a
+                  href={PORTFOLIO_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold hover:text-blue-600 dark:hover:text-blue-400 hover:underline"
+                >
+                  Parth Prajapati
+                </a>
               </p>
             </div>
           </div>

@@ -21,10 +21,27 @@ import {
 } from 'lucide-react';
 import { TOOLS, ToolCategory, ToolDef } from '../types/tool';
 import { AdSlot } from '../components/AdSlot';
+import { PORTFOLIO_URL } from '../components/Logo';
 
 export const HomePage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
+
+  useEffect(() => {
+    document.title = 'fileMakeR - 100% Private Client-Side PDF & Image Tools';
+    const origin = typeof window !== 'undefined' ? window.location.origin : '';
+    if (origin) {
+      let canonical = document.querySelector('link[rel="canonical"]');
+      if (!canonical) {
+        canonical = document.createElement('link');
+        canonical.setAttribute('rel', 'canonical');
+        document.head.appendChild(canonical);
+      }
+      canonical.setAttribute('href', `${origin}/`);
+      const ogUrl = document.querySelector('meta[property="og:url"]');
+      if (ogUrl) ogUrl.setAttribute('content', `${origin}/`);
+    }
+  }, []);
 
   const [selectedCategory, setSelectedCategory] = useState<'all' | ToolCategory | 'popular' | 'govt'>(
     () => {
@@ -110,10 +127,16 @@ export const HomePage: React.FC = () => {
               <Lock className="w-3.5 h-3.5" />
               <span>100% In-Browser Privacy</span>
             </div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800/80 shadow-xs">
+            <a
+              href={PORTFOLIO_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800/80 shadow-xs hover:bg-blue-100 dark:hover:bg-blue-900/60 transition-colors"
+              title="Visit Parth Prajapati Portfolio"
+            >
               <span>Developer:</span>
-              <strong className="text-blue-900 dark:text-blue-100">Parth Prajapati</strong>
-            </div>
+              <strong className="text-blue-900 dark:text-blue-100 hover:underline">Parth Prajapati</strong>
+            </a>
           </div>
 
           <h1 className="text-4xl sm:text-6xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight leading-[1.15]">
@@ -124,7 +147,16 @@ export const HomePage: React.FC = () => {
           </h1>
 
           <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            Engineered by Parth Prajapati. Fast, 100% private in-browser document processing. Merge, split, compress, watermark, crop, and convert with zero file uploads and zero accounts.
+            Engineered by{' '}
+            <a
+              href={PORTFOLIO_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-slate-800 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 hover:underline transition-colors"
+            >
+              Parth Prajapati
+            </a>
+            . Fast, 100% private in-browser document processing. Merge, split, compress, watermark, crop, and convert with zero file uploads and zero accounts.
           </p>
 
           {/* Quick Search & Filters */}

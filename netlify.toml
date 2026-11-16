@@ -35,6 +35,25 @@
     Content-Type = "text/plain; charset=utf-8"
     Cache-Control = "public, max-age=3600"
 
+# Normalize sitemap routes so they never fall through to HTML
+[[redirects]]
+  from = "/sitemap"
+  to = "/sitemap.xml"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/sitemap/"
+  to = "/sitemap.xml"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/sitemap.xml/"
+  to = "/sitemap.xml"
+  status = 301
+  force = true
+
 # SPA Fallback for client-side routing (serves pre-rendered pages first if they exist)
 [[redirects]]
   from = "/*"

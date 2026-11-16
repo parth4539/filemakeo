@@ -4,10 +4,14 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
+
+export const PORTFOLIO_URL = 'https://parth-prajapati4539.netlify.app';
 
 interface LogoProps {
   size?: 'sm' | 'md' | 'lg';
   showText?: boolean;
+  linkHome?: boolean;
   className?: string;
 }
 
@@ -93,28 +97,54 @@ export const DiamondLogoIcon: React.FC<{ size?: number; className?: string }> = 
   );
 };
 
-export const Logo: React.FC<LogoProps> = ({ size = 'md', showText = true, className = '' }) => {
+export const Logo: React.FC<LogoProps> = ({
+  size = 'md',
+  showText = true,
+  linkHome = false,
+  className = '',
+}) => {
   const iconSize = size === 'sm' ? 22 : size === 'lg' ? 36 : 28;
+
+  const iconEl = (
+    <div className="w-10 h-10 rounded-xl bg-slate-900 dark:bg-slate-800 p-1.5 flex items-center justify-center shadow-md shadow-blue-500/20 ring-1 ring-blue-500/30">
+      <DiamondLogoIcon size={iconSize} />
+    </div>
+  );
+
+  const brandWordmark = (
+    <span className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
+      file<span className="text-blue-600 dark:text-blue-400 font-black">MakeR</span>
+    </span>
+  );
 
   return (
     <div className={`flex items-center gap-2.5 ${className}`}>
-      <div className="w-10 h-10 rounded-xl bg-slate-900 dark:bg-slate-800 p-1.5 flex items-center justify-center shadow-md shadow-blue-500/20 ring-1 ring-blue-500/30">
-        <DiamondLogoIcon size={iconSize} />
-      </div>
+      {linkHome ? (
+        <Link to="/" className="group flex items-center gap-2.5">
+          {iconEl}
+        </Link>
+      ) : (
+        iconEl
+      )}
 
       {showText && (
         <div className="flex flex-col">
-          <div className="flex items-center gap-1.5">
-            <span className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
-              file<span className="text-blue-600 dark:text-blue-400 font-black">MakeR</span>
-            </span>
-            <span className="hidden sm:inline-block text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded-md bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-900/40">
-              Studio
-            </span>
-          </div>
-          <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium hidden md:block">
+          {linkHome ? (
+            <Link to="/" className="hover:opacity-90 transition-opacity">
+              {brandWordmark}
+            </Link>
+          ) : (
+            brandWordmark
+          )}
+          <a
+            href={PORTFOLIO_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[10px] text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 font-medium hidden md:inline-block hover:underline transition-colors w-fit"
+            title="Visit Parth Prajapati Portfolio"
+          >
             By Parth Prajapati
-          </span>
+          </a>
         </div>
       )}
     </div>

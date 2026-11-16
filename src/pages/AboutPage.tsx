@@ -6,11 +6,13 @@
 import React, { useEffect } from 'react';
 import { Shield, UserCheck, Code } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { DiamondLogoIcon } from '../components/Logo';
+import { DiamondLogoIcon, PORTFOLIO_URL } from '../components/Logo';
+import { TOOLS } from '../types/tool';
+import { SITE_URL } from '../data/toolsSeoData';
 
 export const AboutPage: React.FC = () => {
   useEffect(() => {
-    document.title = 'About fileMakeR - Modern In-Browser Document Studio by Parth Prajapati';
+    document.title = 'About fileMakeR - Free In-Browser PDF & Image Tools by Parth Prajapati';
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
       metaDesc.setAttribute(
@@ -18,13 +20,14 @@ export const AboutPage: React.FC = () => {
         'Learn about fileMakeR, a free, 100% in-browser PDF and image toolkit engineered by Parth Prajapati. Discover our zero-upload privacy architecture and open-source foundation.'
       );
     }
+    const origin = typeof window !== 'undefined' ? window.location.origin : SITE_URL;
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
       canonical = document.createElement('link');
       canonical.setAttribute('rel', 'canonical');
       document.head.appendChild(canonical);
     }
-    canonical.setAttribute('href', 'https://ais-pre-i7zcuzd5ukxiag5p4bjryr-71452122590.asia-northeast1.run.app/about');
+    canonical.setAttribute('href', `${origin}/about`);
   }, []);
 
   return (
@@ -52,7 +55,14 @@ export const AboutPage: React.FC = () => {
             <span>Lead Engineer &amp; Creator</span>
           </div>
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100">
-            Parth Prajapati
+            <a
+              href={PORTFOLIO_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-blue-600 dark:hover:text-blue-400 hover:underline transition-colors"
+            >
+              Parth Prajapati
+            </a>
           </h2>
           <p className="text-xs text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
             Architected and engineered fileMakeR with a single guiding mission: empower users worldwide with completely free, private, and offline-capable document and image tools without servers or subscriptions.
@@ -124,7 +134,7 @@ export const AboutPage: React.FC = () => {
             to="/"
             className="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-md transition-all"
           >
-            Explore All 14 Tools
+            Explore All {TOOLS.length} Tools
           </Link>
         </section>
       </div>

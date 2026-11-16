@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ShieldCheck, Sparkles, UserCheck, Activity, Youtube } from 'lucide-react';
 import { TOOLS } from '../types/tool';
-import { Logo } from './Logo';
+import { Logo, PORTFOLIO_URL } from './Logo';
 
 const MetricsModal = React.lazy(() =>
   import('./MetricsModal').then((m) => ({ default: m.MetricsModal }))
@@ -39,16 +39,24 @@ export const Footer: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {/* Brand info */}
             <div className="space-y-4 md:col-span-1">
-              <Link to="/">
-                <Logo size="md" />
-              </Link>
+              <Logo size="md" linkHome />
               <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                 Modern client-side utilities engineered with WebAssembly, Canvas, and pure browser memory. Fast, secure, and always accessible offline.
               </p>
               <div className="p-3 rounded-xl bg-blue-50/60 dark:bg-blue-950/40 border border-blue-200/60 dark:border-blue-900/40 space-y-1">
                 <div className="flex items-center gap-1.5 text-xs text-blue-700 dark:text-blue-300 font-semibold">
                   <UserCheck className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                  <span>Developer: Parth Prajapati</span>
+                  <span>
+                    Developer:{' '}
+                    <a
+                      href={PORTFOLIO_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-bold hover:underline"
+                    >
+                      Parth Prajapati
+                    </a>
+                  </span>
                 </div>
                 <p className="text-[11px] text-slate-600 dark:text-slate-400 font-medium">
                   Created with privacy-first browser engineering.
@@ -162,7 +170,18 @@ export const Footer: React.FC = () => {
 
           {/* Bottom copyright line with hidden/discreet matrix button */}
           <div className="mt-12 pt-6 border-t border-slate-200/80 dark:border-slate-800 text-center flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600 dark:text-slate-300">
-            <p>&copy; {new Date().getFullYear()} fileMakeR. Designed &amp; Developed by <strong className="text-slate-900 dark:text-slate-100 font-bold">Parth Prajapati</strong>.</p>
+            <p>
+              &copy; {new Date().getFullYear()} fileMakeR. Designed &amp; Developed by{' '}
+              <a
+                href={PORTFOLIO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-slate-900 dark:text-slate-100 font-bold hover:text-blue-600 dark:hover:text-blue-400 hover:underline transition-colors"
+              >
+                Parth Prajapati
+              </a>
+              .
+            </p>
             
             <div className="flex items-center gap-3">
               <span className="text-[11px] text-slate-600 dark:text-slate-400 font-medium">

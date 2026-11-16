@@ -6,6 +6,7 @@
 import React, { useEffect } from 'react';
 import { ShieldCheck, Lock, Database, Trash2, Cpu, Globe } from 'lucide-react';
 import { PrivacyBadge } from '../components/PrivacyBadge';
+import { SITE_URL } from '../data/toolsSeoData';
 
 export const PrivacyPage: React.FC = () => {
   useEffect(() => {
@@ -17,13 +18,14 @@ export const PrivacyPage: React.FC = () => {
         'fileMakeR privacy policy: 100% client-side guarantee. Zero server uploads, zero database storage, zero tracking. All files remain in browser RAM.'
       );
     }
+    const origin = typeof window !== 'undefined' ? window.location.origin : SITE_URL;
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
       canonical = document.createElement('link');
       canonical.setAttribute('rel', 'canonical');
       document.head.appendChild(canonical);
     }
-    canonical.setAttribute('href', 'https://ais-pre-i7zcuzd5ukxiag5p4bjryr-71452122590.asia-northeast1.run.app/privacy');
+    canonical.setAttribute('href', `${origin}/privacy`);
   }, []);
 
   return (

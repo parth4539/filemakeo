@@ -8,11 +8,18 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { TOOLS_SEO_DATA, SITE_URL, ToolSeoData } from '../src/data/toolsSeoData.ts';
 import { TOOLS } from '../src/types/tool.ts';
+import { buildSitemapXml, buildRobotsTxt } from '../src/utils/sitemapBuilder.ts';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 const distDir = path.resolve(rootDir, 'dist');
+const ACTIVE_SITE_URL = (
+  process.env.URL ||
+  process.env.DEPLOY_PRIME_URL ||
+  process.env.APP_URL ||
+  SITE_URL
+).replace(/\/+$/, '');
 
 function cleanHeadTags(html: string): string {
   return html
@@ -28,13 +35,14 @@ function generateToolHtml(seo: ToolSeoData, baseHtml: string): string {
 
   // Related tools
   const relatedTools = TOOLS.filter((t) => seo.relatedToolSlugs.includes(t.slug));
+  const canonicalUrl = `${ACTIVE_SITE_URL}${seo.slug}`;
 
   // JSON-LD Schemas
   const webAppSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
     name: `${seo.name} - fileMakeR`,
-    url: seo.canonicalUrl,
+    url: canonicalUrl,
     description: seo.metaDescription,
     applicationCategory: 'UtilitiesApplication',
     operatingSystem: 'All',
@@ -165,7 +173,7 @@ function generateToolHtml(seo: ToolSeoData, baseHtml: string): string {
       </main>
 
       <footer class="mt-20 border-t border-slate-200 dark:border-slate-800 py-8 text-center text-xs text-slate-600 dark:text-slate-300">
-        <p>&copy; ${new Date().getFullYear()} fileMakeR. Designed &amp; Developed by Parth Prajapati. 100% In-Browser &amp; Zero-Upload.</p>
+        <p>&copy; ${new Date().getFullYear()} fileMakeR. Designed &amp; Developed by <a href="https://parth-prajapati4539.netlify.app" target="_blank" rel="noopener noreferrer" class="font-bold hover:underline">Parth Prajapati</a>. 100% In-Browser &amp; Zero-Upload.</p>
       </footer>
     </div>
   `;
@@ -181,10 +189,10 @@ function generateToolHtml(seo: ToolSeoData, baseHtml: string): string {
 
   // Clean canonical injection
   const headInjections = `
-    <link rel="canonical" href="${seo.canonicalUrl}" />
+    <link rel="canonical" href="${canonicalUrl}" />
     <meta property="og:title" content="${seo.metaTitle}" />
     <meta property="og:description" content="${seo.metaDescription}" />
-    <meta property="og:url" content="${seo.canonicalUrl}" />
+    <meta property="og:url" content="${canonicalUrl}" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="fileMakeR" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -250,7 +258,7 @@ function generateStaticPages() {
     {
       slug: '/about',
       dir: 'about',
-      title: 'About fileMakeR - Modern In-Browser Document Studio by Parth Prajapati',
+      title: 'About fileMakeR - Free In-Browser PDF & Image Tools by Parth Prajapati',
       desc: 'Learn about fileMakeR, a free, 100% in-browser PDF and image toolkit engineered by Parth Prajapati. Discover our zero-upload privacy architecture and open-source foundation.',
       h1: 'About fileMakeR - In-Browser Document Toolkit',
       bodyText: 'fileMakeR is an open, client-side document processing suite engineered by Parth Prajapati. Unlike conventional online PDF services that upload your files to remote servers, fileMakeR executes 100% of operations in your device browser RAM using WebAssembly, Mozilla PDF.js, pdf-lib, and HTML5 Canvas. Zero uploads, zero telemetry, zero paywalls.',
@@ -269,7 +277,7 @@ function generateStaticPages() {
       title: 'Contact & Support - fileMakeR | Developer Parth Prajapati',
       desc: 'Contact Parth Prajapati, creator of fileMakeR. Submit bug reports, request new client-side PDF and image features, or get in touch for developer support.',
       h1: 'Contact Developer & Report Bugs',
-      bodyText: 'Reach out to developer Parth Prajapati for inquiries, feedback, and technical support regarding fileMakeR. Email support@filemakeo.local for direct inquiries.',
+      bodyText: 'Reach out to developer Parth Prajapati for inquiries, feedback, and technical support regarding fileMakeR. Email support@filemaker.local for direct inquiries.',
     },
   ];
 
@@ -287,10 +295,10 @@ function generateStaticPages() {
     );
 
     const injections = `
-      <link rel="canonical" href="${SITE_URL}${info.slug}" />
+      <link rel="canonical" href="${ACTIVE_SITE_URL}${info.slug}" />
       <meta property="og:title" content="${info.title}" />
       <meta property="og:description" content="${info.desc}" />
-      <meta property="og:url" content="${SITE_URL}${info.slug}" />
+      <meta property="og:url" content="${ACTIVE_SITE_URL}${info.slug}" />
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="fileMakeR" />
       <meta name="twitter:card" content="summary_large_image" />
@@ -303,7 +311,7 @@ function generateStaticPages() {
       <div class="max-w-4xl mx-auto px-4 py-12 space-y-6">
         <h1 class="text-3xl font-extrabold text-slate-900">${info.h1}</h1>
         <p class="text-slate-700 leading-relaxed text-base">${info.bodyText}</p>
-        <p class="text-sm text-slate-600">Developer: Parth Prajapati &bull; 100% In-Browser &bull; Zero Server Uploads</p>
+        <p class="text-sm text-slate-600">Developer: <a href="https://parth-prajapati4539.netlify.app" target="_blank" rel="noopener noreferrer" class="font-semibold text-blue-600 hover:underline">Parth Prajapati</a> &bull; 100% In-Browser &bull; Zero Server Uploads</p>
         <div class="pt-4"><a href="/" class="text-blue-600 font-semibold">&larr; Back to all PDF and Image Tools</a></div>
       </div>
     `;
@@ -345,10 +353,10 @@ function generateStaticPages() {
               <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/80 shadow-xs">
                 <span>100% In-Browser Privacy</span>
               </div>
-              <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800/80 shadow-xs">
+              <a href="https://parth-prajapati4539.netlify.app" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800/80 shadow-xs hover:underline">
                 <span>Developer:</span>
                 <strong class="text-blue-900 dark:text-blue-100">Parth Prajapati</strong>
-              </div>
+              </a>
             </div>
 
             <h1 class="text-4xl sm:text-6xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight leading-[1.15]">
@@ -356,7 +364,7 @@ function generateStaticPages() {
             </h1>
 
             <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-              Engineered by Parth Prajapati. Fast, 100% private in-browser document processing. Merge, split, compress, watermark, crop, and convert with zero file uploads and zero accounts.
+              Engineered by <a href="https://parth-prajapati4539.netlify.app" target="_blank" rel="noopener noreferrer" class="font-semibold hover:underline">Parth Prajapati</a>. Fast, 100% private in-browser document processing. Merge, split, compress, watermark, crop, and convert with zero file uploads and zero accounts.
             </p>
 
             <div class="max-w-xl mx-auto pt-4 space-y-4">
@@ -406,14 +414,23 @@ function generateStaticPages() {
 
       <!-- Pre-rendered Footer -->
       <footer class="w-full bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 mt-20 py-8 text-center text-xs text-slate-600 dark:text-slate-300">
-        <p>&copy; ${new Date().getFullYear()} fileMakeR. Designed &amp; Developed by <strong class="text-slate-900 dark:text-slate-100 font-bold">Parth Prajapati</strong>. 100% Client-Side Privacy.</p>
+        <p>&copy; ${new Date().getFullYear()} fileMakeR. Designed &amp; Developed by <a href="https://parth-prajapati4539.netlify.app" target="_blank" rel="noopener noreferrer" class="text-slate-900 dark:text-slate-100 font-bold hover:underline">Parth Prajapati</a>. 100% Client-Side Privacy.</p>
       </footer>
     </div>
   `;
-  let rootHtml = baseHtml;
+  let rootHtml = baseHtml.replace(/https:\/\/filemaker-toolkit\.ai\.studio\//g, `${ACTIVE_SITE_URL}/`);
   rootHtml = rootHtml.replace('<div id="root"></div>', `<div id="root">${homeDirectory}</div>`);
   fs.writeFileSync(indexHtmlPath, rootHtml, 'utf-8');
   console.log(`  ✓ Updated root index.html with crawlable tools index.`);
+
+  // 4. Generate valid XML sitemap.xml and robots.txt for the active deployment domain
+  const sitemapXml = buildSitemapXml(ACTIVE_SITE_URL);
+  fs.writeFileSync(path.join(distDir, 'sitemap.xml'), sitemapXml, 'utf-8');
+  console.log(`  ✓ Generated dist/sitemap.xml for ${ACTIVE_SITE_URL}`);
+
+  const robotsTxt = buildRobotsTxt(ACTIVE_SITE_URL);
+  fs.writeFileSync(path.join(distDir, 'robots.txt'), robotsTxt, 'utf-8');
+  console.log(`  ✓ Generated dist/robots.txt for ${ACTIVE_SITE_URL}`);
 
   console.log('✅ Static pre-rendering completed successfully!');
 }
